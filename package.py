@@ -1,6 +1,6 @@
 name = "fusion"
 title = "Fusion"
-version = "0.2.0"
+version = "0.2.1-dev.1"
 
 client_dir = "ayon_fusion"
 
