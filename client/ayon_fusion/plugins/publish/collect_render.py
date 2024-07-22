@@ -37,10 +37,8 @@ class CollectFusionRender(
         aspect_x = comp_frame_format_prefs["AspectX"]
         aspect_y = comp_frame_format_prefs["AspectY"]
 
-
         current_file = context.data["currentFile"]
-        version = context.data["version"]
-
+        version = context.data.get("version")
         project_entity = context.data["projectEntity"]
 
         instances = []
@@ -52,13 +50,10 @@ class CollectFusionRender(
             if product_type not in ["render", "image"]:
                 continue
 
-            task_name = inst.data["task"]
-            tool = inst.data["transientData"]["tool"]
-
             instance_families = inst.data.get("families", [])
             product_name = inst.data["productName"]
             instance = FusionRenderInstance(
-                tool=tool,
+                tool=inst.data["transientData"]["tool"],
                 workfileComp=comp,
                 productType=product_type,
                 family=product_type,
@@ -69,7 +64,7 @@ class CollectFusionRender(
                 label=inst.data["label"],
                 productName=product_name,
                 folderPath=inst.data["folderPath"],
-                task=task_name,
+                task=inst.data["task"],
                 attachTo=False,
                 setMembers='',
                 publish=True,
