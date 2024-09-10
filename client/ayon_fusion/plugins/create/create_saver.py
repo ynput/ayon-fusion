@@ -56,7 +56,8 @@ class CreateSaver(GenericCreateSaver):
 
     def _get_frame_range_enum(self):
         frame_range_options = {
-            "current_folder": "Current Folder context",
+            # The `current_folder` value is kept for backwards compatibility
+            "current_folder": "Current task context",
             "render_range": "From render in/out",
             "comp_range": "From composition timeline",
             "custom_range": "Custom frame range",
