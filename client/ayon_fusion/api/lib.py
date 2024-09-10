@@ -7,7 +7,10 @@ from ayon_core.lib import Logger, BoolDef, UILabelDef
 from ayon_core.style import load_stylesheet
 from ayon_core.pipeline import registered_host
 from ayon_core.pipeline.create import CreateContext
-from ayon_core.pipeline.context_tools import get_current_folder_entity
+from ayon_core.pipeline.context_tools import (
+    get_current_folder_entity,
+    get_current_task_entity
+)
 
 self = sys.modules[__name__]
 self._project = None
@@ -54,46 +57,46 @@ def update_frame_range(start, end, comp=None, set_render_range=True,
         comp.SetAttrs(attrs)
 
 
-def set_current_context_framerange(folder_entity=None):
-    """Set Comp's frame range based on current folder."""
-    if folder_entity is None:
-        folder_entity = get_current_folder_entity(
+def set_current_context_framerange(task_entity=None):
+    """Set Comp's frame range based on current task."""
+    if task_entity is None:
+        task_entity = get_current_task_entity(
             fields={"attrib.frameStart",
                     "attrib.frameEnd",
                     "attrib.handleStart",
                     "attrib.handleEnd"})
 
-    folder_attributes = folder_entity["attrib"]
-    start = folder_attributes["frameStart"]
-    end = folder_attributes["frameEnd"]
-    handle_start = folder_attributes["handleStart"]
-    handle_end = folder_attributes["handleEnd"]
+    task_attributes = task_entity["attrib"]
+    start = task_attributes["frameStart"]
+    end = task_attributes["frameEnd"]
+    handle_start = task_attributes["handleStart"]
+    handle_end = task_attributes["handleEnd"]
     update_frame_range(start, end, set_render_range=True,
                        handle_start=handle_start,
                        handle_end=handle_end)
 
 
-def set_current_context_fps(folder_entity=None):
-    """Set Comp's frame rate (FPS) to based on current asset"""
-    if folder_entity is None:
-        folder_entity = get_current_folder_entity(fields={"attrib.fps"})
+def set_current_context_fps(task_entity=None):
+    """Set Comp's frame rate (FPS) to based on current task"""
+    if task_entity is None:
+        task_entity = get_current_task_entity(fields={"attrib.fps"})
 
-    fps = float(folder_entity["attrib"].get("fps", 24.0))
+    fps = float(task_entity["attrib"].get("fps", 24.0))
     comp = get_current_comp()
     comp.SetPrefs({
         "Comp.FrameFormat.Rate": fps,
     })
 
 
-def set_current_context_resolution(folder_entity=None):
-    """Set Comp's resolution width x height default based on current folder"""
-    if folder_entity is None:
-        folder_entity = get_current_folder_entity(
+def set_current_context_resolution(task_entity=None):
+    """Set Comp's resolution width x height default based on current task"""
+    if task_entity is None:
+        task_entity = get_current_task_entity(
             fields={"attrib.resolutionWidth", "attrib.resolutionHeight"})
 
-    folder_attributes = folder_entity["attrib"]
-    width = folder_attributes["resolutionWidth"]
-    height = folder_attributes["resolutionHeight"]
+    task_attributes = task_entity["attrib"]
+    width = task_attributes["resolutionWidth"]
+    height = task_attributes["resolutionHeight"]
     comp = get_current_comp()
 
     print("Setting comp frame format resolution to {}x{}".format(width,
@@ -105,7 +108,7 @@ def set_current_context_resolution(folder_entity=None):
 
 
 def validate_comp_prefs(comp=None, force_repair=False):
-    """Validate current comp defaults with folder settings.
+    """Validate current comp defaults with task settings.
 
     Validates fps, resolutionWidth, resolutionHeight, aspectRatio.
 
@@ -118,22 +121,24 @@ def validate_comp_prefs(comp=None, force_repair=False):
     log = Logger.get_logger("validate_comp_prefs")
 
     fields = {
-        "path",
+        "name",
         "attrib.fps",
         "attrib.resolutionWidth",
         "attrib.resolutionHeight",
         "attrib.pixelAspect",
     }
-    folder_entity = get_current_folder_entity(fields=fields)
-    folder_path = folder_entity["path"]
-    folder_attributes = folder_entity["attrib"]
+    task_entity = get_current_task_entity(fields=fields)
+    folder_entity = get_current_folder_entity(fields={"path"})
+    context_path = "{} > {}".format(folder_entity["path"], task_entity["name"])
+
+    task_attributes = task_entity["attrib"]
 
     comp_frame_format_prefs = comp.GetPrefs("Comp.FrameFormat")
 
     # Pixel aspect ratio in Fusion is set as AspectX and AspectY so we convert
     # the data to something that is more sensible to Fusion
-    folder_attributes["pixelAspectX"] = folder_attributes.pop("pixelAspect")
-    folder_attributes["pixelAspectY"] = 1.0
+    task_attributes["pixelAspectX"] = task_attributes.pop("pixelAspect")
+    task_attributes["pixelAspectY"] = 1.0
 
     validations = [
         ("fps", "Rate", "FPS"),
@@ -145,23 +150,23 @@ def validate_comp_prefs(comp=None, force_repair=False):
 
     invalid = []
     for key, comp_key, label in validations:
-        folder_value = folder_attributes[key]
+        task_value = task_attributes[key]
         comp_value = comp_frame_format_prefs.get(comp_key)
-        if folder_value != comp_value:
+        if task_value != comp_value:
             invalid_msg = "{} {} should be {}".format(label,
                                                       comp_value,
-                                                      folder_value)
+                                                      task_value)
             invalid.append(invalid_msg)
 
             if not force_repair:
                 # Do not log warning if we force repair anyway
                 log.warning(
-                    "Comp {pref} {value} does not match folder "
-                    "'{folder_path}' {pref} {folder_value}".format(
+                    "Comp {pref} {value} does not match "
+                    "{context_path} {pref} {task_value}".format(
                         pref=label,
                         value=comp_value,
-                        folder_path=folder_path,
-                        folder_value=folder_value)
+                        context_path=context_path,
+                        task_value=task_value)
                 )
 
     if invalid:
@@ -169,7 +174,7 @@ def validate_comp_prefs(comp=None, force_repair=False):
         def _on_repair():
             attributes = dict()
             for key, comp_key, _label in validations:
-                value = folder_attributes[key]
+                value = task_attributes[key]
                 comp_key_full = "Comp.FrameFormat.{}".format(comp_key)
                 attributes[comp_key_full] = value
             comp.SetPrefs(attributes)
@@ -184,7 +189,7 @@ def validate_comp_prefs(comp=None, force_repair=False):
         dialog = SimplePopup(parent=menu.menu)
         dialog.setWindowTitle("Fusion comp has invalid configuration")
 
-        msg = "Comp preferences mismatches '{}'".format(folder_path)
+        msg = "Comp preferences mismatches '{}'".format(context_path)
         msg += "\n" + "\n".join(invalid)
         dialog.set_message(msg)
         dialog.set_button_text("Repair")
@@ -386,15 +391,15 @@ def prompt_reset_context():
         return None
 
     options = dialog.get_values()
-    folder_entity = get_current_folder_entity()
+    task_entity = get_current_task_entity()
     if options["frame_range"]:
-        set_current_context_framerange(folder_entity)
+        set_current_context_framerange(task_entity)
 
     if options["fps"]:
-        set_current_context_fps(folder_entity)
+        set_current_context_fps(task_entity)
 
     if options["resolution"]:
-        set_current_context_resolution(folder_entity)
+        set_current_context_resolution(task_entity)
 
     if options["instances"]:
         update_content_on_context_change()
