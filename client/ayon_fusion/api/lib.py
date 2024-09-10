@@ -8,7 +8,7 @@ from ayon_core.style import load_stylesheet
 from ayon_core.pipeline import registered_host
 from ayon_core.pipeline.create import CreateContext
 from ayon_core.pipeline.context_tools import (
-    get_current_folder_entity,
+    get_current_folder_path,
     get_current_task_entity
 )
 
@@ -128,8 +128,8 @@ def validate_comp_prefs(comp=None, force_repair=False):
         "attrib.pixelAspect",
     }
     task_entity = get_current_task_entity(fields=fields)
-    folder_entity = get_current_folder_entity(fields={"path"})
-    context_path = "{} > {}".format(folder_entity["path"], task_entity["name"])
+    folder_path = get_current_folder_path()
+    context_path = "{} > {}".format(folder_path, task_entity["name"])
 
     task_attributes = task_entity["attrib"]
 
