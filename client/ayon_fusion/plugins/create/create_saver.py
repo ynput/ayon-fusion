@@ -18,12 +18,12 @@ class CreateSaver(GenericCreateSaver):
     label = "Render (saver)"
     name = "render"
     product_type = "render"
-    description = "Fusion Saver to generate image sequence"
+    description = "Fusion Saver to generate a multi-file image sequence"
 
     default_frame_range_option = "current_folder"
 
     def get_detail_description(self):
-        return """Fusion Saver to generate image sequence.
+        return """Fusion Saver to generate a multi-file image sequence.
 
         This creator is expected for publishing of image sequences for 'render'
         product type. (But can publish even single frame 'render'.)
