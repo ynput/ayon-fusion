@@ -1,3 +1,5 @@
+import inspect
+
 from ayon_core.lib import (
     UILabelDef,
     NumberDef,
@@ -23,25 +25,28 @@ class CreateSaver(GenericCreateSaver):
     default_frame_range_option = "current_folder"
 
     def get_detail_description(self):
-        return """Fusion Saver to generate image sequence.
+        return inspect.cleandoc(
+            """Fusion Saver to generate image sequence.
 
-        This creator is expected for publishing of image sequences for 'render'
-        product type. (But can publish even single frame 'render'.)
-
-        Select what should be source of render range:
-        - "Current Folder context" - values set on folder on AYON server
-        - "From render in/out" - from node itself
-        - "From composition timeline" - from timeline
-
-        Supports local and farm rendering.
-
-        Supports selection from predefined set of output file extensions:
-        - exr
-        - tga
-        - png
-        - tif
-        - jpg
-        """
+            This creator is expected for publishing of image sequences for 
+            'render' product type. (But can publish even single frame 
+            'render'.)
+    
+            Select what should be source of render range:
+            - "Current Folder context" - values set on folder on AYON server
+            - "From render in/out" - from node itself
+            - "From composition timeline" - from timeline
+    
+            Supports local and farm rendering.
+    
+            Supports selection from predefined set of output file extensions:
+            - exr
+            - tga
+            - png
+            - tif
+            - jpg
+            """
+        )
 
     def get_pre_create_attr_defs(self):
         """Settings for create page"""
