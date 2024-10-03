@@ -17,12 +17,12 @@ class CreateImageSaver(GenericCreateSaver):
     label = "Image (saver)"
     name = "image"
     product_type = "image"
-    description = "Fusion Saver to generate image"
+    description = "Fusion Saver to generate a single image file"
 
     default_frame = 0
 
     def get_detail_description(self):
-        return """Fusion Saver to generate single image.
+        return """Fusion Saver to generate a single image file.
 
         This creator is expected for publishing of single frame `image` product
         type.
