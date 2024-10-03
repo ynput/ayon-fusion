@@ -1,3 +1,5 @@
+import inspect
+
 from ayon_core.lib import NumberDef
 
 from ayon_fusion.api.plugin import GenericCreateSaver
@@ -22,26 +24,29 @@ class CreateImageSaver(GenericCreateSaver):
     default_frame = 0
 
     def get_detail_description(self):
-        return """Fusion Saver to generate a single image file.
+        return inspect.cleandoc(
+            """Fusion Saver to generate a single image file.
 
-        This creator is expected for publishing of single frame `image` product
-        type.
-
-        Artist should provide frame number (integer) to specify which frame
-        should be published. It must be inside of global timeline frame range.
-
-        Supports local and deadline rendering.
-
-        Supports selection from predefined set of output file extensions:
-        - exr
-        - tga
-        - png
-        - tif
-        - jpg
-
-        Created to explicitly separate single frame ('image') or
-        multi frame ('render') outputs.
-        """
+            This creator is expected for publishing of single frame `image` 
+            product type.
+    
+            Artist should provide frame number (integer) to specify which frame
+            should be published. It must be inside of global timeline frame 
+            range.
+    
+            Supports local and deadline rendering.
+    
+            Supports selection from predefined set of output file extensions:
+            - exr
+            - tga
+            - png
+            - tif
+            - jpg
+    
+            Created to explicitly separate single frame ('image') or
+            multi frame ('render') outputs.
+            """
+        )
 
     def get_pre_create_attr_defs(self):
         """Settings for create page"""
