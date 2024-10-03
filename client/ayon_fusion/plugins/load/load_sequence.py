@@ -161,6 +161,7 @@ class FusionLoadSequence(load.LoaderPlugin):
             args = (-32768, -32768)
             tool = comp.AddTool("Loader", *args)
             tool["Clip"] = comp.ReverseMapPath(path)
+            tool.SetAttrs({"TOOLB_NameSet": True, "TOOLS_Name": name})
 
             # Set global in point to start frame (if in version.data)
             start = self._get_start(context["version"], tool)
