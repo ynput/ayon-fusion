@@ -48,6 +48,29 @@ class CreateSaver(GenericCreateSaver):
             """
         )
 
+    def register_callbacks(self):
+        self.create_context.add_value_changed_callback(self.on_values_changed)
+
+    def on_values_changed(self, event):
+        """Update instance attribute definitions on attribute changes."""
+
+        for instance_change in event["changes"]:
+            # First check if there's a change we want to respond to
+            instance = instance_change["instance"]
+            if instance["creator_identifier"] != self.identifier:
+                continue
+
+            value_changes = instance_change["changes"]
+            if (
+                "frame_range_source"
+                not in value_changes.get("creator_attributes", {})
+            ):
+                continue
+
+            # Update the attribute definitions
+            new_attrs = self.get_attr_defs_for_instance(instance)
+            instance.set_create_attr_defs(new_attrs)
+
     def get_pre_create_attr_defs(self):
         """Settings for create page"""
         attr_defs = [
@@ -58,6 +81,15 @@ class CreateSaver(GenericCreateSaver):
             *self._get_custom_frame_range_attribute_defs()
         ]
         return attr_defs
+
+    def get_attr_defs_for_instance(self, instance):
+        return [
+            self._get_render_target_enum(),
+            self._get_reviewable_bool(),
+            self._get_frame_range_enum(),
+            self._get_image_format_enum(),
+            *self._get_custom_frame_range_attribute_defs(instance)
+        ]
 
     def _get_frame_range_enum(self):
         frame_range_options = {
@@ -75,7 +107,14 @@ class CreateSaver(GenericCreateSaver):
         )
 
     @staticmethod
-    def _get_custom_frame_range_attribute_defs() -> list:
+    def _get_custom_frame_range_attribute_defs(instance=None) -> list:
+
+        # If an instance is provided and 'custom_range' is not the frame
+        # range source, then we will disable the custom frame range attributes
+        custom_disabled = False
+        if instance is not None:
+            frame_range_source = instance.get("creator_attributes", {}).get("frame_range_source")
+            custom_disabled = frame_range_source != "custom_range"
 
         # Define custom frame range defaults based on current comp
         # timeline settings (if a comp is currently open)
@@ -100,11 +139,17 @@ class CreateSaver(GenericCreateSaver):
                 "handleEnd": 0
             }
 
-        return [
-            UILabelDef(
-                label="<br><b>Custom Frame Range</b><br>"
-                      "<i>only used with 'Custom frame range' source</i>"
-            ),
+        attr_defs = []
+        if not custom_disabled:
+            # UILabelDef does not support `hidden` argument so we exclude it
+            # manually
+            attr_defs.append(
+                UILabelDef(
+                    label="<br><b>Custom Frame Range</b>",
+                ),
+            )
+
+        attr_defs.extend([
             NumberDef(
                 "custom_frameStart",
                 label="Frame Start",
@@ -114,7 +159,8 @@ class CreateSaver(GenericCreateSaver):
                 tooltip=(
                     "Set the start frame for the export.\n"
                     "Only used if frame range source is 'Custom frame range'."
-                )
+                ),
+                hidden=custom_disabled
             ),
             NumberDef(
                 "custom_frameEnd",
@@ -125,7 +171,8 @@ class CreateSaver(GenericCreateSaver):
                 tooltip=(
                     "Set the end frame for the export.\n"
                     "Only used if frame range source is 'Custom frame range'."
-                )
+                ),
+                hidden=custom_disabled
             ),
             NumberDef(
                 "custom_handleStart",
@@ -137,7 +184,8 @@ class CreateSaver(GenericCreateSaver):
                     "Set the start handles for the export, this will be "
                     "added before the start frame.\n"
                     "Only used if frame range source is 'Custom frame range'."
-                )
+                ),
+                hidden=custom_disabled
             ),
             NumberDef(
                 "custom_handleEnd",
@@ -149,6 +197,8 @@ class CreateSaver(GenericCreateSaver):
                     "Set the end handles for the export, this will be added "
                     "after the end frame.\n"
                     "Only used if frame range source is 'Custom frame range'."
-                )
+                ),
+                hidden=custom_disabled
             )
-        ]
+        ])
+        return attr_defs
