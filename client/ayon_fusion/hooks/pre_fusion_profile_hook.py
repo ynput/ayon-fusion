@@ -27,7 +27,11 @@ class FusionCopyPrefsPrelaunch(PreLaunchHook):
 
     app_groups = {"fusion"}
     order = 2
-    launch_types = {LaunchTypes.local}
+    launch_types = {LaunchTypes.local,
+                    LaunchTypes.farm_render,
+                    # This seems to be incorrectly configured for
+                    # ayon_applications addon, see `ayon_applications/#2`
+                    LaunchTypes.farm_publish}
 
     def get_fusion_profile_name(self, profile_version) -> str:
         # Returns 'Default', unless FUSION16_PROFILE is set

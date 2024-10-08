@@ -23,7 +23,11 @@ class FusionPrelaunch(PreLaunchHook):
 
     app_groups = {"fusion"}
     order = 1
-    launch_types = {LaunchTypes.local}
+    launch_types = {LaunchTypes.local,
+                    LaunchTypes.farm_render,
+                    # This seems to be incorrectly configured for
+                    # ayon_applications addon, see `ayon_applications/#2`
+                    LaunchTypes.farm_publish}
 
     def execute(self):
         # making sure python 3 is installed at provided path
