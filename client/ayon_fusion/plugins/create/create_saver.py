@@ -141,7 +141,7 @@ class CreateSaver(GenericCreateSaver):
             }
 
         attr_defs = []
-        if not custom_enabled:
+        if custom_enabled:
             # UILabelDef does not support `hidden` argument so we exclude it
             # manually
             attr_defs.append(
