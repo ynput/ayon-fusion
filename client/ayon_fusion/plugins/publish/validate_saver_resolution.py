@@ -55,7 +55,15 @@ class ValidateSaverResolution(
 
     @classmethod
     def get_expected_resolution(cls, instance):
-        attributes = instance.data["folderEntity"]["attrib"]
+
+        entity = instance.data.get("taskEntity")
+        if not entity:
+            cls.log.debug(
+                "Using folder entity resolution for validation because "
+                f"task entity not found for instance: {instance}")
+            entity = instance.data["folderEntity"]
+
+        attributes = entity["attrib"]
         return attributes["resolutionWidth"], attributes["resolutionHeight"]
 
     @classmethod
