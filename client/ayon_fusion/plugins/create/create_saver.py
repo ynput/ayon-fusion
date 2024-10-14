@@ -22,7 +22,7 @@ class CreateSaver(GenericCreateSaver):
     product_type = "render"
     description = "Fusion Saver to generate image sequence"
 
-    default_frame_range_option = "current_task"
+    default_frame_range_option = "current_context"
 
     def get_detail_description(self):
         return inspect.cleandoc(
