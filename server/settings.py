@@ -37,7 +37,7 @@ def _image_format_enum():
 
 def _frame_range_options_enum():
     return [
-        {"value": "current_context", "label": "Current task context"},
+        {"value": "current_context", "label": "Current context"},
         {"value": "render_range", "label": "From render in/out"},
         {"value": "comp_range", "label": "From composition timeline"},
         {"value": "custom_range", "label": "Custom frame range"},
