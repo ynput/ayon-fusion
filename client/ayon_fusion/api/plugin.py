@@ -29,9 +29,7 @@ class GenericCreateSaver(Creator):
     description = "Fusion Saver to generate image sequence"
     icon = "fa5.eye"
 
-    instance_attributes = [
-        "reviewable"
-    ]
+    instance_attributes = []
 
     settings_category = "fusion"
 
@@ -254,11 +252,14 @@ class GenericCreateSaver(Creator):
             "local": "Local machine rendering",
             "frames": "Use existing frames",
         }
+        default_mode = "local"
         if "farm_rendering" in self.instance_attributes:
             rendering_targets["farm"] = "Farm rendering"
+            default_mode = "farm"
 
         return EnumDef(
-            "render_target", items=rendering_targets, label="Render target"
+            "render_target", items=rendering_targets, label="Render target",
+            default=default_mode
         )
 
     def _get_reviewable_bool(self):
