@@ -37,7 +37,7 @@ def _image_format_enum():
 
 def _frame_range_options_enum():
     return [
-        {"value": "current_task", "label": "Current task context"},
+        {"value": "current_context", "label": "Current context"},
         {"value": "render_range", "label": "From render in/out"},
         {"value": "comp_range", "label": "From composition timeline"},
         {"value": "custom_range", "label": "Custom frame range"},
@@ -86,7 +86,7 @@ class HooksModel(BaseSettingsModel):
 
 class CreateSaverModel(CreateSaverPluginModel):
     default_frame_range_option: str = SettingsField(
-        default="current_task",
+        default="current_context",
         enum_resolver=_frame_range_options_enum,
         title="Default frame range source"
     )
@@ -163,7 +163,7 @@ DEFAULT_VALUES = {
                 "farm_rendering"
             ],
             "image_format": "exr",
-            "default_frame_range_option": "current_task"
+            "default_frame_range_option": "current_context"
         },
         "CreateImageSaver": {
             "temp_rendering_path_template": "{workdir}/renders/fusion/{product[name]}/{product[name]}.{ext}",

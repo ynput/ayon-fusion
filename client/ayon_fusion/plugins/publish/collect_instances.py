@@ -26,7 +26,7 @@ class CollectInstanceData(pyblish.api.InstancePlugin):
         instance.data["frame_range_source"] = frame_range_source
 
         # get folder frame ranges to all instances
-        # render product type instances `current_task` render target
+        # render product type instances `current_context` render target
         start = context.data["frameStart"]
         end = context.data["frameEnd"]
         handle_start = context.data["handleStart"]
