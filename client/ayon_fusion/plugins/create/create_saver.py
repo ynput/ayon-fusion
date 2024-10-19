@@ -22,7 +22,7 @@ class CreateSaver(GenericCreateSaver):
     product_type = "render"
     description = "Fusion Saver to generate image sequence"
 
-    default_frame_range_option = "current_folder"
+    default_frame_range_option = "current_context"
 
     def get_detail_description(self):
         return inspect.cleandoc(
@@ -93,7 +93,7 @@ class CreateSaver(GenericCreateSaver):
 
     def _get_frame_range_enum(self):
         frame_range_options = {
-            "current_folder": "Current Folder context",
+            "current_task": "Current context",
             "render_range": "From render in/out",
             "comp_range": "From composition timeline",
             "custom_range": "Custom frame range",
