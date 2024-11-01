@@ -7,6 +7,7 @@ from ayon_applications import (
 from ayon_fusion import (
     FUSION_ADDON_ROOT,
     FUSION_VERSIONS_DICT,
+    FUSION_FALLBACK_VERSION,
     get_fusion_version,
 )
 
@@ -35,11 +36,14 @@ class FusionPrelaunch(PreLaunchHook):
         app_data = self.launch_context.env.get("AYON_APP_NAME")
         app_version = get_fusion_version(app_data)
         if not app_version:
-            raise ApplicationLaunchFailed(
-                "Fusion version information not found in System settings.\n"
+            self.log.warning(
+                f"Fusion version information not found for '{app_data}'.\n"
                 "The key field in the 'applications/fusion/variants' should "
-                "consist a number, corresponding to major Fusion version."
+                "consist of a number, corresponding to major Fusion version. "
+                f"Assuming fallback version: {FUSION_FALLBACK_VERSION}."
             )
+            app_version = FUSION_FALLBACK_VERSION
+
         py3_var, _ = FUSION_VERSIONS_DICT[app_version]
         fusion_python3_home = self.launch_context.env.get(py3_var, "")
 

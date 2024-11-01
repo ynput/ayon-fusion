@@ -11,6 +11,7 @@ FUSION_ADDON_ROOT = os.path.dirname(os.path.abspath(__file__))
 # The keys correspond to all currently supported Fusion versions
 # Each value is a list of corresponding Python home variables and a profile
 # number, which is used by the profile hook to set Fusion profile variables.
+FUSION_FALLBACK_VERSION = 19
 FUSION_VERSIONS_DICT = {
     9: ("FUSION_PYTHON36_HOME", 9),
     16: ("FUSION16_PYTHON36_HOME", 16),
