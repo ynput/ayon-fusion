@@ -10,6 +10,10 @@ from ayon_fusion.api.lib import get_frame_path, maintained_comp_range
 
 log = logging.getLogger(__name__)
 
+# Fusion render flag to avoid Render Completed dialog to pop up after render
+# See: https://www.steakunderwater.com/wesuckless/viewtopic.php?p=53312
+REQF_Quiet = 524288
+
 
 @contextlib.contextmanager
 def enabled_savers(comp, savers):
@@ -125,6 +129,7 @@ class FusionRenderLocal(
                             "Start": frame_start,
                             "End": frame_end,
                             "Wait": True,
+                            "RenderFlags": REQF_Quiet
                         }
                     )
 
