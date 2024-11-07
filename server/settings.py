@@ -112,6 +112,24 @@ class CreatPluginsModel(BaseSettingsModel):
     )
 
 
+class FusionRenderLocalModel(BaseSettingsModel):
+    suppress_dialogs: bool = SettingsField(
+        True,
+        title="Suppress Fusion dialogs",
+        description=(
+            "Suppress the Fusion 'Render Completed' and 'Render Failed'"
+            " dialogs.")
+    )
+
+
+class PublishPluginsModel(BaseSettingsModel):
+    FusionRenderLocal: FusionRenderLocalModel = SettingsField(
+        default_factory=FusionRenderLocalModel,
+        title="Render Local",
+        description="Plug-in to render in current Fusion session."
+    )
+
+
 class FusionSettings(BaseSettingsModel):
     imageio: FusionImageIOModel = SettingsField(
         default_factory=FusionImageIOModel,
@@ -128,6 +146,10 @@ class FusionSettings(BaseSettingsModel):
     create: CreatPluginsModel = SettingsField(
         default_factory=CreatPluginsModel,
         title="Creator plugins"
+    )
+    publish: PublishPluginsModel = SettingsField(
+        default_factory=PublishPluginsModel,
+        title="Publish plugins"
     )
 
 
@@ -177,6 +199,11 @@ DEFAULT_VALUES = {
             ],
             "image_format": "exr",
             "default_frame": 0
+        }
+    },
+    "publish": {
+        "FusionRenderLocal": {
+            "suppress_dialogs": True
         }
     }
 }

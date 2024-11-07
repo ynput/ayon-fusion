@@ -11,6 +11,7 @@ from ayon_fusion.api.lib import get_frame_path, maintained_comp_range
 log = logging.getLogger(__name__)
 
 # Fusion render flag to avoid Render Completed dialog to pop up after render
+# This also suppresses the render failed dialog.
 # See: https://www.steakunderwater.com/wesuckless/viewtopic.php?p=53312
 REQF_Quiet = 524288
 
@@ -60,8 +61,12 @@ class FusionRenderLocal(
     label = "Render Local"
     hosts = ["fusion"]
     families = ["render.local"]
+    settings_category = "fusion"
 
     is_rendered_key = "_fusionrenderlocal_has_rendered"
+
+    # Settings
+    suppress_dialogs = True
 
     def process(self, instance):
 
@@ -124,14 +129,15 @@ class FusionRenderLocal(
         with comp_lock_and_undo_chunk(current_comp):
             with maintained_comp_range(current_comp):
                 with enabled_savers(current_comp, savers_to_render):
-                    result = current_comp.Render(
-                        {
-                            "Start": frame_start,
-                            "End": frame_end,
-                            "Wait": True,
-                            "RenderFlags": REQF_Quiet
-                        }
-                    )
+                    render_kwargs = {
+                        "Start": frame_start,
+                        "End": frame_end,
+                        "Wait": True
+                    }
+                    if self.suppress_dialogs:
+                        render_kwargs["RenderFlags"] = REQF_Quiet
+
+                    result = current_comp.Render(render_kwargs)
 
         # Store the render state for all the rendered instances
         for render_instance in render_instances:
