@@ -294,6 +294,7 @@ def imprint_container(tool,
         ("namespace", str(namespace)),
         ("loader", str(loader)),
         ("representation", context["representation"]["id"]),
+        ("project_name", context["project"]["name"]),
     ]
 
     for key, value in data:
@@ -318,6 +319,12 @@ def parse_container(tool):
         return
 
     container = {key: data[key] for key in required}
+
+    # Add optional keys, like `project_name`
+    optional = ["project_name"]
+    for key in optional:
+        if key in data:
+            container[key] = data
 
     # Store the tool's name
     container["objectName"] = tool.Name
