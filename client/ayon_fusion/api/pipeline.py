@@ -324,7 +324,7 @@ def parse_container(tool):
     optional = ["project_name"]
     for key in optional:
         if key in data:
-            container[key] = data
+            container[key] = data[key]
 
     # Store the tool's name
     container["objectName"] = tool.Name
