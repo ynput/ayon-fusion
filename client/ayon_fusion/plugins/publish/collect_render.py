@@ -4,7 +4,7 @@ import pyblish.api
 
 from ayon_core.pipeline import publish
 from ayon_core.pipeline.publish import RenderInstance
-from ayon_fusion.api.lib import get_frame_path
+from ayon_fusion.api.lib import get_frame_path, get_tool_resolution
 
 
 @attr.s
@@ -50,6 +50,19 @@ class CollectFusionRender(
             if product_type not in ["render", "image"]:
                 continue
 
+            # Get resolution from tool if we can
+            tool = inst.data["transientData"]["tool"]
+            try:
+                width, height = get_tool_resolution(
+                    tool, frame=inst.data["frameStart"])
+            except ValueError:
+                self.log.debug(
+                    f"Unable to get resolution from tool: {tool}. "
+                    "Falling back to comp frame format resolution "
+                    "preferences.")
+                width = comp_frame_format_prefs.get("Width")
+                height = comp_frame_format_prefs.get("Height")
+
             instance_families = inst.data.get("families", [])
             product_name = inst.data["productName"]
             instance = FusionRenderInstance(
@@ -69,8 +82,8 @@ class CollectFusionRender(
                 setMembers='',
                 publish=True,
                 name=product_name,
-                resolutionWidth=comp_frame_format_prefs.get("Width"),
-                resolutionHeight=comp_frame_format_prefs.get("Height"),
+                resolutionWidth=width,
+                resolutionHeight=height,
                 pixelAspect=aspect_x / aspect_y,
                 tileRendering=False,
                 tilesX=0,

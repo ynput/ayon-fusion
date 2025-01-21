@@ -405,3 +405,72 @@ def prompt_reset_context():
         update_content_on_context_change()
 
     dialog.deleteLater()
+    
+    
+@contextlib.contextmanager
+def temp_expression(attribute, frame, expression):
+    """Temporarily set an expression on an attribute during context"""
+    # Save old comment
+    old_comment = ""
+    has_expression = False
+
+    if attribute[frame] not in ["", None]:
+        if attribute.GetExpression() is not None:
+            has_expression = True
+            old_comment = attribute.GetExpression()
+            attribute.SetExpression(None)
+        else:
+            old_comment = attribute[frame]
+            attribute[frame] = ""
+
+    try:
+        attribute.SetExpression(expression)
+        yield
+    finally:
+        # Reset old comment
+        attribute.SetExpression(None)
+        if has_expression:
+            attribute.SetExpression(old_comment)
+        else:
+            attribute[frame] = old_comment
+
+
+def get_tool_resolution(tool, frame):
+    """Return the 2D input resolution to a Fusion tool
+
+    If the current tool hasn't been rendered its input resolution
+    hasn't been saved. To combat this, add an expression in
+    the comments field to read the resolution
+
+    Args
+        tool (Fusion Tool): The tool to query input resolution
+        frame (int): The frame to query the resolution on.
+
+    Returns:
+        tuple: width, height as 2-tuple of integers
+
+    Raises:
+        ValueError: Unable to retrieve comp resolution.
+
+    """
+    comp = tool.Composition
+    attribute = tool["Comments"]
+
+    # False undo removes the undo-stack from the undo list
+    with comp_lock_and_undo_chunk(comp, "Read resolution", False):
+
+        # Get width
+        with temp_expression(attribute, frame, "self.Input.OriginalWidth"):
+            value = attribute[frame]
+            if value is None:
+                raise ValueError("Failed to read input width")
+            width = int(value)
+
+        # Get height
+        with temp_expression(attribute, frame, "self.Input.OriginalHeight"):
+            value = attribute[frame]
+            if value is None:
+                raise ValueError("Failed to read input height")
+            height = int(value)
+
+        return width, height
