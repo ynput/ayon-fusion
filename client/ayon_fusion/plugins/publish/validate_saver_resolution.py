@@ -54,7 +54,7 @@ class ValidateSaverResolution(
 
         try:
             return get_tool_resolution(saver, frame=first_frame)
-        except ValueError as exc:
+        except ValueError:
             raise PublishValidationError(
                 "Cannot get resolution info for frame '{}'.\n\n "
                 "Please check that saver has connected input.".format(
