@@ -1,4 +1,5 @@
 from ayon_core.pipeline import load
+from ayon_core.lib import BoolDef
 from ayon_fusion.api import (
     get_current_comp,
     get_bmd_library,
@@ -18,29 +19,36 @@ class FusionLoadSetting(load.LoaderPlugin):
     icon = "code-fork"
     color = "orange"
 
+    options = [
+        BoolDef(
+            "use_selection",
+            label="Load to selected tools",
+            tooltip="Load the .setting to the selected tools",
+            default=False
+        )
+    ]
+
     def load(self, context, name=None, namespace=None, options=None):
-        # TODO: Loading a Silhouette-published roto track points `.setting`
-        #  file only applies correctly when loaded directly to a Roto node.
-        #  Preferably the user shouldn't need to care and we may need to find
-        #  out how we could automate that, and/or be able to tell the user
-        #  what selection a particular product needs, or  maybe target the
-        #  product type explicitly so that it creates a Polygon tool if none
-        #  are selected - but it'd make this load logic specific to that
-        #  product type instead of "load any .setting file".
-        path = self.filepath_from_context(context)
+        use_selection = options.get("use_selection", False)
 
         # Create the Loader with the filename path set
+        path = self.filepath_from_context(context)
         comp = get_current_comp()
 
-        # Apply to selection if anything is selected
-        selection = comp.GetToolList(True).values()
-        if selection:
+        if use_selection:
             # Apply to current selection
+            selection = comp.GetToolList(True).values()
+            if not selection:
+                self.log.error("No selected tools to apply to.")
+                return
+
             for tool in selection:
+                self.log.info(f"Loading setting to {tool.Name}")
                 tool.LoadSettings(path)
+            return
         else:
-            # Try straight up pasting the .setting file
+            # Paste the contents of the .setting file
             bmd = get_bmd_library()
-            bmd.readfile(path)
+            contents = bmd.readfile(path)
             with comp_lock_and_undo_chunk(comp, "Load setting"):
-                comp.Paste()
+                comp.Paste(contents)
