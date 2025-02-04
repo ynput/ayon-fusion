@@ -15,8 +15,8 @@ from ayon_core.pipeline import (
     CreatedInstance,
     AVALON_INSTANCE_ID,
     AYON_INSTANCE_ID,
-    template_data
 )
+from ayon_core.pipeline.template_data import get_template_data
 from ayon_core.pipeline.workfile import get_workdir
 from ayon_core.pipeline.anatomy.anatomy import Anatomy
 
@@ -188,7 +188,7 @@ class GenericCreateSaver(Creator):
             .replace("{task}", "{task[name]}")
         )
 
-        extra_data = template_data.get_template_data(
+        extra_data = get_template_data(
             project_entity,
             folder_entity,
             task_entity,
