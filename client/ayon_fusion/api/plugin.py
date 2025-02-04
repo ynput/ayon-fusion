@@ -18,7 +18,6 @@ from ayon_core.pipeline import (
 )
 from ayon_core.pipeline.template_data import get_template_data
 from ayon_core.pipeline.workfile import get_workdir
-from ayon_core.pipeline.anatomy.anatomy import Anatomy
 
 
 class GenericCreateSaver(Creator):
@@ -147,20 +146,28 @@ class GenericCreateSaver(Creator):
         product_type = formatting_data["productType"]
         f_product_name = formatting_data["productName"]
 
+        # Get instance context entities
+        project_entity = self.create_context.get_current_project_entity()
+        folder_path: str = data["folderPath"]
+        task_name: str = data["task"]
+        folder_entity = None
+        task_entity = None
+        if folder_path:
+            folder_entity = self.create_context.get_folder_entity(folder_path)
+            if task_name:
+                task_entity = self.create_context.get_task_entity(
+                    folder_path, task_name)
+
         # If the folder path and task do not match the current context then the
         # workdir is not just the `AYON_WORKDIR`. Hence, we need to actually
         # compute the resulting workdir
-        project_entity = self.create_context.get_current_project_entity()
-        folder_entity = self.create_context.get_folder_entity(
-            data["folderPath"])
-        task_entity = self.create_context.get_task_entity(
-            data["folderPath"], data["task"])
         if (
-            data["folderPath"] == self.create_context.get_current_folder_path()
-            and data["task"] == self.create_context.get_current_task_name()
+            folder_path == self.create_context.get_current_folder_path()
+            and task_name == self.create_context.get_current_task_name()
         ):
             workdir = os.path.normpath(os.getenv("AYON_WORKDIR"))
         else:
+            # TODO: This may error when no task is set for the instance
             workdir = get_workdir(
                 project_entity=project_entity,
                 folder_entity=folder_entity,
