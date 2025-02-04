@@ -195,8 +195,7 @@ class GenericCreateSaver(Creator):
             host_name=self.create_context.host_name,
             settings=self.create_context.get_current_project_settings(),
         )
-        anatomy = Anatomy(project_entity["name"],
-                          project_entity=project_entity)
+        anatomy = self.create_context.project_anatomy
         extra_data["root"] = anatomy.roots
         formatting_data.update(extra_data)
 
