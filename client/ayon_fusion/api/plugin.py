@@ -150,7 +150,7 @@ class GenericCreateSaver(Creator):
         # get output format
         ext = data["creator_attributes"]["image_format"]
 
-        # Product change detected
+        # Product name and type
         product_type = formatting_data["productType"]
         f_product_name = formatting_data["productName"]
 
