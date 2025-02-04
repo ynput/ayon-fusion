@@ -19,13 +19,6 @@ from ayon_core.pipeline import (
 )
 from ayon_core.pipeline.workfile import get_workdir
 from ayon_core.pipeline.anatomy.anatomy import Anatomy
-from ayon_core.pipeline.context_tools import get_current_host_name
-
-from ayon_api import (
-    get_project,
-    get_folder_by_path,
-    get_task_by_name
-)
 
 
 class GenericCreateSaver(Creator):
