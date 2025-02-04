@@ -183,15 +183,7 @@ class GenericCreateSaver(Creator):
                 "name": f_product_name,
                 "type": product_type,
             },
-            # TODO add more variants for 'folder' and 'task'
-            "folder": {
-                "name": folder_name,
-            },
-            "task": {
-                "name": data["task"],
-            },
             # Backwards compatibility
-            "asset": folder_name,
             "subset": f_product_name,
             "family": product_type,
         })
