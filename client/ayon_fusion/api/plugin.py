@@ -189,7 +189,6 @@ class GenericCreateSaver(Creator):
         })
 
         # build file path to render
-        # TODO make sure the keys are available in 'formatting_data'
         temp_rendering_path_template = (
             self.temp_rendering_path_template
             .replace("{task}", "{task[name]}")
