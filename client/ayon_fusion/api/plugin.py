@@ -167,7 +167,10 @@ class GenericCreateSaver(Creator):
         ):
             workdir = os.path.normpath(os.getenv("AYON_WORKDIR"))
         else:
-            # TODO: This may error when no task is set for the instance
+            # Note: This may error when no task is set for the instance
+            #  however default render template would include task name anyway
+            #  disallowing the instance to have no task set at an earlier stage
+            #  already.
             workdir = get_workdir(
                 project_entity=project_entity,
                 folder_entity=folder_entity,
