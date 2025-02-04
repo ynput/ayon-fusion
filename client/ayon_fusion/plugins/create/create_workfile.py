@@ -1,5 +1,3 @@
-import ayon_api
-
 from ayon_fusion.api import (
     get_current_comp
 )
@@ -66,22 +64,15 @@ class FusionWorkfileCreator(AutoCreator):
                 existing_instance = instance
                 break
 
-        project_name = self.create_context.get_current_project_name()
-        folder_path = self.create_context.get_current_folder_path()
-        task_name = self.create_context.get_current_task_name()
+        project_entity = self.create_context.get_current_project_entity()
+        project_name = project_entity["name"]
+        folder_entity = self.create_context.get_current_folder_entity()
+        folder_path = folder_entity["path"]
+        task_entity = self.create_context.get_current_task_entity()
+        task_name = task_entity["name"]
         host_name = self.create_context.host_name
 
-        existing_folder_path = None
-        if existing_instance is not None:
-            existing_folder_path = existing_instance["folderPath"]
-
         if existing_instance is None:
-            folder_entity = ayon_api.get_folder_by_path(
-                project_name, folder_path
-            )
-            task_entity = ayon_api.get_task_by_name(
-                project_name, folder_entity["id"], task_name
-            )
             product_name = self.get_product_name(
                 project_name,
                 folder_entity,
@@ -111,15 +102,9 @@ class FusionWorkfileCreator(AutoCreator):
             self._add_instance_to_context(new_instance)
 
         elif (
-            existing_folder_path != folder_path
+            existing_instance["folderPath"] != folder_path
             or existing_instance["task"] != task_name
         ):
-            folder_entity = ayon_api.get_folder_by_path(
-                project_name, folder_path
-            )
-            task_entity = ayon_api.get_task_by_name(
-                project_name, folder_entity["id"], task_name
-            )
             product_name = self.get_product_name(
                 project_name,
                 folder_entity,
