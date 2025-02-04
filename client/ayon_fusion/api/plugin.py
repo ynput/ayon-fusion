@@ -15,8 +15,12 @@ from ayon_core.pipeline import (
     CreatedInstance,
     AVALON_INSTANCE_ID,
     AYON_INSTANCE_ID,
+    template_data
 )
 from ayon_core.pipeline.workfile import get_workdir
+from ayon_core.pipeline.anatomy.anatomy import Anatomy
+from ayon_core.pipeline.context_tools import get_current_host_name
+
 from ayon_api import (
     get_project,
     get_folder_by_path,
@@ -204,6 +208,18 @@ class GenericCreateSaver(Creator):
             self.temp_rendering_path_template
             .replace("{task}", "{task[name]}")
         )
+
+        host_name = get_current_host_name()
+        project_name = self.create_context.get_current_project_name()
+        extra_data = template_data.get_template_data_with_names(
+            project_name,
+            data["folderPath"],
+            data["task"],
+            host_name
+        )
+        anatomy = Anatomy(project_name)
+        extra_data["root"] = anatomy.roots
+        formatting_data.update(extra_data)
 
         filepath = temp_rendering_path_template.format(**formatting_data)
 
