@@ -154,26 +154,20 @@ class GenericCreateSaver(Creator):
         product_type = formatting_data["productType"]
         f_product_name = formatting_data["productName"]
 
-        folder_path = formatting_data["folderPath"]
-        folder_name = folder_path.rsplit("/", 1)[-1]
-
         # If the folder path and task do not match the current context then the
         # workdir is not just the `AYON_WORKDIR`. Hence, we need to actually
         # compute the resulting workdir
+        project_entity = self.create_context.get_current_project_entity()
+        folder_entity = self.create_context.get_folder_entity(
+            data["folderPath"])
+        task_entity = self.create_context.get_task_entity(
+            data["folderPath"], data["task"])
         if (
             data["folderPath"] == self.create_context.get_current_folder_path()
             and data["task"] == self.create_context.get_current_task_name()
         ):
             workdir = os.path.normpath(os.getenv("AYON_WORKDIR"))
         else:
-            # TODO: Optimize this logic
-            project_name = self.create_context.get_current_project_name()
-            project_entity = get_project(project_name)
-            folder_entity = get_folder_by_path(project_name,
-                                               data["folderPath"])
-            task_entity = get_task_by_name(project_name,
-                                           folder_id=folder_entity["id"],
-                                           task_name=data["task"])
             workdir = get_workdir(
                 project_entity=project_entity,
                 folder_entity=folder_entity,
@@ -209,15 +203,15 @@ class GenericCreateSaver(Creator):
             .replace("{task}", "{task[name]}")
         )
 
-        host_name = get_current_host_name()
-        project_name = self.create_context.get_current_project_name()
-        extra_data = template_data.get_template_data_with_names(
-            project_name,
-            data["folderPath"],
-            data["task"],
-            host_name
+        extra_data = template_data.get_template_data(
+            project_entity,
+            folder_entity,
+            task_entity,
+            host_name=self.create_context.host_name,
+            settings=self.create_context.get_current_project_settings(),
         )
-        anatomy = Anatomy(project_name)
+        anatomy = Anatomy(project_entity["name"],
+                          project_entity=project_entity)
         extra_data["root"] = anatomy.roots
         formatting_data.update(extra_data)
 
