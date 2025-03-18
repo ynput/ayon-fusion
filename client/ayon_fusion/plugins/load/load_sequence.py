@@ -244,9 +244,15 @@ class FusionLoadSequence(load.LoaderPlugin):
                         "TimeCodeOffset",
                     ),
                 ):
-                    self.logging.info(context)
-                    self.logging.info(repre_entity)
                     tool["Clip"] = comp.ReverseMapPath(path)
+                    tool.SetAttrs(
+                        {
+                            "TOOLB_NameSet": True,
+                            "TOOLS_Name": repre_entity["context"]["product"][
+                                "name"
+                            ],
+                        }
+                    )
 
             # Set the global in to the start frame of the sequence
             global_in_changed = loader_shift(tool, start, relative=False)
