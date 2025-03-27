@@ -1,0 +1,550 @@
+<!doctype html><html lang=en class=no-js> <head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><link rel=prev href=retry.html><link rel=next href=ssltransport.html><link rel=icon href=../../../../../../img/favicon.ico><meta name=generator content="mkdocs-1.6.1, mkdocs-material-9.6.9"><title>ssl_ - ayon-fusion</title><link rel=stylesheet href=../../../../../../assets/stylesheets/main.4af4bdda.min.css><link rel=stylesheet href=../../../../../../assets/stylesheets/palette.06af60db.min.css><script src=https://unpkg.com/iframe-worker/shim></script><link rel=preconnect href=https://fonts.gstatic.com crossorigin><link rel=stylesheet href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback"><style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style><link rel=stylesheet href=../../../../../../assets/_mkdocstrings.css><link rel=stylesheet href=../../../../../../css/custom.css><script>__md_scope=new URL("../../../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script></head> <body dir=ltr data-md-color-scheme=slate data-md-color-primary=indigo data-md-color-accent=indigo> <input class=md-toggle data-md-toggle=drawer type=checkbox id=__drawer autocomplete=off> <input class=md-toggle data-md-toggle=search type=checkbox id=__search autocomplete=off> <label class=md-overlay for=__drawer></label> <div data-md-component=skip> <a href=#client.ayon_fusion.vendor.urllib3.util.ssl_ class=md-skip> Skip to content </a> </div> <div data-md-component=announce> </div> <div data-md-color-scheme=default data-md-component=outdated hidden> </div> <header class="md-header md-header--shadow" data-md-component=header> <nav class="md-header__inner md-grid" aria-label=Header> <a href=../../../../../../index.html title=ayon-fusion class="md-header__button md-logo" aria-label=ayon-fusion data-md-component=logo> <img src=../../../../../../img/ay-symbol-blackw-full.png alt=logo> </a> <label class="md-header__button md-icon" for=__drawer> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg> </label> <div class=md-header__title data-md-component=header-title> <div class=md-header__ellipsis> <div class=md-header__topic> <span class=md-ellipsis> ayon-fusion </span> </div> <div class=md-header__topic data-md-component=header-topic> <span class=md-ellipsis> ssl_ </span> </div> </div> </div> <form class=md-header__option data-md-component=palette> <input class=md-option data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme=slate data-md-color-primary=indigo data-md-color-accent=indigo aria-label="Switch to light mode" type=radio name=__palette id=__palette_0> <label class="md-header__button md-icon" title="Switch to light mode" for=__palette_1 hidden> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6m0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4M7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"/></svg> </label> <input class=md-option data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme=default data-md-color-primary=indigo data-md-color-accent=indigo aria-label="Switch to dark mode" type=radio name=__palette id=__palette_1> <label class="md-header__button md-icon" title="Switch to dark mode" for=__palette_0 hidden> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg> </label> </form> <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script> <label class="md-header__button md-icon" for=__search> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg> </label> <div class=md-search data-md-component=search role=dialog> <label class=md-search__overlay for=__search></label> <div class=md-search__inner role=search> <form class=md-search__form name=search> <input type=text class=md-search__input name=query aria-label=Search placeholder=Search autocapitalize=off autocorrect=off autocomplete=off spellcheck=false data-md-component=search-query required> <label class="md-search__icon md-icon" for=__search> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg> </label> <nav class=md-search__options aria-label=Search> <button type=reset class="md-search__icon md-icon" title=Clear aria-label=Clear tabindex=-1> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg> </button> </nav> </form> <div class=md-search__output> <div class=md-search__scrollwrap tabindex=0 data-md-scrollfix> <div class=md-search-result data-md-component=search-result> <div class=md-search-result__meta> Initializing search </div> <ol class=md-search-result__list role=presentation></ol> </div> </div> </div> </div> </div> <div class=md-header__source> <a href=https://github.com/ynput/ayon-fusion title="Go to repository" class=md-source data-md-component=source> <div class="md-source__icon md-icon"> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 448 512"><!-- Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg> </div> <div class=md-source__repository> GitHub </div> </a> </div> </nav> </header> <div class=md-container data-md-component=container> <main class=md-main data-md-component=main> <div class="md-main__inner md-grid"> <div class="md-sidebar md-sidebar--primary" data-md-component=sidebar data-md-type=navigation> <div class=md-sidebar__scrollwrap> <div class=md-sidebar__inner> <nav class="md-nav md-nav--primary" aria-label=Navigation data-md-level=0> <label class=md-nav__title for=__drawer> <a href=../../../../../../index.html title=ayon-fusion class="md-nav__button md-logo" aria-label=ayon-fusion data-md-component=logo> <img src=../../../../../../img/ay-symbol-blackw-full.png alt=logo> </a> ayon-fusion </label> <div class=md-nav__source> <a href=https://github.com/ynput/ayon-fusion title="Go to repository" class=md-source data-md-component=source> <div class="md-source__icon md-icon"> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 448 512"><!-- Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg> </div> <div class=md-source__repository> GitHub </div> </a> </div> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../../../../../index.html class=md-nav__link> <span class=md-ellipsis> Home </span> </a> </li> <li class=md-nav__item> <a href=../../../../../../license.html class=md-nav__link> <span class=md-ellipsis> License </span> </a> </li> <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_3 checked> <label class=md-nav__link for=__nav_3 id=__nav_3_label tabindex> <span class=md-ellipsis> Reference </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=1 aria-labelledby=__nav_3_label aria-expanded=true> <label class=md-nav__title for=__nav_3> <span class="md-nav__icon md-icon"></span> Reference </label> <ul class=md-nav__list data-md-scrollfix> <li class="md-nav__item md-nav__item--active md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_3_1 checked> <label class=md-nav__link for=__nav_3_1 id=__nav_3_1_label tabindex=0> <span class=md-ellipsis> client </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=2 aria-labelledby=__nav_3_1_label aria-expanded=true> <label class=md-nav__title for=__nav_3_1> <span class="md-nav__icon md-icon"></span> client </label> <ul class=md-nav__list data-md-scrollfix> <li class="md-nav__item md-nav__item--active md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_3_1_1 checked> <div class="md-nav__link md-nav__container"> <a href=../../../index.html class="md-nav__link "> <span class=md-ellipsis> ayon_fusion </span> </a> <label class="md-nav__link " for=__nav_3_1_1 id=__nav_3_1_1_label tabindex=0> <span class="md-nav__icon md-icon"></span> </label> </div> <nav class=md-nav data-md-level=3 aria-labelledby=__nav_3_1_1_label aria-expanded=true> <label class=md-nav__title for=__nav_3_1_1> <span class="md-nav__icon md-icon"></span> ayon_fusion </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../../addon.html class=md-nav__link> <span class=md-ellipsis> addon </span> </a> </li> <li class="md-nav__item md-nav__item--pruned md-nav__item--nested"> <a href=../../../api/action.html class=md-nav__link> <span class=md-ellipsis> api </span> <span class="md-nav__icon md-icon"></span> </a> </li> <li class="md-nav__item md-nav__item--pruned md-nav__item--nested"> <a href=../../../deploy/MenuScripts/install_pyside2.html class=md-nav__link> <span class=md-ellipsis> deploy </span> <span class="md-nav__icon md-icon"></span> </a> </li> <li class="md-nav__item md-nav__item--pruned md-nav__item--nested"> <a href=../../../hooks/pre_fusion_launch_menu_hook.html class=md-nav__link> <span class=md-ellipsis> hooks </span> <span class="md-nav__icon md-icon"></span> </a> </li> <li class="md-nav__item md-nav__item--pruned md-nav__item--nested"> <a href=../../../plugins/create/create_image_saver.html class=md-nav__link> <span class=md-ellipsis> plugins </span> <span class="md-nav__icon md-icon"></span> </a> </li> <li class="md-nav__item md-nav__item--pruned md-nav__item--nested"> <a href=../../../scripts/duplicate_with_inputs.html class=md-nav__link> <span class=md-ellipsis> scripts </span> <span class="md-nav__icon md-icon"></span> </a> </li> <li class="md-nav__item md-nav__item--active md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_3_1_1_7 checked> <div class="md-nav__link md-nav__container"> <a href=../../index.html class="md-nav__link "> <span class=md-ellipsis> vendor </span> </a> <label class="md-nav__link " for=__nav_3_1_1_7 id=__nav_3_1_1_7_label tabindex=0> <span class="md-nav__icon md-icon"></span> </label> </div> <nav class=md-nav data-md-level=4 aria-labelledby=__nav_3_1_1_7_label aria-expanded=true> <label class=md-nav__title for=__nav_3_1_1_7> <span class="md-nav__icon md-icon"></span> vendor </label> <ul class=md-nav__list data-md-scrollfix> <li class="md-nav__item md-nav__item--pruned md-nav__item--nested"> <a href=../../attr/_cmp.html class=md-nav__link> <span class=md-ellipsis> attr </span> <span class="md-nav__icon md-icon"></span> </a> </li> <li class="md-nav__item md-nav__item--active md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_3_1_1_7_2 checked> <div class="md-nav__link md-nav__container"> <a href=../index.html class="md-nav__link "> <span class=md-ellipsis> urllib3 </span> </a> <label class="md-nav__link " for=__nav_3_1_1_7_2 id=__nav_3_1_1_7_2_label tabindex=0> <span class="md-nav__icon md-icon"></span> </label> </div> <nav class=md-nav data-md-level=5 aria-labelledby=__nav_3_1_1_7_2_label aria-expanded=true> <label class=md-nav__title for=__nav_3_1_1_7_2> <span class="md-nav__icon md-icon"></span> urllib3 </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../_collections.html class=md-nav__link> <span class=md-ellipsis> _collections </span> </a> </li> <li class=md-nav__item> <a href=../_version.html class=md-nav__link> <span class=md-ellipsis> _version </span> </a> </li> <li class=md-nav__item> <a href=../connection.html class=md-nav__link> <span class=md-ellipsis> connection </span> </a> </li> <li class=md-nav__item> <a href=../connectionpool.html class=md-nav__link> <span class=md-ellipsis> connectionpool </span> </a> </li> <li class="md-nav__item md-nav__item--pruned md-nav__item--nested"> <a href=../contrib/_appengine_environ.html class=md-nav__link> <span class=md-ellipsis> contrib </span> <span class="md-nav__icon md-icon"></span> </a> </li> <li class=md-nav__item> <a href=../exceptions.html class=md-nav__link> <span class=md-ellipsis> exceptions </span> </a> </li> <li class=md-nav__item> <a href=../fields.html class=md-nav__link> <span class=md-ellipsis> fields </span> </a> </li> <li class=md-nav__item> <a href=../filepost.html class=md-nav__link> <span class=md-ellipsis> filepost </span> </a> </li> <li class="md-nav__item md-nav__item--pruned md-nav__item--nested"> <a href=../packages/backports/makefile.html class=md-nav__link> <span class=md-ellipsis> packages </span> <span class="md-nav__icon md-icon"></span> </a> </li> <li class=md-nav__item> <a href=../poolmanager.html class=md-nav__link> <span class=md-ellipsis> poolmanager </span> </a> </li> <li class=md-nav__item> <a href=../request.html class=md-nav__link> <span class=md-ellipsis> request </span> </a> </li> <li class=md-nav__item> <a href=../response.html class=md-nav__link> <span class=md-ellipsis> response </span> </a> </li> <li class="md-nav__item md-nav__item--active md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_3_1_1_7_2_13 checked> <div class="md-nav__link md-nav__container"> <a href=index.html class="md-nav__link "> <span class=md-ellipsis> util </span> </a> <label class="md-nav__link " for=__nav_3_1_1_7_2_13 id=__nav_3_1_1_7_2_13_label tabindex=0> <span class="md-nav__icon md-icon"></span> </label> </div> <nav class=md-nav data-md-level=6 aria-labelledby=__nav_3_1_1_7_2_13_label aria-expanded=true> <label class=md-nav__title for=__nav_3_1_1_7_2_13> <span class="md-nav__icon md-icon"></span> util </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=connection.html class=md-nav__link> <span class=md-ellipsis> connection </span> </a> </li> <li class=md-nav__item> <a href=proxy.html class=md-nav__link> <span class=md-ellipsis> proxy </span> </a> </li> <li class=md-nav__item> <a href=queue.html class=md-nav__link> <span class=md-ellipsis> queue </span> </a> </li> <li class=md-nav__item> <a href=request.html class=md-nav__link> <span class=md-ellipsis> request </span> </a> </li> <li class=md-nav__item> <a href=response.html class=md-nav__link> <span class=md-ellipsis> response </span> </a> </li> <li class=md-nav__item> <a href=retry.html class=md-nav__link> <span class=md-ellipsis> retry </span> </a> </li> <li class="md-nav__item md-nav__item--active"> <input class="md-nav__toggle md-toggle" type=checkbox id=__toc> <label class="md-nav__link md-nav__link--active" for=__toc> <span class=md-ellipsis> ssl_ </span> <span class="md-nav__icon md-icon"></span> </label> <a href=ssl_.html class="md-nav__link md-nav__link--active"> <span class=md-ellipsis> ssl_ </span> </a> <nav class="md-nav md-nav--secondary" aria-label="Table of contents"> <label class=md-nav__title for=__toc> <span class="md-nav__icon md-icon"></span> Table of contents </label> <ul class=md-nav__list data-md-component=toc data-md-scrollfix> <li class=md-nav__item> <a href=#client.ayon_fusion.vendor.urllib3.util.ssl_ class=md-nav__link> <span class=md-ellipsis> ssl_ </span> </a> </li> <li class=md-nav__item> <a href=#client.ayon_fusion.vendor.urllib3.util.ssl_.assert_fingerprint class=md-nav__link> <span class=md-ellipsis> assert_fingerprint </span> </a> </li> <li class=md-nav__item> <a href=#client.ayon_fusion.vendor.urllib3.util.ssl_.create_urllib3_context class=md-nav__link> <span class=md-ellipsis> create_urllib3_context </span> </a> </li> <li class=md-nav__item> <a href=#client.ayon_fusion.vendor.urllib3.util.ssl_.is_ipaddress class=md-nav__link> <span class=md-ellipsis> is_ipaddress </span> </a> </li> <li class=md-nav__item> <a href=#client.ayon_fusion.vendor.urllib3.util.ssl_.resolve_cert_reqs class=md-nav__link> <span class=md-ellipsis> resolve_cert_reqs </span> </a> </li> <li class=md-nav__item> <a href=#client.ayon_fusion.vendor.urllib3.util.ssl_.resolve_ssl_version class=md-nav__link> <span class=md-ellipsis> resolve_ssl_version </span> </a> </li> <li class=md-nav__item> <a href=#client.ayon_fusion.vendor.urllib3.util.ssl_.ssl_wrap_socket class=md-nav__link> <span class=md-ellipsis> ssl_wrap_socket </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=ssltransport.html class=md-nav__link> <span class=md-ellipsis> ssltransport </span> </a> </li> <li class=md-nav__item> <a href=timeout.html class=md-nav__link> <span class=md-ellipsis> timeout </span> </a> </li> <li class=md-nav__item> <a href=url.html class=md-nav__link> <span class=md-ellipsis> url </span> </a> </li> <li class=md-nav__item> <a href=wait.html class=md-nav__link> <span class=md-ellipsis> wait </span> </a> </li> </ul> </nav> </li> </ul> </nav> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=../../../version.html class=md-nav__link> <span class=md-ellipsis> version </span> </a> </li> </ul> </nav> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--pruned md-nav__item--nested"> <a href=../../../../../server/imageio.html class=md-nav__link> <span class=md-ellipsis> server </span> <span class="md-nav__icon md-icon"></span> </a> </li> </ul> </nav> </li> </ul> </nav> </div> </div> </div> <div class="md-sidebar md-sidebar--secondary" data-md-component=sidebar data-md-type=toc> <div class=md-sidebar__scrollwrap> <div class=md-sidebar__inner> <nav class="md-nav md-nav--secondary" aria-label="Table of contents"> <label class=md-nav__title for=__toc> <span class="md-nav__icon md-icon"></span> Table of contents </label> <ul class=md-nav__list data-md-component=toc data-md-scrollfix> <li class=md-nav__item> <a href=#client.ayon_fusion.vendor.urllib3.util.ssl_ class=md-nav__link> <span class=md-ellipsis> ssl_ </span> </a> </li> <li class=md-nav__item> <a href=#client.ayon_fusion.vendor.urllib3.util.ssl_.assert_fingerprint class=md-nav__link> <span class=md-ellipsis> assert_fingerprint </span> </a> </li> <li class=md-nav__item> <a href=#client.ayon_fusion.vendor.urllib3.util.ssl_.create_urllib3_context class=md-nav__link> <span class=md-ellipsis> create_urllib3_context </span> </a> </li> <li class=md-nav__item> <a href=#client.ayon_fusion.vendor.urllib3.util.ssl_.is_ipaddress class=md-nav__link> <span class=md-ellipsis> is_ipaddress </span> </a> </li> <li class=md-nav__item> <a href=#client.ayon_fusion.vendor.urllib3.util.ssl_.resolve_cert_reqs class=md-nav__link> <span class=md-ellipsis> resolve_cert_reqs </span> </a> </li> <li class=md-nav__item> <a href=#client.ayon_fusion.vendor.urllib3.util.ssl_.resolve_ssl_version class=md-nav__link> <span class=md-ellipsis> resolve_ssl_version </span> </a> </li> <li class=md-nav__item> <a href=#client.ayon_fusion.vendor.urllib3.util.ssl_.ssl_wrap_socket class=md-nav__link> <span class=md-ellipsis> ssl_wrap_socket </span> </a> </li> </ul> </nav> </div> </div> </div> <div class=md-content data-md-component=content> <article class="md-content__inner md-typeset"> <h1>ssl_</h1> <div class="doc doc-object doc-module"> <a id=client.ayon_fusion.vendor.urllib3.util.ssl_></a> <div class="doc doc-contents first"> <div class="doc doc-children"> <div class="doc doc-object doc-function"> <h2 id=client.ayon_fusion.vendor.urllib3.util.ssl_.assert_fingerprint class="doc doc-heading"> <code class="highlight language-python"><span class=n>assert_fingerprint</span><span class=p>(</span><span class=n>cert</span><span class=p>,</span> <span class=n>fingerprint</span><span class=p>)</span></code> </h2> <div class="doc doc-contents "> <p>Checks if given fingerprint matches the supplied certificate.</p> <p>:param cert: Certificate as bytes object. :param fingerprint: Fingerprint as string of hexdigits, can be interspersed by colons.</p> <details class=quote> <summary>Source code in <code>client/ayon_fusion/vendor/urllib3/util/ssl_.py</code></summary> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal>182</span>
+<span class=normal>183</span>
+<span class=normal>184</span>
+<span class=normal>185</span>
+<span class=normal>186</span>
+<span class=normal>187</span>
+<span class=normal>188</span>
+<span class=normal>189</span>
+<span class=normal>190</span>
+<span class=normal>191</span>
+<span class=normal>192</span>
+<span class=normal>193</span>
+<span class=normal>194</span>
+<span class=normal>195</span>
+<span class=normal>196</span>
+<span class=normal>197</span>
+<span class=normal>198</span>
+<span class=normal>199</span>
+<span class=normal>200</span>
+<span class=normal>201</span>
+<span class=normal>202</span>
+<span class=normal>203</span>
+<span class=normal>204</span>
+<span class=normal>205</span>
+<span class=normal>206</span>
+<span class=normal>207</span>
+<span class=normal>208</span></pre></div></td><td class=code><div><pre><span></span><code><span class=k>def</span><span class=w> </span><span class=nf>assert_fingerprint</span><span class=p>(</span><span class=n>cert</span><span class=p>,</span> <span class=n>fingerprint</span><span class=p>):</span>
+<span class=w>    </span><span class=sd>&quot;&quot;&quot;</span>
+<span class=sd>    Checks if given fingerprint matches the supplied certificate.</span>
+
+<span class=sd>    :param cert:</span>
+<span class=sd>        Certificate as bytes object.</span>
+<span class=sd>    :param fingerprint:</span>
+<span class=sd>        Fingerprint as string of hexdigits, can be interspersed by colons.</span>
+<span class=sd>    &quot;&quot;&quot;</span>
+
+    <span class=n>fingerprint</span> <span class=o>=</span> <span class=n>fingerprint</span><span class=o>.</span><span class=n>replace</span><span class=p>(</span><span class=s2>&quot;:&quot;</span><span class=p>,</span> <span class=s2>&quot;&quot;</span><span class=p>)</span><span class=o>.</span><span class=n>lower</span><span class=p>()</span>
+    <span class=n>digest_length</span> <span class=o>=</span> <span class=nb>len</span><span class=p>(</span><span class=n>fingerprint</span><span class=p>)</span>
+    <span class=n>hashfunc</span> <span class=o>=</span> <span class=n>HASHFUNC_MAP</span><span class=o>.</span><span class=n>get</span><span class=p>(</span><span class=n>digest_length</span><span class=p>)</span>
+    <span class=k>if</span> <span class=ow>not</span> <span class=n>hashfunc</span><span class=p>:</span>
+        <span class=k>raise</span> <span class=n>SSLError</span><span class=p>(</span><span class=s2>&quot;Fingerprint of invalid length: </span><span class=si>{0}</span><span class=s2>&quot;</span><span class=o>.</span><span class=n>format</span><span class=p>(</span><span class=n>fingerprint</span><span class=p>))</span>
+
+    <span class=c1># We need encode() here for py32; works on py2 and p33.</span>
+    <span class=n>fingerprint_bytes</span> <span class=o>=</span> <span class=n>unhexlify</span><span class=p>(</span><span class=n>fingerprint</span><span class=o>.</span><span class=n>encode</span><span class=p>())</span>
+
+    <span class=n>cert_digest</span> <span class=o>=</span> <span class=n>hashfunc</span><span class=p>(</span><span class=n>cert</span><span class=p>)</span><span class=o>.</span><span class=n>digest</span><span class=p>()</span>
+
+    <span class=k>if</span> <span class=ow>not</span> <span class=n>_const_compare_digest</span><span class=p>(</span><span class=n>cert_digest</span><span class=p>,</span> <span class=n>fingerprint_bytes</span><span class=p>):</span>
+        <span class=k>raise</span> <span class=n>SSLError</span><span class=p>(</span>
+            <span class=s1>&#39;Fingerprints did not match. Expected &quot;</span><span class=si>{0}</span><span class=s1>&quot;, got &quot;</span><span class=si>{1}</span><span class=s1>&quot;.&#39;</span><span class=o>.</span><span class=n>format</span><span class=p>(</span>
+                <span class=n>fingerprint</span><span class=p>,</span> <span class=n>hexlify</span><span class=p>(</span><span class=n>cert_digest</span><span class=p>)</span>
+            <span class=p>)</span>
+        <span class=p>)</span>
+</code></pre></div></td></tr></table></div> </details> </div> </div> <div class="doc doc-object doc-function"> <h2 id=client.ayon_fusion.vendor.urllib3.util.ssl_.create_urllib3_context class="doc doc-heading"> <code class="highlight language-python"><span class=n>create_urllib3_context</span><span class=p>(</span><span class=n>ssl_version</span><span class=o>=</span><span class=kc>None</span><span class=p>,</span> <span class=n>cert_reqs</span><span class=o>=</span><span class=kc>None</span><span class=p>,</span> <span class=n>options</span><span class=o>=</span><span class=kc>None</span><span class=p>,</span> <span class=n>ciphers</span><span class=o>=</span><span class=kc>None</span><span class=p>)</span></code> </h2> <div class="doc doc-contents "> <p>All arguments have the same meaning as <code>ssl_wrap_socket</code>.</p> <p>By default, this function does a lot of the same work that <code>ssl.create_default_context</code> does on Python 3.4+. It:</p> <ul> <li>Disables SSLv2, SSLv3, and compression</li> <li>Sets a restricted set of server ciphers</li> </ul> <p>If you wish to enable SSLv3, you can do::</p> <pre><code>from urllib3.util import ssl_
+context = ssl_.create_urllib3_context()
+context.options &amp;= ~ssl_.OP_NO_SSLv3
+</code></pre> <p>You can do the same to enable compression (substituting <code>COMPRESSION</code> for <code>SSLv3</code> in the last line above).</p> <p>:param ssl_version: The desired protocol version to use. This will default to PROTOCOL_SSLv23 which will negotiate the highest protocol that both the server and your installation of OpenSSL support. :param cert_reqs: Whether to require the certificate verification. This defaults to <code>ssl.CERT_REQUIRED</code>. :param options: Specific OpenSSL options. These default to <code>ssl.OP_NO_SSLv2</code>, <code>ssl.OP_NO_SSLv3</code>, <code>ssl.OP_NO_COMPRESSION</code>, and <code>ssl.OP_NO_TICKET</code>. :param ciphers: Which cipher suites to allow the server to select. :returns: Constructed SSLContext object with specified options :rtype: SSLContext</p> <details class=quote> <summary>Source code in <code>client/ayon_fusion/vendor/urllib3/util/ssl_.py</code></summary> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal>250</span>
+<span class=normal>251</span>
+<span class=normal>252</span>
+<span class=normal>253</span>
+<span class=normal>254</span>
+<span class=normal>255</span>
+<span class=normal>256</span>
+<span class=normal>257</span>
+<span class=normal>258</span>
+<span class=normal>259</span>
+<span class=normal>260</span>
+<span class=normal>261</span>
+<span class=normal>262</span>
+<span class=normal>263</span>
+<span class=normal>264</span>
+<span class=normal>265</span>
+<span class=normal>266</span>
+<span class=normal>267</span>
+<span class=normal>268</span>
+<span class=normal>269</span>
+<span class=normal>270</span>
+<span class=normal>271</span>
+<span class=normal>272</span>
+<span class=normal>273</span>
+<span class=normal>274</span>
+<span class=normal>275</span>
+<span class=normal>276</span>
+<span class=normal>277</span>
+<span class=normal>278</span>
+<span class=normal>279</span>
+<span class=normal>280</span>
+<span class=normal>281</span>
+<span class=normal>282</span>
+<span class=normal>283</span>
+<span class=normal>284</span>
+<span class=normal>285</span>
+<span class=normal>286</span>
+<span class=normal>287</span>
+<span class=normal>288</span>
+<span class=normal>289</span>
+<span class=normal>290</span>
+<span class=normal>291</span>
+<span class=normal>292</span>
+<span class=normal>293</span>
+<span class=normal>294</span>
+<span class=normal>295</span>
+<span class=normal>296</span>
+<span class=normal>297</span>
+<span class=normal>298</span>
+<span class=normal>299</span>
+<span class=normal>300</span>
+<span class=normal>301</span>
+<span class=normal>302</span>
+<span class=normal>303</span>
+<span class=normal>304</span>
+<span class=normal>305</span>
+<span class=normal>306</span>
+<span class=normal>307</span>
+<span class=normal>308</span>
+<span class=normal>309</span>
+<span class=normal>310</span>
+<span class=normal>311</span>
+<span class=normal>312</span>
+<span class=normal>313</span>
+<span class=normal>314</span>
+<span class=normal>315</span>
+<span class=normal>316</span>
+<span class=normal>317</span>
+<span class=normal>318</span>
+<span class=normal>319</span>
+<span class=normal>320</span>
+<span class=normal>321</span>
+<span class=normal>322</span>
+<span class=normal>323</span>
+<span class=normal>324</span>
+<span class=normal>325</span>
+<span class=normal>326</span>
+<span class=normal>327</span>
+<span class=normal>328</span>
+<span class=normal>329</span>
+<span class=normal>330</span>
+<span class=normal>331</span>
+<span class=normal>332</span>
+<span class=normal>333</span>
+<span class=normal>334</span>
+<span class=normal>335</span>
+<span class=normal>336</span>
+<span class=normal>337</span>
+<span class=normal>338</span>
+<span class=normal>339</span>
+<span class=normal>340</span>
+<span class=normal>341</span>
+<span class=normal>342</span>
+<span class=normal>343</span>
+<span class=normal>344</span>
+<span class=normal>345</span>
+<span class=normal>346</span>
+<span class=normal>347</span>
+<span class=normal>348</span>
+<span class=normal>349</span>
+<span class=normal>350</span>
+<span class=normal>351</span>
+<span class=normal>352</span></pre></div></td><td class=code><div><pre><span></span><code><span class=k>def</span><span class=w> </span><span class=nf>create_urllib3_context</span><span class=p>(</span>
+    <span class=n>ssl_version</span><span class=o>=</span><span class=kc>None</span><span class=p>,</span> <span class=n>cert_reqs</span><span class=o>=</span><span class=kc>None</span><span class=p>,</span> <span class=n>options</span><span class=o>=</span><span class=kc>None</span><span class=p>,</span> <span class=n>ciphers</span><span class=o>=</span><span class=kc>None</span>
+<span class=p>):</span>
+<span class=w>    </span><span class=sd>&quot;&quot;&quot;All arguments have the same meaning as ``ssl_wrap_socket``.</span>
+
+<span class=sd>    By default, this function does a lot of the same work that</span>
+<span class=sd>    ``ssl.create_default_context`` does on Python 3.4+. It:</span>
+
+<span class=sd>    - Disables SSLv2, SSLv3, and compression</span>
+<span class=sd>    - Sets a restricted set of server ciphers</span>
+
+<span class=sd>    If you wish to enable SSLv3, you can do::</span>
+
+<span class=sd>        from urllib3.util import ssl_</span>
+<span class=sd>        context = ssl_.create_urllib3_context()</span>
+<span class=sd>        context.options &amp;= ~ssl_.OP_NO_SSLv3</span>
+
+<span class=sd>    You can do the same to enable compression (substituting ``COMPRESSION``</span>
+<span class=sd>    for ``SSLv3`` in the last line above).</span>
+
+<span class=sd>    :param ssl_version:</span>
+<span class=sd>        The desired protocol version to use. This will default to</span>
+<span class=sd>        PROTOCOL_SSLv23 which will negotiate the highest protocol that both</span>
+<span class=sd>        the server and your installation of OpenSSL support.</span>
+<span class=sd>    :param cert_reqs:</span>
+<span class=sd>        Whether to require the certificate verification. This defaults to</span>
+<span class=sd>        ``ssl.CERT_REQUIRED``.</span>
+<span class=sd>    :param options:</span>
+<span class=sd>        Specific OpenSSL options. These default to ``ssl.OP_NO_SSLv2``,</span>
+<span class=sd>        ``ssl.OP_NO_SSLv3``, ``ssl.OP_NO_COMPRESSION``, and ``ssl.OP_NO_TICKET``.</span>
+<span class=sd>    :param ciphers:</span>
+<span class=sd>        Which cipher suites to allow the server to select.</span>
+<span class=sd>    :returns:</span>
+<span class=sd>        Constructed SSLContext object with specified options</span>
+<span class=sd>    :rtype: SSLContext</span>
+<span class=sd>    &quot;&quot;&quot;</span>
+    <span class=c1># PROTOCOL_TLS is deprecated in Python 3.10</span>
+    <span class=k>if</span> <span class=ow>not</span> <span class=n>ssl_version</span> <span class=ow>or</span> <span class=n>ssl_version</span> <span class=o>==</span> <span class=n>PROTOCOL_TLS</span><span class=p>:</span>
+        <span class=n>ssl_version</span> <span class=o>=</span> <span class=n>PROTOCOL_TLS_CLIENT</span>
+
+    <span class=n>context</span> <span class=o>=</span> <span class=n>SSLContext</span><span class=p>(</span><span class=n>ssl_version</span><span class=p>)</span>
+
+    <span class=n>context</span><span class=o>.</span><span class=n>set_ciphers</span><span class=p>(</span><span class=n>ciphers</span> <span class=ow>or</span> <span class=n>DEFAULT_CIPHERS</span><span class=p>)</span>
+
+    <span class=c1># Setting the default here, as we may have no ssl module on import</span>
+    <span class=n>cert_reqs</span> <span class=o>=</span> <span class=n>ssl</span><span class=o>.</span><span class=n>CERT_REQUIRED</span> <span class=k>if</span> <span class=n>cert_reqs</span> <span class=ow>is</span> <span class=kc>None</span> <span class=k>else</span> <span class=n>cert_reqs</span>
+
+    <span class=k>if</span> <span class=n>options</span> <span class=ow>is</span> <span class=kc>None</span><span class=p>:</span>
+        <span class=n>options</span> <span class=o>=</span> <span class=mi>0</span>
+        <span class=c1># SSLv2 is easily broken and is considered harmful and dangerous</span>
+        <span class=n>options</span> <span class=o>|=</span> <span class=n>OP_NO_SSLv2</span>
+        <span class=c1># SSLv3 has several problems and is now dangerous</span>
+        <span class=n>options</span> <span class=o>|=</span> <span class=n>OP_NO_SSLv3</span>
+        <span class=c1># Disable compression to prevent CRIME attacks for OpenSSL 1.0+</span>
+        <span class=c1># (issue #309)</span>
+        <span class=n>options</span> <span class=o>|=</span> <span class=n>OP_NO_COMPRESSION</span>
+        <span class=c1># TLSv1.2 only. Unless set explicitly, do not request tickets.</span>
+        <span class=c1># This may save some bandwidth on wire, and although the ticket is encrypted,</span>
+        <span class=c1># there is a risk associated with it being on wire,</span>
+        <span class=c1># if the server is not rotating its ticketing keys properly.</span>
+        <span class=n>options</span> <span class=o>|=</span> <span class=n>OP_NO_TICKET</span>
+
+    <span class=n>context</span><span class=o>.</span><span class=n>options</span> <span class=o>|=</span> <span class=n>options</span>
+
+    <span class=c1># Enable post-handshake authentication for TLS 1.3, see GH #1634. PHA is</span>
+    <span class=c1># necessary for conditional client cert authentication with TLS 1.3.</span>
+    <span class=c1># The attribute is None for OpenSSL &lt;= 1.1.0 or does not exist in older</span>
+    <span class=c1># versions of Python.  We only enable on Python 3.7.4+ or if certificate</span>
+    <span class=c1># verification is enabled to work around Python issue #37428</span>
+    <span class=c1># See: https://bugs.python.org/issue37428</span>
+    <span class=k>if</span> <span class=p>(</span><span class=n>cert_reqs</span> <span class=o>==</span> <span class=n>ssl</span><span class=o>.</span><span class=n>CERT_REQUIRED</span> <span class=ow>or</span> <span class=n>sys</span><span class=o>.</span><span class=n>version_info</span> <span class=o>&gt;=</span> <span class=p>(</span><span class=mi>3</span><span class=p>,</span> <span class=mi>7</span><span class=p>,</span> <span class=mi>4</span><span class=p>))</span> <span class=ow>and</span> <span class=nb>getattr</span><span class=p>(</span>
+        <span class=n>context</span><span class=p>,</span> <span class=s2>&quot;post_handshake_auth&quot;</span><span class=p>,</span> <span class=kc>None</span>
+    <span class=p>)</span> <span class=ow>is</span> <span class=ow>not</span> <span class=kc>None</span><span class=p>:</span>
+        <span class=n>context</span><span class=o>.</span><span class=n>post_handshake_auth</span> <span class=o>=</span> <span class=kc>True</span>
+
+    <span class=k>def</span><span class=w> </span><span class=nf>disable_check_hostname</span><span class=p>():</span>
+        <span class=k>if</span> <span class=p>(</span>
+            <span class=nb>getattr</span><span class=p>(</span><span class=n>context</span><span class=p>,</span> <span class=s2>&quot;check_hostname&quot;</span><span class=p>,</span> <span class=kc>None</span><span class=p>)</span> <span class=ow>is</span> <span class=ow>not</span> <span class=kc>None</span>
+        <span class=p>):</span>  <span class=c1># Platform-specific: Python 3.2</span>
+            <span class=c1># We do our own verification, including fingerprints and alternative</span>
+            <span class=c1># hostnames. So disable it here</span>
+            <span class=n>context</span><span class=o>.</span><span class=n>check_hostname</span> <span class=o>=</span> <span class=kc>False</span>
+
+    <span class=c1># The order of the below lines setting verify_mode and check_hostname</span>
+    <span class=c1># matter due to safe-guards SSLContext has to prevent an SSLContext with</span>
+    <span class=c1># check_hostname=True, verify_mode=NONE/OPTIONAL. This is made even more</span>
+    <span class=c1># complex because we don&#39;t know whether PROTOCOL_TLS_CLIENT will be used</span>
+    <span class=c1># or not so we don&#39;t know the initial state of the freshly created SSLContext.</span>
+    <span class=k>if</span> <span class=n>cert_reqs</span> <span class=o>==</span> <span class=n>ssl</span><span class=o>.</span><span class=n>CERT_REQUIRED</span><span class=p>:</span>
+        <span class=n>context</span><span class=o>.</span><span class=n>verify_mode</span> <span class=o>=</span> <span class=n>cert_reqs</span>
+        <span class=n>disable_check_hostname</span><span class=p>()</span>
+    <span class=k>else</span><span class=p>:</span>
+        <span class=n>disable_check_hostname</span><span class=p>()</span>
+        <span class=n>context</span><span class=o>.</span><span class=n>verify_mode</span> <span class=o>=</span> <span class=n>cert_reqs</span>
+
+    <span class=c1># Enable logging of TLS session keys via defacto standard environment variable</span>
+    <span class=c1># &#39;SSLKEYLOGFILE&#39;, if the feature is available (Python 3.8+). Skip empty values.</span>
+    <span class=k>if</span> <span class=nb>hasattr</span><span class=p>(</span><span class=n>context</span><span class=p>,</span> <span class=s2>&quot;keylog_filename&quot;</span><span class=p>):</span>
+        <span class=n>sslkeylogfile</span> <span class=o>=</span> <span class=n>os</span><span class=o>.</span><span class=n>environ</span><span class=o>.</span><span class=n>get</span><span class=p>(</span><span class=s2>&quot;SSLKEYLOGFILE&quot;</span><span class=p>)</span>
+        <span class=k>if</span> <span class=n>sslkeylogfile</span><span class=p>:</span>
+            <span class=n>context</span><span class=o>.</span><span class=n>keylog_filename</span> <span class=o>=</span> <span class=n>sslkeylogfile</span>
+
+    <span class=k>return</span> <span class=n>context</span>
+</code></pre></div></td></tr></table></div> </details> </div> </div> <div class="doc doc-object doc-function"> <h2 id=client.ayon_fusion.vendor.urllib3.util.ssl_.is_ipaddress class="doc doc-heading"> <code class="highlight language-python"><span class=n>is_ipaddress</span><span class=p>(</span><span class=n>hostname</span><span class=p>)</span></code> </h2> <div class="doc doc-contents "> <p>Detects whether the hostname given is an IPv4 or IPv6 address. Also detects IPv6 addresses with Zone IDs.</p> <p>:param str hostname: Hostname to examine. :return: True if the hostname is an IP address, False otherwise.</p> <details class=quote> <summary>Source code in <code>client/ayon_fusion/vendor/urllib3/util/ssl_.py</code></summary> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal>457</span>
+<span class=normal>458</span>
+<span class=normal>459</span>
+<span class=normal>460</span>
+<span class=normal>461</span>
+<span class=normal>462</span>
+<span class=normal>463</span>
+<span class=normal>464</span>
+<span class=normal>465</span>
+<span class=normal>466</span>
+<span class=normal>467</span></pre></div></td><td class=code><div><pre><span></span><code><span class=k>def</span><span class=w> </span><span class=nf>is_ipaddress</span><span class=p>(</span><span class=n>hostname</span><span class=p>):</span>
+<span class=w>    </span><span class=sd>&quot;&quot;&quot;Detects whether the hostname given is an IPv4 or IPv6 address.</span>
+<span class=sd>    Also detects IPv6 addresses with Zone IDs.</span>
+
+<span class=sd>    :param str hostname: Hostname to examine.</span>
+<span class=sd>    :return: True if the hostname is an IP address, False otherwise.</span>
+<span class=sd>    &quot;&quot;&quot;</span>
+    <span class=k>if</span> <span class=ow>not</span> <span class=n>six</span><span class=o>.</span><span class=n>PY2</span> <span class=ow>and</span> <span class=nb>isinstance</span><span class=p>(</span><span class=n>hostname</span><span class=p>,</span> <span class=nb>bytes</span><span class=p>):</span>
+        <span class=c1># IDN A-label bytes are ASCII compatible.</span>
+        <span class=n>hostname</span> <span class=o>=</span> <span class=n>hostname</span><span class=o>.</span><span class=n>decode</span><span class=p>(</span><span class=s2>&quot;ascii&quot;</span><span class=p>)</span>
+    <span class=k>return</span> <span class=nb>bool</span><span class=p>(</span><span class=n>IPV4_RE</span><span class=o>.</span><span class=n>match</span><span class=p>(</span><span class=n>hostname</span><span class=p>)</span> <span class=ow>or</span> <span class=n>BRACELESS_IPV6_ADDRZ_RE</span><span class=o>.</span><span class=n>match</span><span class=p>(</span><span class=n>hostname</span><span class=p>))</span>
+</code></pre></div></td></tr></table></div> </details> </div> </div> <div class="doc doc-object doc-function"> <h2 id=client.ayon_fusion.vendor.urllib3.util.ssl_.resolve_cert_reqs class="doc doc-heading"> <code class="highlight language-python"><span class=n>resolve_cert_reqs</span><span class=p>(</span><span class=n>candidate</span><span class=p>)</span></code> </h2> <div class="doc doc-contents "> <p>Resolves the argument to a numeric constant, which can be passed to the wrap_socket function/method from the ssl module. Defaults to :data:<code>ssl.CERT_REQUIRED</code>. If given a string it is assumed to be the name of the constant in the :mod:<code>ssl</code> module or its abbreviation. (So you can specify <code>REQUIRED</code> instead of <code>CERT_REQUIRED</code>. If it's neither <code>None</code> nor a string we assume it is already the numeric constant which can directly be passed to wrap_socket.</p> <details class=quote> <summary>Source code in <code>client/ayon_fusion/vendor/urllib3/util/ssl_.py</code></summary> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal>211</span>
+<span class=normal>212</span>
+<span class=normal>213</span>
+<span class=normal>214</span>
+<span class=normal>215</span>
+<span class=normal>216</span>
+<span class=normal>217</span>
+<span class=normal>218</span>
+<span class=normal>219</span>
+<span class=normal>220</span>
+<span class=normal>221</span>
+<span class=normal>222</span>
+<span class=normal>223</span>
+<span class=normal>224</span>
+<span class=normal>225</span>
+<span class=normal>226</span>
+<span class=normal>227</span>
+<span class=normal>228</span>
+<span class=normal>229</span>
+<span class=normal>230</span>
+<span class=normal>231</span></pre></div></td><td class=code><div><pre><span></span><code><span class=k>def</span><span class=w> </span><span class=nf>resolve_cert_reqs</span><span class=p>(</span><span class=n>candidate</span><span class=p>):</span>
+<span class=w>    </span><span class=sd>&quot;&quot;&quot;</span>
+<span class=sd>    Resolves the argument to a numeric constant, which can be passed to</span>
+<span class=sd>    the wrap_socket function/method from the ssl module.</span>
+<span class=sd>    Defaults to :data:`ssl.CERT_REQUIRED`.</span>
+<span class=sd>    If given a string it is assumed to be the name of the constant in the</span>
+<span class=sd>    :mod:`ssl` module or its abbreviation.</span>
+<span class=sd>    (So you can specify `REQUIRED` instead of `CERT_REQUIRED`.</span>
+<span class=sd>    If it&#39;s neither `None` nor a string we assume it is already the numeric</span>
+<span class=sd>    constant which can directly be passed to wrap_socket.</span>
+<span class=sd>    &quot;&quot;&quot;</span>
+    <span class=k>if</span> <span class=n>candidate</span> <span class=ow>is</span> <span class=kc>None</span><span class=p>:</span>
+        <span class=k>return</span> <span class=n>CERT_REQUIRED</span>
+
+    <span class=k>if</span> <span class=nb>isinstance</span><span class=p>(</span><span class=n>candidate</span><span class=p>,</span> <span class=nb>str</span><span class=p>):</span>
+        <span class=n>res</span> <span class=o>=</span> <span class=nb>getattr</span><span class=p>(</span><span class=n>ssl</span><span class=p>,</span> <span class=n>candidate</span><span class=p>,</span> <span class=kc>None</span><span class=p>)</span>
+        <span class=k>if</span> <span class=n>res</span> <span class=ow>is</span> <span class=kc>None</span><span class=p>:</span>
+            <span class=n>res</span> <span class=o>=</span> <span class=nb>getattr</span><span class=p>(</span><span class=n>ssl</span><span class=p>,</span> <span class=s2>&quot;CERT_&quot;</span> <span class=o>+</span> <span class=n>candidate</span><span class=p>)</span>
+        <span class=k>return</span> <span class=n>res</span>
+
+    <span class=k>return</span> <span class=n>candidate</span>
+</code></pre></div></td></tr></table></div> </details> </div> </div> <div class="doc doc-object doc-function"> <h2 id=client.ayon_fusion.vendor.urllib3.util.ssl_.resolve_ssl_version class="doc doc-heading"> <code class="highlight language-python"><span class=n>resolve_ssl_version</span><span class=p>(</span><span class=n>candidate</span><span class=p>)</span></code> </h2> <div class="doc doc-contents "> <p>like resolve_cert_reqs</p> <details class=quote> <summary>Source code in <code>client/ayon_fusion/vendor/urllib3/util/ssl_.py</code></summary> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal>234</span>
+<span class=normal>235</span>
+<span class=normal>236</span>
+<span class=normal>237</span>
+<span class=normal>238</span>
+<span class=normal>239</span>
+<span class=normal>240</span>
+<span class=normal>241</span>
+<span class=normal>242</span>
+<span class=normal>243</span>
+<span class=normal>244</span>
+<span class=normal>245</span>
+<span class=normal>246</span>
+<span class=normal>247</span></pre></div></td><td class=code><div><pre><span></span><code><span class=k>def</span><span class=w> </span><span class=nf>resolve_ssl_version</span><span class=p>(</span><span class=n>candidate</span><span class=p>):</span>
+<span class=w>    </span><span class=sd>&quot;&quot;&quot;</span>
+<span class=sd>    like resolve_cert_reqs</span>
+<span class=sd>    &quot;&quot;&quot;</span>
+    <span class=k>if</span> <span class=n>candidate</span> <span class=ow>is</span> <span class=kc>None</span><span class=p>:</span>
+        <span class=k>return</span> <span class=n>PROTOCOL_TLS</span>
+
+    <span class=k>if</span> <span class=nb>isinstance</span><span class=p>(</span><span class=n>candidate</span><span class=p>,</span> <span class=nb>str</span><span class=p>):</span>
+        <span class=n>res</span> <span class=o>=</span> <span class=nb>getattr</span><span class=p>(</span><span class=n>ssl</span><span class=p>,</span> <span class=n>candidate</span><span class=p>,</span> <span class=kc>None</span><span class=p>)</span>
+        <span class=k>if</span> <span class=n>res</span> <span class=ow>is</span> <span class=kc>None</span><span class=p>:</span>
+            <span class=n>res</span> <span class=o>=</span> <span class=nb>getattr</span><span class=p>(</span><span class=n>ssl</span><span class=p>,</span> <span class=s2>&quot;PROTOCOL_&quot;</span> <span class=o>+</span> <span class=n>candidate</span><span class=p>)</span>
+        <span class=k>return</span> <span class=n>res</span>
+
+    <span class=k>return</span> <span class=n>candidate</span>
+</code></pre></div></td></tr></table></div> </details> </div> </div> <div class="doc doc-object doc-function"> <h2 id=client.ayon_fusion.vendor.urllib3.util.ssl_.ssl_wrap_socket class="doc doc-heading"> <code class="highlight language-python"><span class=n>ssl_wrap_socket</span><span class=p>(</span><span class=n>sock</span><span class=p>,</span> <span class=n>keyfile</span><span class=o>=</span><span class=kc>None</span><span class=p>,</span> <span class=n>certfile</span><span class=o>=</span><span class=kc>None</span><span class=p>,</span> <span class=n>cert_reqs</span><span class=o>=</span><span class=kc>None</span><span class=p>,</span> <span class=n>ca_certs</span><span class=o>=</span><span class=kc>None</span><span class=p>,</span> <span class=n>server_hostname</span><span class=o>=</span><span class=kc>None</span><span class=p>,</span> <span class=n>ssl_version</span><span class=o>=</span><span class=kc>None</span><span class=p>,</span> <span class=n>ciphers</span><span class=o>=</span><span class=kc>None</span><span class=p>,</span> <span class=n>ssl_context</span><span class=o>=</span><span class=kc>None</span><span class=p>,</span> <span class=n>ca_cert_dir</span><span class=o>=</span><span class=kc>None</span><span class=p>,</span> <span class=n>key_password</span><span class=o>=</span><span class=kc>None</span><span class=p>,</span> <span class=n>ca_cert_data</span><span class=o>=</span><span class=kc>None</span><span class=p>,</span> <span class=n>tls_in_tls</span><span class=o>=</span><span class=kc>False</span><span class=p>)</span></code> </h2> <div class="doc doc-contents "> <p>All arguments except for server_hostname, ssl_context, and ca_cert_dir have the same meaning as they do when using :func:<code>ssl.wrap_socket</code>.</p> <p>:param server_hostname: When SNI is supported, the expected hostname of the certificate :param ssl_context: A pre-made :class:<code>SSLContext</code> object. If none is provided, one will be created using :func:<code>create_urllib3_context</code>. :param ciphers: A string of ciphers we wish the client to support. :param ca_cert_dir: A directory containing CA certificates in multiple separate files, as supported by OpenSSL's -CApath flag or the capath argument to SSLContext.load_verify_locations(). :param key_password: Optional password if the keyfile is encrypted. :param ca_cert_data: Optional string containing CA certificates in PEM format suitable for passing as the cadata parameter to SSLContext.load_verify_locations() :param tls_in_tls: Use SSLTransport to wrap the existing socket.</p> <details class=quote> <summary>Source code in <code>client/ayon_fusion/vendor/urllib3/util/ssl_.py</code></summary> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal>355</span>
+<span class=normal>356</span>
+<span class=normal>357</span>
+<span class=normal>358</span>
+<span class=normal>359</span>
+<span class=normal>360</span>
+<span class=normal>361</span>
+<span class=normal>362</span>
+<span class=normal>363</span>
+<span class=normal>364</span>
+<span class=normal>365</span>
+<span class=normal>366</span>
+<span class=normal>367</span>
+<span class=normal>368</span>
+<span class=normal>369</span>
+<span class=normal>370</span>
+<span class=normal>371</span>
+<span class=normal>372</span>
+<span class=normal>373</span>
+<span class=normal>374</span>
+<span class=normal>375</span>
+<span class=normal>376</span>
+<span class=normal>377</span>
+<span class=normal>378</span>
+<span class=normal>379</span>
+<span class=normal>380</span>
+<span class=normal>381</span>
+<span class=normal>382</span>
+<span class=normal>383</span>
+<span class=normal>384</span>
+<span class=normal>385</span>
+<span class=normal>386</span>
+<span class=normal>387</span>
+<span class=normal>388</span>
+<span class=normal>389</span>
+<span class=normal>390</span>
+<span class=normal>391</span>
+<span class=normal>392</span>
+<span class=normal>393</span>
+<span class=normal>394</span>
+<span class=normal>395</span>
+<span class=normal>396</span>
+<span class=normal>397</span>
+<span class=normal>398</span>
+<span class=normal>399</span>
+<span class=normal>400</span>
+<span class=normal>401</span>
+<span class=normal>402</span>
+<span class=normal>403</span>
+<span class=normal>404</span>
+<span class=normal>405</span>
+<span class=normal>406</span>
+<span class=normal>407</span>
+<span class=normal>408</span>
+<span class=normal>409</span>
+<span class=normal>410</span>
+<span class=normal>411</span>
+<span class=normal>412</span>
+<span class=normal>413</span>
+<span class=normal>414</span>
+<span class=normal>415</span>
+<span class=normal>416</span>
+<span class=normal>417</span>
+<span class=normal>418</span>
+<span class=normal>419</span>
+<span class=normal>420</span>
+<span class=normal>421</span>
+<span class=normal>422</span>
+<span class=normal>423</span>
+<span class=normal>424</span>
+<span class=normal>425</span>
+<span class=normal>426</span>
+<span class=normal>427</span>
+<span class=normal>428</span>
+<span class=normal>429</span>
+<span class=normal>430</span>
+<span class=normal>431</span>
+<span class=normal>432</span>
+<span class=normal>433</span>
+<span class=normal>434</span>
+<span class=normal>435</span>
+<span class=normal>436</span>
+<span class=normal>437</span>
+<span class=normal>438</span>
+<span class=normal>439</span>
+<span class=normal>440</span>
+<span class=normal>441</span>
+<span class=normal>442</span>
+<span class=normal>443</span>
+<span class=normal>444</span>
+<span class=normal>445</span>
+<span class=normal>446</span>
+<span class=normal>447</span>
+<span class=normal>448</span>
+<span class=normal>449</span>
+<span class=normal>450</span>
+<span class=normal>451</span>
+<span class=normal>452</span>
+<span class=normal>453</span>
+<span class=normal>454</span></pre></div></td><td class=code><div><pre><span></span><code><span class=k>def</span><span class=w> </span><span class=nf>ssl_wrap_socket</span><span class=p>(</span>
+    <span class=n>sock</span><span class=p>,</span>
+    <span class=n>keyfile</span><span class=o>=</span><span class=kc>None</span><span class=p>,</span>
+    <span class=n>certfile</span><span class=o>=</span><span class=kc>None</span><span class=p>,</span>
+    <span class=n>cert_reqs</span><span class=o>=</span><span class=kc>None</span><span class=p>,</span>
+    <span class=n>ca_certs</span><span class=o>=</span><span class=kc>None</span><span class=p>,</span>
+    <span class=n>server_hostname</span><span class=o>=</span><span class=kc>None</span><span class=p>,</span>
+    <span class=n>ssl_version</span><span class=o>=</span><span class=kc>None</span><span class=p>,</span>
+    <span class=n>ciphers</span><span class=o>=</span><span class=kc>None</span><span class=p>,</span>
+    <span class=n>ssl_context</span><span class=o>=</span><span class=kc>None</span><span class=p>,</span>
+    <span class=n>ca_cert_dir</span><span class=o>=</span><span class=kc>None</span><span class=p>,</span>
+    <span class=n>key_password</span><span class=o>=</span><span class=kc>None</span><span class=p>,</span>
+    <span class=n>ca_cert_data</span><span class=o>=</span><span class=kc>None</span><span class=p>,</span>
+    <span class=n>tls_in_tls</span><span class=o>=</span><span class=kc>False</span><span class=p>,</span>
+<span class=p>):</span>
+<span class=w>    </span><span class=sd>&quot;&quot;&quot;</span>
+<span class=sd>    All arguments except for server_hostname, ssl_context, and ca_cert_dir have</span>
+<span class=sd>    the same meaning as they do when using :func:`ssl.wrap_socket`.</span>
+
+<span class=sd>    :param server_hostname:</span>
+<span class=sd>        When SNI is supported, the expected hostname of the certificate</span>
+<span class=sd>    :param ssl_context:</span>
+<span class=sd>        A pre-made :class:`SSLContext` object. If none is provided, one will</span>
+<span class=sd>        be created using :func:`create_urllib3_context`.</span>
+<span class=sd>    :param ciphers:</span>
+<span class=sd>        A string of ciphers we wish the client to support.</span>
+<span class=sd>    :param ca_cert_dir:</span>
+<span class=sd>        A directory containing CA certificates in multiple separate files, as</span>
+<span class=sd>        supported by OpenSSL&#39;s -CApath flag or the capath argument to</span>
+<span class=sd>        SSLContext.load_verify_locations().</span>
+<span class=sd>    :param key_password:</span>
+<span class=sd>        Optional password if the keyfile is encrypted.</span>
+<span class=sd>    :param ca_cert_data:</span>
+<span class=sd>        Optional string containing CA certificates in PEM format suitable for</span>
+<span class=sd>        passing as the cadata parameter to SSLContext.load_verify_locations()</span>
+<span class=sd>    :param tls_in_tls:</span>
+<span class=sd>        Use SSLTransport to wrap the existing socket.</span>
+<span class=sd>    &quot;&quot;&quot;</span>
+    <span class=n>context</span> <span class=o>=</span> <span class=n>ssl_context</span>
+    <span class=k>if</span> <span class=n>context</span> <span class=ow>is</span> <span class=kc>None</span><span class=p>:</span>
+        <span class=c1># Note: This branch of code and all the variables in it are no longer</span>
+        <span class=c1># used by urllib3 itself. We should consider deprecating and removing</span>
+        <span class=c1># this code.</span>
+        <span class=n>context</span> <span class=o>=</span> <span class=n>create_urllib3_context</span><span class=p>(</span><span class=n>ssl_version</span><span class=p>,</span> <span class=n>cert_reqs</span><span class=p>,</span> <span class=n>ciphers</span><span class=o>=</span><span class=n>ciphers</span><span class=p>)</span>
+
+    <span class=k>if</span> <span class=n>ca_certs</span> <span class=ow>or</span> <span class=n>ca_cert_dir</span> <span class=ow>or</span> <span class=n>ca_cert_data</span><span class=p>:</span>
+        <span class=k>try</span><span class=p>:</span>
+            <span class=n>context</span><span class=o>.</span><span class=n>load_verify_locations</span><span class=p>(</span><span class=n>ca_certs</span><span class=p>,</span> <span class=n>ca_cert_dir</span><span class=p>,</span> <span class=n>ca_cert_data</span><span class=p>)</span>
+        <span class=k>except</span> <span class=p>(</span><span class=ne>IOError</span><span class=p>,</span> <span class=ne>OSError</span><span class=p>)</span> <span class=k>as</span> <span class=n>e</span><span class=p>:</span>
+            <span class=k>raise</span> <span class=n>SSLError</span><span class=p>(</span><span class=n>e</span><span class=p>)</span>
+
+    <span class=k>elif</span> <span class=n>ssl_context</span> <span class=ow>is</span> <span class=kc>None</span> <span class=ow>and</span> <span class=nb>hasattr</span><span class=p>(</span><span class=n>context</span><span class=p>,</span> <span class=s2>&quot;load_default_certs&quot;</span><span class=p>):</span>
+        <span class=c1># try to load OS default certs; works well on Windows (require Python3.4+)</span>
+        <span class=n>context</span><span class=o>.</span><span class=n>load_default_certs</span><span class=p>()</span>
+
+    <span class=c1># Attempt to detect if we get the goofy behavior of the</span>
+    <span class=c1># keyfile being encrypted and OpenSSL asking for the</span>
+    <span class=c1># passphrase via the terminal and instead error out.</span>
+    <span class=k>if</span> <span class=n>keyfile</span> <span class=ow>and</span> <span class=n>key_password</span> <span class=ow>is</span> <span class=kc>None</span> <span class=ow>and</span> <span class=n>_is_key_file_encrypted</span><span class=p>(</span><span class=n>keyfile</span><span class=p>):</span>
+        <span class=k>raise</span> <span class=n>SSLError</span><span class=p>(</span><span class=s2>&quot;Client private key is encrypted, password is required&quot;</span><span class=p>)</span>
+
+    <span class=k>if</span> <span class=n>certfile</span><span class=p>:</span>
+        <span class=k>if</span> <span class=n>key_password</span> <span class=ow>is</span> <span class=kc>None</span><span class=p>:</span>
+            <span class=n>context</span><span class=o>.</span><span class=n>load_cert_chain</span><span class=p>(</span><span class=n>certfile</span><span class=p>,</span> <span class=n>keyfile</span><span class=p>)</span>
+        <span class=k>else</span><span class=p>:</span>
+            <span class=n>context</span><span class=o>.</span><span class=n>load_cert_chain</span><span class=p>(</span><span class=n>certfile</span><span class=p>,</span> <span class=n>keyfile</span><span class=p>,</span> <span class=n>key_password</span><span class=p>)</span>
+
+    <span class=k>try</span><span class=p>:</span>
+        <span class=k>if</span> <span class=nb>hasattr</span><span class=p>(</span><span class=n>context</span><span class=p>,</span> <span class=s2>&quot;set_alpn_protocols&quot;</span><span class=p>):</span>
+            <span class=n>context</span><span class=o>.</span><span class=n>set_alpn_protocols</span><span class=p>(</span><span class=n>ALPN_PROTOCOLS</span><span class=p>)</span>
+    <span class=k>except</span> <span class=ne>NotImplementedError</span><span class=p>:</span>  <span class=c1># Defensive: in CI, we always have set_alpn_protocols</span>
+        <span class=k>pass</span>
+
+    <span class=c1># If we detect server_hostname is an IP address then the SNI</span>
+    <span class=c1># extension should not be used according to RFC3546 Section 3.1</span>
+    <span class=n>use_sni_hostname</span> <span class=o>=</span> <span class=n>server_hostname</span> <span class=ow>and</span> <span class=ow>not</span> <span class=n>is_ipaddress</span><span class=p>(</span><span class=n>server_hostname</span><span class=p>)</span>
+    <span class=c1># SecureTransport uses server_hostname in certificate verification.</span>
+    <span class=n>send_sni</span> <span class=o>=</span> <span class=p>(</span><span class=n>use_sni_hostname</span> <span class=ow>and</span> <span class=n>HAS_SNI</span><span class=p>)</span> <span class=ow>or</span> <span class=p>(</span>
+        <span class=n>IS_SECURETRANSPORT</span> <span class=ow>and</span> <span class=n>server_hostname</span>
+    <span class=p>)</span>
+    <span class=c1># Do not warn the user if server_hostname is an invalid SNI hostname.</span>
+    <span class=k>if</span> <span class=ow>not</span> <span class=n>HAS_SNI</span> <span class=ow>and</span> <span class=n>use_sni_hostname</span><span class=p>:</span>
+        <span class=n>warnings</span><span class=o>.</span><span class=n>warn</span><span class=p>(</span>
+            <span class=s2>&quot;An HTTPS request has been made, but the SNI (Server Name &quot;</span>
+            <span class=s2>&quot;Indication) extension to TLS is not available on this platform. &quot;</span>
+            <span class=s2>&quot;This may cause the server to present an incorrect TLS &quot;</span>
+            <span class=s2>&quot;certificate, which can cause validation failures. You can upgrade to &quot;</span>
+            <span class=s2>&quot;a newer version of Python to solve this. For more information, see &quot;</span>
+            <span class=s2>&quot;https://urllib3.readthedocs.io/en/1.26.x/advanced-usage.html&quot;</span>
+            <span class=s2>&quot;#ssl-warnings&quot;</span><span class=p>,</span>
+            <span class=n>SNIMissingWarning</span><span class=p>,</span>
+        <span class=p>)</span>
+
+    <span class=k>if</span> <span class=n>send_sni</span><span class=p>:</span>
+        <span class=n>ssl_sock</span> <span class=o>=</span> <span class=n>_ssl_wrap_socket_impl</span><span class=p>(</span>
+            <span class=n>sock</span><span class=p>,</span> <span class=n>context</span><span class=p>,</span> <span class=n>tls_in_tls</span><span class=p>,</span> <span class=n>server_hostname</span><span class=o>=</span><span class=n>server_hostname</span>
+        <span class=p>)</span>
+    <span class=k>else</span><span class=p>:</span>
+        <span class=n>ssl_sock</span> <span class=o>=</span> <span class=n>_ssl_wrap_socket_impl</span><span class=p>(</span><span class=n>sock</span><span class=p>,</span> <span class=n>context</span><span class=p>,</span> <span class=n>tls_in_tls</span><span class=p>)</span>
+    <span class=k>return</span> <span class=n>ssl_sock</span>
+</code></pre></div></td></tr></table></div> </details> </div> </div> </div> </div> </div> </article> </div> <script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script> </div> </main> <footer class=md-footer> <div class="md-footer-meta md-typeset"> <div class="md-footer-meta__inner md-grid"> <div class=md-copyright> Made with <a href=https://squidfunk.github.io/mkdocs-material/ target=_blank rel=noopener> Material for MkDocs </a> </div> </div> </div> </footer> </div> <div class=md-dialog data-md-component=dialog> <div class="md-dialog__inner md-typeset"></div> </div> <script id=__config type=application/json>{"base": "../../../../../..", "features": ["navigation.sections", "navigation.path", "navigation.prune"], "search": "../../../../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script> <script src=../../../../../../assets/javascripts/bundle.c8b220af.min.js></script> </body> </html>

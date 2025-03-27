@@ -1,0 +1,1414 @@
+<!doctype html><html lang=en class=no-js> <head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><link rel=prev href=pyopenssl.html><link rel=next href=socks.html><link rel=icon href=../../../../../../img/favicon.ico><meta name=generator content="mkdocs-1.6.1, mkdocs-material-9.6.9"><title>securetransport - ayon-fusion</title><link rel=stylesheet href=../../../../../../assets/stylesheets/main.4af4bdda.min.css><link rel=stylesheet href=../../../../../../assets/stylesheets/palette.06af60db.min.css><script src=https://unpkg.com/iframe-worker/shim></script><link rel=preconnect href=https://fonts.gstatic.com crossorigin><link rel=stylesheet href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback"><style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style><link rel=stylesheet href=../../../../../../assets/_mkdocstrings.css><link rel=stylesheet href=../../../../../../css/custom.css><script>__md_scope=new URL("../../../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script></head> <body dir=ltr data-md-color-scheme=slate data-md-color-primary=indigo data-md-color-accent=indigo> <input class=md-toggle data-md-toggle=drawer type=checkbox id=__drawer autocomplete=off> <input class=md-toggle data-md-toggle=search type=checkbox id=__search autocomplete=off> <label class=md-overlay for=__drawer></label> <div data-md-component=skip> <a href=#client.ayon_fusion.vendor.urllib3.contrib.securetransport class=md-skip> Skip to content </a> </div> <div data-md-component=announce> </div> <div data-md-color-scheme=default data-md-component=outdated hidden> </div> <header class="md-header md-header--shadow" data-md-component=header> <nav class="md-header__inner md-grid" aria-label=Header> <a href=../../../../../../index.html title=ayon-fusion class="md-header__button md-logo" aria-label=ayon-fusion data-md-component=logo> <img src=../../../../../../img/ay-symbol-blackw-full.png alt=logo> </a> <label class="md-header__button md-icon" for=__drawer> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg> </label> <div class=md-header__title data-md-component=header-title> <div class=md-header__ellipsis> <div class=md-header__topic> <span class=md-ellipsis> ayon-fusion </span> </div> <div class=md-header__topic data-md-component=header-topic> <span class=md-ellipsis> securetransport </span> </div> </div> </div> <form class=md-header__option data-md-component=palette> <input class=md-option data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme=slate data-md-color-primary=indigo data-md-color-accent=indigo aria-label="Switch to light mode" type=radio name=__palette id=__palette_0> <label class="md-header__button md-icon" title="Switch to light mode" for=__palette_1 hidden> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6m0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4M7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"/></svg> </label> <input class=md-option data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme=default data-md-color-primary=indigo data-md-color-accent=indigo aria-label="Switch to dark mode" type=radio name=__palette id=__palette_1> <label class="md-header__button md-icon" title="Switch to dark mode" for=__palette_0 hidden> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg> </label> </form> <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script> <label class="md-header__button md-icon" for=__search> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg> </label> <div class=md-search data-md-component=search role=dialog> <label class=md-search__overlay for=__search></label> <div class=md-search__inner role=search> <form class=md-search__form name=search> <input type=text class=md-search__input name=query aria-label=Search placeholder=Search autocapitalize=off autocorrect=off autocomplete=off spellcheck=false data-md-component=search-query required> <label class="md-search__icon md-icon" for=__search> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg> </label> <nav class=md-search__options aria-label=Search> <button type=reset class="md-search__icon md-icon" title=Clear aria-label=Clear tabindex=-1> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg> </button> </nav> </form> <div class=md-search__output> <div class=md-search__scrollwrap tabindex=0 data-md-scrollfix> <div class=md-search-result data-md-component=search-result> <div class=md-search-result__meta> Initializing search </div> <ol class=md-search-result__list role=presentation></ol> </div> </div> </div> </div> </div> <div class=md-header__source> <a href=https://github.com/ynput/ayon-fusion title="Go to repository" class=md-source data-md-component=source> <div class="md-source__icon md-icon"> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 448 512"><!-- Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg> </div> <div class=md-source__repository> GitHub </div> </a> </div> </nav> </header> <div class=md-container data-md-component=container> <main class=md-main data-md-component=main> <div class="md-main__inner md-grid"> <div class="md-sidebar md-sidebar--primary" data-md-component=sidebar data-md-type=navigation> <div class=md-sidebar__scrollwrap> <div class=md-sidebar__inner> <nav class="md-nav md-nav--primary" aria-label=Navigation data-md-level=0> <label class=md-nav__title for=__drawer> <a href=../../../../../../index.html title=ayon-fusion class="md-nav__button md-logo" aria-label=ayon-fusion data-md-component=logo> <img src=../../../../../../img/ay-symbol-blackw-full.png alt=logo> </a> ayon-fusion </label> <div class=md-nav__source> <a href=https://github.com/ynput/ayon-fusion title="Go to repository" class=md-source data-md-component=source> <div class="md-source__icon md-icon"> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 448 512"><!-- Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg> </div> <div class=md-source__repository> GitHub </div> </a> </div> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../../../../../index.html class=md-nav__link> <span class=md-ellipsis> Home </span> </a> </li> <li class=md-nav__item> <a href=../../../../../../license.html class=md-nav__link> <span class=md-ellipsis> License </span> </a> </li> <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_3 checked> <label class=md-nav__link for=__nav_3 id=__nav_3_label tabindex> <span class=md-ellipsis> Reference </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=1 aria-labelledby=__nav_3_label aria-expanded=true> <label class=md-nav__title for=__nav_3> <span class="md-nav__icon md-icon"></span> Reference </label> <ul class=md-nav__list data-md-scrollfix> <li class="md-nav__item md-nav__item--active md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_3_1 checked> <label class=md-nav__link for=__nav_3_1 id=__nav_3_1_label tabindex=0> <span class=md-ellipsis> client </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=2 aria-labelledby=__nav_3_1_label aria-expanded=true> <label class=md-nav__title for=__nav_3_1> <span class="md-nav__icon md-icon"></span> client </label> <ul class=md-nav__list data-md-scrollfix> <li class="md-nav__item md-nav__item--active md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_3_1_1 checked> <div class="md-nav__link md-nav__container"> <a href=../../../index.html class="md-nav__link "> <span class=md-ellipsis> ayon_fusion </span> </a> <label class="md-nav__link " for=__nav_3_1_1 id=__nav_3_1_1_label tabindex=0> <span class="md-nav__icon md-icon"></span> </label> </div> <nav class=md-nav data-md-level=3 aria-labelledby=__nav_3_1_1_label aria-expanded=true> <label class=md-nav__title for=__nav_3_1_1> <span class="md-nav__icon md-icon"></span> ayon_fusion </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../../addon.html class=md-nav__link> <span class=md-ellipsis> addon </span> </a> </li> <li class="md-nav__item md-nav__item--pruned md-nav__item--nested"> <a href=../../../api/action.html class=md-nav__link> <span class=md-ellipsis> api </span> <span class="md-nav__icon md-icon"></span> </a> </li> <li class="md-nav__item md-nav__item--pruned md-nav__item--nested"> <a href=../../../deploy/MenuScripts/install_pyside2.html class=md-nav__link> <span class=md-ellipsis> deploy </span> <span class="md-nav__icon md-icon"></span> </a> </li> <li class="md-nav__item md-nav__item--pruned md-nav__item--nested"> <a href=../../../hooks/pre_fusion_launch_menu_hook.html class=md-nav__link> <span class=md-ellipsis> hooks </span> <span class="md-nav__icon md-icon"></span> </a> </li> <li class="md-nav__item md-nav__item--pruned md-nav__item--nested"> <a href=../../../plugins/create/create_image_saver.html class=md-nav__link> <span class=md-ellipsis> plugins </span> <span class="md-nav__icon md-icon"></span> </a> </li> <li class="md-nav__item md-nav__item--pruned md-nav__item--nested"> <a href=../../../scripts/duplicate_with_inputs.html class=md-nav__link> <span class=md-ellipsis> scripts </span> <span class="md-nav__icon md-icon"></span> </a> </li> <li class="md-nav__item md-nav__item--active md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_3_1_1_7 checked> <div class="md-nav__link md-nav__container"> <a href=../../index.html class="md-nav__link "> <span class=md-ellipsis> vendor </span> </a> <label class="md-nav__link " for=__nav_3_1_1_7 id=__nav_3_1_1_7_label tabindex=0> <span class="md-nav__icon md-icon"></span> </label> </div> <nav class=md-nav data-md-level=4 aria-labelledby=__nav_3_1_1_7_label aria-expanded=true> <label class=md-nav__title for=__nav_3_1_1_7> <span class="md-nav__icon md-icon"></span> vendor </label> <ul class=md-nav__list data-md-scrollfix> <li class="md-nav__item md-nav__item--pruned md-nav__item--nested"> <a href=../../attr/_cmp.html class=md-nav__link> <span class=md-ellipsis> attr </span> <span class="md-nav__icon md-icon"></span> </a> </li> <li class="md-nav__item md-nav__item--active md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_3_1_1_7_2 checked> <div class="md-nav__link md-nav__container"> <a href=../index.html class="md-nav__link "> <span class=md-ellipsis> urllib3 </span> </a> <label class="md-nav__link " for=__nav_3_1_1_7_2 id=__nav_3_1_1_7_2_label tabindex=0> <span class="md-nav__icon md-icon"></span> </label> </div> <nav class=md-nav data-md-level=5 aria-labelledby=__nav_3_1_1_7_2_label aria-expanded=true> <label class=md-nav__title for=__nav_3_1_1_7_2> <span class="md-nav__icon md-icon"></span> urllib3 </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../_collections.html class=md-nav__link> <span class=md-ellipsis> _collections </span> </a> </li> <li class=md-nav__item> <a href=../_version.html class=md-nav__link> <span class=md-ellipsis> _version </span> </a> </li> <li class=md-nav__item> <a href=../connection.html class=md-nav__link> <span class=md-ellipsis> connection </span> </a> </li> <li class=md-nav__item> <a href=../connectionpool.html class=md-nav__link> <span class=md-ellipsis> connectionpool </span> </a> </li> <li class="md-nav__item md-nav__item--active md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_3_1_1_7_2_5 checked> <div class="md-nav__link md-nav__container"> <a href=index.html class="md-nav__link "> <span class=md-ellipsis> contrib </span> </a> <label class="md-nav__link " for=__nav_3_1_1_7_2_5 id=__nav_3_1_1_7_2_5_label tabindex=0> <span class="md-nav__icon md-icon"></span> </label> </div> <nav class=md-nav data-md-level=6 aria-labelledby=__nav_3_1_1_7_2_5_label aria-expanded=true> <label class=md-nav__title for=__nav_3_1_1_7_2_5> <span class="md-nav__icon md-icon"></span> contrib </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=_appengine_environ.html class=md-nav__link> <span class=md-ellipsis> _appengine_environ </span> </a> </li> <li class="md-nav__item md-nav__item--pruned md-nav__item--nested"> <a href=_securetransport/bindings.html class=md-nav__link> <span class=md-ellipsis> _securetransport </span> <span class="md-nav__icon md-icon"></span> </a> </li> <li class=md-nav__item> <a href=appengine.html class=md-nav__link> <span class=md-ellipsis> appengine </span> </a> </li> <li class=md-nav__item> <a href=ntlmpool.html class=md-nav__link> <span class=md-ellipsis> ntlmpool </span> </a> </li> <li class=md-nav__item> <a href=pyopenssl.html class=md-nav__link> <span class=md-ellipsis> pyopenssl </span> </a> </li> <li class="md-nav__item md-nav__item--active"> <input class="md-nav__toggle md-toggle" type=checkbox id=__toc> <label class="md-nav__link md-nav__link--active" for=__toc> <span class=md-ellipsis> securetransport </span> <span class="md-nav__icon md-icon"></span> </label> <a href=securetransport.html class="md-nav__link md-nav__link--active"> <span class=md-ellipsis> securetransport </span> </a> <nav class="md-nav md-nav--secondary" aria-label="Table of contents"> <label class=md-nav__title for=__toc> <span class="md-nav__icon md-icon"></span> Table of contents </label> <ul class=md-nav__list data-md-component=toc data-md-scrollfix> <li class=md-nav__item> <a href=#client.ayon_fusion.vendor.urllib3.contrib.securetransport class=md-nav__link> <span class=md-ellipsis> securetransport </span> </a> </li> <li class=md-nav__item> <a href=#client.ayon_fusion.vendor.urllib3.contrib.securetransport.SecureTransportContext class=md-nav__link> <span class=md-ellipsis> SecureTransportContext </span> </a> <nav class=md-nav aria-label=SecureTransportContext> <ul class=md-nav__list> <li class=md-nav__item> <a href=#client.ayon_fusion.vendor.urllib3.contrib.securetransport.SecureTransportContext.check_hostname class=md-nav__link> <span class=md-ellipsis> check_hostname </span> </a> </li> <li class=md-nav__item> <a href=#client.ayon_fusion.vendor.urllib3.contrib.securetransport.SecureTransportContext.set_alpn_protocols class=md-nav__link> <span class=md-ellipsis> set_alpn_protocols </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#client.ayon_fusion.vendor.urllib3.contrib.securetransport.WrappedSocket class=md-nav__link> <span class=md-ellipsis> WrappedSocket </span> </a> <nav class=md-nav aria-label=WrappedSocket> <ul class=md-nav__list> <li class=md-nav__item> <a href=#client.ayon_fusion.vendor.urllib3.contrib.securetransport.WrappedSocket.handshake class=md-nav__link> <span class=md-ellipsis> handshake </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#client.ayon_fusion.vendor.urllib3.contrib.securetransport.extract_from_urllib3 class=md-nav__link> <span class=md-ellipsis> extract_from_urllib3 </span> </a> </li> <li class=md-nav__item> <a href=#client.ayon_fusion.vendor.urllib3.contrib.securetransport.inject_into_urllib3 class=md-nav__link> <span class=md-ellipsis> inject_into_urllib3 </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=socks.html class=md-nav__link> <span class=md-ellipsis> socks </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=../exceptions.html class=md-nav__link> <span class=md-ellipsis> exceptions </span> </a> </li> <li class=md-nav__item> <a href=../fields.html class=md-nav__link> <span class=md-ellipsis> fields </span> </a> </li> <li class=md-nav__item> <a href=../filepost.html class=md-nav__link> <span class=md-ellipsis> filepost </span> </a> </li> <li class="md-nav__item md-nav__item--pruned md-nav__item--nested"> <a href=../packages/backports/makefile.html class=md-nav__link> <span class=md-ellipsis> packages </span> <span class="md-nav__icon md-icon"></span> </a> </li> <li class=md-nav__item> <a href=../poolmanager.html class=md-nav__link> <span class=md-ellipsis> poolmanager </span> </a> </li> <li class=md-nav__item> <a href=../request.html class=md-nav__link> <span class=md-ellipsis> request </span> </a> </li> <li class=md-nav__item> <a href=../response.html class=md-nav__link> <span class=md-ellipsis> response </span> </a> </li> <li class="md-nav__item md-nav__item--pruned md-nav__item--nested"> <a href=../util/connection.html class=md-nav__link> <span class=md-ellipsis> util </span> <span class="md-nav__icon md-icon"></span> </a> </li> </ul> </nav> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=../../../version.html class=md-nav__link> <span class=md-ellipsis> version </span> </a> </li> </ul> </nav> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--pruned md-nav__item--nested"> <a href=../../../../../server/imageio.html class=md-nav__link> <span class=md-ellipsis> server </span> <span class="md-nav__icon md-icon"></span> </a> </li> </ul> </nav> </li> </ul> </nav> </div> </div> </div> <div class="md-sidebar md-sidebar--secondary" data-md-component=sidebar data-md-type=toc> <div class=md-sidebar__scrollwrap> <div class=md-sidebar__inner> <nav class="md-nav md-nav--secondary" aria-label="Table of contents"> <label class=md-nav__title for=__toc> <span class="md-nav__icon md-icon"></span> Table of contents </label> <ul class=md-nav__list data-md-component=toc data-md-scrollfix> <li class=md-nav__item> <a href=#client.ayon_fusion.vendor.urllib3.contrib.securetransport class=md-nav__link> <span class=md-ellipsis> securetransport </span> </a> </li> <li class=md-nav__item> <a href=#client.ayon_fusion.vendor.urllib3.contrib.securetransport.SecureTransportContext class=md-nav__link> <span class=md-ellipsis> SecureTransportContext </span> </a> <nav class=md-nav aria-label=SecureTransportContext> <ul class=md-nav__list> <li class=md-nav__item> <a href=#client.ayon_fusion.vendor.urllib3.contrib.securetransport.SecureTransportContext.check_hostname class=md-nav__link> <span class=md-ellipsis> check_hostname </span> </a> </li> <li class=md-nav__item> <a href=#client.ayon_fusion.vendor.urllib3.contrib.securetransport.SecureTransportContext.set_alpn_protocols class=md-nav__link> <span class=md-ellipsis> set_alpn_protocols </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#client.ayon_fusion.vendor.urllib3.contrib.securetransport.WrappedSocket class=md-nav__link> <span class=md-ellipsis> WrappedSocket </span> </a> <nav class=md-nav aria-label=WrappedSocket> <ul class=md-nav__list> <li class=md-nav__item> <a href=#client.ayon_fusion.vendor.urllib3.contrib.securetransport.WrappedSocket.handshake class=md-nav__link> <span class=md-ellipsis> handshake </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#client.ayon_fusion.vendor.urllib3.contrib.securetransport.extract_from_urllib3 class=md-nav__link> <span class=md-ellipsis> extract_from_urllib3 </span> </a> </li> <li class=md-nav__item> <a href=#client.ayon_fusion.vendor.urllib3.contrib.securetransport.inject_into_urllib3 class=md-nav__link> <span class=md-ellipsis> inject_into_urllib3 </span> </a> </li> </ul> </nav> </div> </div> </div> <div class=md-content data-md-component=content> <article class="md-content__inner md-typeset"> <h1>securetransport</h1> <div class="doc doc-object doc-module"> <a id=client.ayon_fusion.vendor.urllib3.contrib.securetransport></a> <div class="doc doc-contents first"> <p>SecureTranport support for urllib3 via ctypes.</p> <p>This makes platform-native TLS available to urllib3 users on macOS without the use of a compiler. This is an important feature because the Python Package Index is moving to become a TLSv1.2-or-higher server, and the default OpenSSL that ships with macOS is not capable of doing TLSv1.2. The only way to resolve this is to give macOS users an alternative solution to the problem, and that solution is to use SecureTransport.</p> <p>We use ctypes here because this solution must not require a compiler. That's because pip is not allowed to require a compiler either.</p> <p>This is not intended to be a seriously long-term solution to this problem. The hope is that PEP 543 will eventually solve this issue for us, at which point we can retire this contrib module. But in the short term, we need to solve the impending tire fire that is Python on Mac without this kind of contrib module. So...here we are.</p> <p>To use this module, simply import and inject it::</p> <pre><code>import urllib3.contrib.securetransport
+urllib3.contrib.securetransport.inject_into_urllib3()
+</code></pre> <p>Happy TLSing!</p> <p>This code is a bastardised version of the code found in Will Bond's oscrypto library. An enormous debt is owed to him for blazing this trail for us. For that reason, this code should be considered to be covered both by urllib3's license and by oscrypto's:</p> <p>.. code-block::</p> <pre><code>Copyright (c) 2015-2016 Will Bond &lt;will@wbond.net&gt;
+
+Permission is hereby granted, free of charge, to any person obtaining a
+copy of this software and associated documentation files (the "Software"),
+to deal in the Software without restriction, including without limitation
+the rights to use, copy, modify, merge, publish, distribute, sublicense,
+and/or sell copies of the Software, and to permit persons to whom the
+Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+DEALINGS IN THE SOFTWARE.
+</code></pre> <div class="doc doc-children"> <div class="doc doc-object doc-class"> <h2 id=client.ayon_fusion.vendor.urllib3.contrib.securetransport.SecureTransportContext class="doc doc-heading"> <code>SecureTransportContext</code> </h2> <div class="doc doc-contents "> <p class="doc doc-class-bases"> Bases: <code><span title=object>object</span></code></p> <p>I am a wrapper class for the SecureTransport library, to translate the interface of the standard library <code>SSLContext</code> object to calls into SecureTransport.</p> <details class=quote> <summary>Source code in <code>client/ayon_fusion/vendor/urllib3/contrib/securetransport.py</code></summary> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal>786</span>
+<span class=normal>787</span>
+<span class=normal>788</span>
+<span class=normal>789</span>
+<span class=normal>790</span>
+<span class=normal>791</span>
+<span class=normal>792</span>
+<span class=normal>793</span>
+<span class=normal>794</span>
+<span class=normal>795</span>
+<span class=normal>796</span>
+<span class=normal>797</span>
+<span class=normal>798</span>
+<span class=normal>799</span>
+<span class=normal>800</span>
+<span class=normal>801</span>
+<span class=normal>802</span>
+<span class=normal>803</span>
+<span class=normal>804</span>
+<span class=normal>805</span>
+<span class=normal>806</span>
+<span class=normal>807</span>
+<span class=normal>808</span>
+<span class=normal>809</span>
+<span class=normal>810</span>
+<span class=normal>811</span>
+<span class=normal>812</span>
+<span class=normal>813</span>
+<span class=normal>814</span>
+<span class=normal>815</span>
+<span class=normal>816</span>
+<span class=normal>817</span>
+<span class=normal>818</span>
+<span class=normal>819</span>
+<span class=normal>820</span>
+<span class=normal>821</span>
+<span class=normal>822</span>
+<span class=normal>823</span>
+<span class=normal>824</span>
+<span class=normal>825</span>
+<span class=normal>826</span>
+<span class=normal>827</span>
+<span class=normal>828</span>
+<span class=normal>829</span>
+<span class=normal>830</span>
+<span class=normal>831</span>
+<span class=normal>832</span>
+<span class=normal>833</span>
+<span class=normal>834</span>
+<span class=normal>835</span>
+<span class=normal>836</span>
+<span class=normal>837</span>
+<span class=normal>838</span>
+<span class=normal>839</span>
+<span class=normal>840</span>
+<span class=normal>841</span>
+<span class=normal>842</span>
+<span class=normal>843</span>
+<span class=normal>844</span>
+<span class=normal>845</span>
+<span class=normal>846</span>
+<span class=normal>847</span>
+<span class=normal>848</span>
+<span class=normal>849</span>
+<span class=normal>850</span>
+<span class=normal>851</span>
+<span class=normal>852</span>
+<span class=normal>853</span>
+<span class=normal>854</span>
+<span class=normal>855</span>
+<span class=normal>856</span>
+<span class=normal>857</span>
+<span class=normal>858</span>
+<span class=normal>859</span>
+<span class=normal>860</span>
+<span class=normal>861</span>
+<span class=normal>862</span>
+<span class=normal>863</span>
+<span class=normal>864</span>
+<span class=normal>865</span>
+<span class=normal>866</span>
+<span class=normal>867</span>
+<span class=normal>868</span>
+<span class=normal>869</span>
+<span class=normal>870</span>
+<span class=normal>871</span>
+<span class=normal>872</span>
+<span class=normal>873</span>
+<span class=normal>874</span>
+<span class=normal>875</span>
+<span class=normal>876</span>
+<span class=normal>877</span>
+<span class=normal>878</span>
+<span class=normal>879</span>
+<span class=normal>880</span>
+<span class=normal>881</span>
+<span class=normal>882</span>
+<span class=normal>883</span>
+<span class=normal>884</span>
+<span class=normal>885</span>
+<span class=normal>886</span>
+<span class=normal>887</span>
+<span class=normal>888</span>
+<span class=normal>889</span>
+<span class=normal>890</span>
+<span class=normal>891</span>
+<span class=normal>892</span>
+<span class=normal>893</span>
+<span class=normal>894</span>
+<span class=normal>895</span>
+<span class=normal>896</span>
+<span class=normal>897</span>
+<span class=normal>898</span>
+<span class=normal>899</span>
+<span class=normal>900</span>
+<span class=normal>901</span>
+<span class=normal>902</span>
+<span class=normal>903</span>
+<span class=normal>904</span>
+<span class=normal>905</span>
+<span class=normal>906</span>
+<span class=normal>907</span>
+<span class=normal>908</span>
+<span class=normal>909</span>
+<span class=normal>910</span>
+<span class=normal>911</span>
+<span class=normal>912</span>
+<span class=normal>913</span>
+<span class=normal>914</span>
+<span class=normal>915</span>
+<span class=normal>916</span>
+<span class=normal>917</span>
+<span class=normal>918</span>
+<span class=normal>919</span>
+<span class=normal>920</span>
+<span class=normal>921</span>
+<span class=normal>922</span></pre></div></td><td class=code><div><pre><span></span><code><span class=k>class</span><span class=w> </span><span class=nc>SecureTransportContext</span><span class=p>(</span><span class=nb>object</span><span class=p>):</span>
+<span class=w>    </span><span class=sd>&quot;&quot;&quot;</span>
+<span class=sd>    I am a wrapper class for the SecureTransport library, to translate the</span>
+<span class=sd>    interface of the standard library ``SSLContext`` object to calls into</span>
+<span class=sd>    SecureTransport.</span>
+<span class=sd>    &quot;&quot;&quot;</span>
+
+    <span class=k>def</span><span class=w> </span><span class=fm>__init__</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>protocol</span><span class=p>):</span>
+        <span class=bp>self</span><span class=o>.</span><span class=n>_min_version</span><span class=p>,</span> <span class=bp>self</span><span class=o>.</span><span class=n>_max_version</span> <span class=o>=</span> <span class=n>_protocol_to_min_max</span><span class=p>[</span><span class=n>protocol</span><span class=p>]</span>
+        <span class=bp>self</span><span class=o>.</span><span class=n>_options</span> <span class=o>=</span> <span class=mi>0</span>
+        <span class=bp>self</span><span class=o>.</span><span class=n>_verify</span> <span class=o>=</span> <span class=kc>False</span>
+        <span class=bp>self</span><span class=o>.</span><span class=n>_trust_bundle</span> <span class=o>=</span> <span class=kc>None</span>
+        <span class=bp>self</span><span class=o>.</span><span class=n>_client_cert</span> <span class=o>=</span> <span class=kc>None</span>
+        <span class=bp>self</span><span class=o>.</span><span class=n>_client_key</span> <span class=o>=</span> <span class=kc>None</span>
+        <span class=bp>self</span><span class=o>.</span><span class=n>_client_key_passphrase</span> <span class=o>=</span> <span class=kc>None</span>
+        <span class=bp>self</span><span class=o>.</span><span class=n>_alpn_protocols</span> <span class=o>=</span> <span class=kc>None</span>
+
+    <span class=nd>@property</span>
+    <span class=k>def</span><span class=w> </span><span class=nf>check_hostname</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+<span class=w>        </span><span class=sd>&quot;&quot;&quot;</span>
+<span class=sd>        SecureTransport cannot have its hostname checking disabled. For more,</span>
+<span class=sd>        see the comment on getpeercert() in this file.</span>
+<span class=sd>        &quot;&quot;&quot;</span>
+        <span class=k>return</span> <span class=kc>True</span>
+
+    <span class=nd>@check_hostname</span><span class=o>.</span><span class=n>setter</span>
+    <span class=k>def</span><span class=w> </span><span class=nf>check_hostname</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>value</span><span class=p>):</span>
+<span class=w>        </span><span class=sd>&quot;&quot;&quot;</span>
+<span class=sd>        SecureTransport cannot have its hostname checking disabled. For more,</span>
+<span class=sd>        see the comment on getpeercert() in this file.</span>
+<span class=sd>        &quot;&quot;&quot;</span>
+        <span class=k>pass</span>
+
+    <span class=nd>@property</span>
+    <span class=k>def</span><span class=w> </span><span class=nf>options</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+        <span class=c1># TODO: Well, crap.</span>
+        <span class=c1>#</span>
+        <span class=c1># So this is the bit of the code that is the most likely to cause us</span>
+        <span class=c1># trouble. Essentially we need to enumerate all of the SSL options that</span>
+        <span class=c1># users might want to use and try to see if we can sensibly translate</span>
+        <span class=c1># them, or whether we should just ignore them.</span>
+        <span class=k>return</span> <span class=bp>self</span><span class=o>.</span><span class=n>_options</span>
+
+    <span class=nd>@options</span><span class=o>.</span><span class=n>setter</span>
+    <span class=k>def</span><span class=w> </span><span class=nf>options</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>value</span><span class=p>):</span>
+        <span class=c1># TODO: Update in line with above.</span>
+        <span class=bp>self</span><span class=o>.</span><span class=n>_options</span> <span class=o>=</span> <span class=n>value</span>
+
+    <span class=nd>@property</span>
+    <span class=k>def</span><span class=w> </span><span class=nf>verify_mode</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+        <span class=k>return</span> <span class=n>ssl</span><span class=o>.</span><span class=n>CERT_REQUIRED</span> <span class=k>if</span> <span class=bp>self</span><span class=o>.</span><span class=n>_verify</span> <span class=k>else</span> <span class=n>ssl</span><span class=o>.</span><span class=n>CERT_NONE</span>
+
+    <span class=nd>@verify_mode</span><span class=o>.</span><span class=n>setter</span>
+    <span class=k>def</span><span class=w> </span><span class=nf>verify_mode</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>value</span><span class=p>):</span>
+        <span class=bp>self</span><span class=o>.</span><span class=n>_verify</span> <span class=o>=</span> <span class=kc>True</span> <span class=k>if</span> <span class=n>value</span> <span class=o>==</span> <span class=n>ssl</span><span class=o>.</span><span class=n>CERT_REQUIRED</span> <span class=k>else</span> <span class=kc>False</span>
+
+    <span class=k>def</span><span class=w> </span><span class=nf>set_default_verify_paths</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+        <span class=c1># So, this has to do something a bit weird. Specifically, what it does</span>
+        <span class=c1># is nothing.</span>
+        <span class=c1>#</span>
+        <span class=c1># This means that, if we had previously had load_verify_locations</span>
+        <span class=c1># called, this does not undo that. We need to do that because it turns</span>
+        <span class=c1># out that the rest of the urllib3 code will attempt to load the</span>
+        <span class=c1># default verify paths if it hasn&#39;t been told about any paths, even if</span>
+        <span class=c1># the context itself was sometime earlier. We resolve that by just</span>
+        <span class=c1># ignoring it.</span>
+        <span class=k>pass</span>
+
+    <span class=k>def</span><span class=w> </span><span class=nf>load_default_certs</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+        <span class=k>return</span> <span class=bp>self</span><span class=o>.</span><span class=n>set_default_verify_paths</span><span class=p>()</span>
+
+    <span class=k>def</span><span class=w> </span><span class=nf>set_ciphers</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>ciphers</span><span class=p>):</span>
+        <span class=c1># For now, we just require the default cipher string.</span>
+        <span class=k>if</span> <span class=n>ciphers</span> <span class=o>!=</span> <span class=n>util</span><span class=o>.</span><span class=n>ssl_</span><span class=o>.</span><span class=n>DEFAULT_CIPHERS</span><span class=p>:</span>
+            <span class=k>raise</span> <span class=ne>ValueError</span><span class=p>(</span><span class=s2>&quot;SecureTransport doesn&#39;t support custom cipher strings&quot;</span><span class=p>)</span>
+
+    <span class=k>def</span><span class=w> </span><span class=nf>load_verify_locations</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>cafile</span><span class=o>=</span><span class=kc>None</span><span class=p>,</span> <span class=n>capath</span><span class=o>=</span><span class=kc>None</span><span class=p>,</span> <span class=n>cadata</span><span class=o>=</span><span class=kc>None</span><span class=p>):</span>
+        <span class=c1># OK, we only really support cadata and cafile.</span>
+        <span class=k>if</span> <span class=n>capath</span> <span class=ow>is</span> <span class=ow>not</span> <span class=kc>None</span><span class=p>:</span>
+            <span class=k>raise</span> <span class=ne>ValueError</span><span class=p>(</span><span class=s2>&quot;SecureTransport does not support cert directories&quot;</span><span class=p>)</span>
+
+        <span class=c1># Raise if cafile does not exist.</span>
+        <span class=k>if</span> <span class=n>cafile</span> <span class=ow>is</span> <span class=ow>not</span> <span class=kc>None</span><span class=p>:</span>
+            <span class=k>with</span> <span class=nb>open</span><span class=p>(</span><span class=n>cafile</span><span class=p>):</span>
+                <span class=k>pass</span>
+
+        <span class=bp>self</span><span class=o>.</span><span class=n>_trust_bundle</span> <span class=o>=</span> <span class=n>cafile</span> <span class=ow>or</span> <span class=n>cadata</span>
+
+    <span class=k>def</span><span class=w> </span><span class=nf>load_cert_chain</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>certfile</span><span class=p>,</span> <span class=n>keyfile</span><span class=o>=</span><span class=kc>None</span><span class=p>,</span> <span class=n>password</span><span class=o>=</span><span class=kc>None</span><span class=p>):</span>
+        <span class=bp>self</span><span class=o>.</span><span class=n>_client_cert</span> <span class=o>=</span> <span class=n>certfile</span>
+        <span class=bp>self</span><span class=o>.</span><span class=n>_client_key</span> <span class=o>=</span> <span class=n>keyfile</span>
+        <span class=bp>self</span><span class=o>.</span><span class=n>_client_cert_passphrase</span> <span class=o>=</span> <span class=n>password</span>
+
+    <span class=k>def</span><span class=w> </span><span class=nf>set_alpn_protocols</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>protocols</span><span class=p>):</span>
+<span class=w>        </span><span class=sd>&quot;&quot;&quot;</span>
+<span class=sd>        Sets the ALPN protocols that will later be set on the context.</span>
+
+<span class=sd>        Raises a NotImplementedError if ALPN is not supported.</span>
+<span class=sd>        &quot;&quot;&quot;</span>
+        <span class=k>if</span> <span class=ow>not</span> <span class=nb>hasattr</span><span class=p>(</span><span class=n>Security</span><span class=p>,</span> <span class=s2>&quot;SSLSetALPNProtocols&quot;</span><span class=p>):</span>
+            <span class=k>raise</span> <span class=ne>NotImplementedError</span><span class=p>(</span>
+                <span class=s2>&quot;SecureTransport supports ALPN only in macOS 10.12+&quot;</span>
+            <span class=p>)</span>
+        <span class=bp>self</span><span class=o>.</span><span class=n>_alpn_protocols</span> <span class=o>=</span> <span class=p>[</span><span class=n>six</span><span class=o>.</span><span class=n>ensure_binary</span><span class=p>(</span><span class=n>p</span><span class=p>)</span> <span class=k>for</span> <span class=n>p</span> <span class=ow>in</span> <span class=n>protocols</span><span class=p>]</span>
+
+    <span class=k>def</span><span class=w> </span><span class=nf>wrap_socket</span><span class=p>(</span>
+        <span class=bp>self</span><span class=p>,</span>
+        <span class=n>sock</span><span class=p>,</span>
+        <span class=n>server_side</span><span class=o>=</span><span class=kc>False</span><span class=p>,</span>
+        <span class=n>do_handshake_on_connect</span><span class=o>=</span><span class=kc>True</span><span class=p>,</span>
+        <span class=n>suppress_ragged_eofs</span><span class=o>=</span><span class=kc>True</span><span class=p>,</span>
+        <span class=n>server_hostname</span><span class=o>=</span><span class=kc>None</span><span class=p>,</span>
+    <span class=p>):</span>
+        <span class=c1># So, what do we do here? Firstly, we assert some properties. This is a</span>
+        <span class=c1># stripped down shim, so there is some functionality we don&#39;t support.</span>
+        <span class=c1># See PEP 543 for the real deal.</span>
+        <span class=k>assert</span> <span class=ow>not</span> <span class=n>server_side</span>
+        <span class=k>assert</span> <span class=n>do_handshake_on_connect</span>
+        <span class=k>assert</span> <span class=n>suppress_ragged_eofs</span>
+
+        <span class=c1># Ok, we&#39;re good to go. Now we want to create the wrapped socket object</span>
+        <span class=c1># and store it in the appropriate place.</span>
+        <span class=n>wrapped_socket</span> <span class=o>=</span> <span class=n>WrappedSocket</span><span class=p>(</span><span class=n>sock</span><span class=p>)</span>
+
+        <span class=c1># Now we can handshake</span>
+        <span class=n>wrapped_socket</span><span class=o>.</span><span class=n>handshake</span><span class=p>(</span>
+            <span class=n>server_hostname</span><span class=p>,</span>
+            <span class=bp>self</span><span class=o>.</span><span class=n>_verify</span><span class=p>,</span>
+            <span class=bp>self</span><span class=o>.</span><span class=n>_trust_bundle</span><span class=p>,</span>
+            <span class=bp>self</span><span class=o>.</span><span class=n>_min_version</span><span class=p>,</span>
+            <span class=bp>self</span><span class=o>.</span><span class=n>_max_version</span><span class=p>,</span>
+            <span class=bp>self</span><span class=o>.</span><span class=n>_client_cert</span><span class=p>,</span>
+            <span class=bp>self</span><span class=o>.</span><span class=n>_client_key</span><span class=p>,</span>
+            <span class=bp>self</span><span class=o>.</span><span class=n>_client_key_passphrase</span><span class=p>,</span>
+            <span class=bp>self</span><span class=o>.</span><span class=n>_alpn_protocols</span><span class=p>,</span>
+        <span class=p>)</span>
+        <span class=k>return</span> <span class=n>wrapped_socket</span>
+</code></pre></div></td></tr></table></div> </details> <div class="doc doc-children"> <div class="doc doc-object doc-attribute"> <h3 id=client.ayon_fusion.vendor.urllib3.contrib.securetransport.SecureTransportContext.check_hostname class="doc doc-heading"> <code class="highlight language-python"><span class=n>check_hostname</span></code> <span class="doc doc-labels"> <small class="doc doc-label doc-label-property"><code>property</code></small> <small class="doc doc-label doc-label-writable"><code>writable</code></small> </span> </h3> <div class="doc doc-contents "> <p>SecureTransport cannot have its hostname checking disabled. For more, see the comment on getpeercert() in this file.</p> </div> </div> <div class="doc doc-object doc-function"> <h3 id=client.ayon_fusion.vendor.urllib3.contrib.securetransport.SecureTransportContext.set_alpn_protocols class="doc doc-heading"> <code class="highlight language-python"><span class=n>set_alpn_protocols</span><span class=p>(</span><span class=n>protocols</span><span class=p>)</span></code> </h3> <div class="doc doc-contents "> <p>Sets the ALPN protocols that will later be set on the context.</p> <p>Raises a NotImplementedError if ALPN is not supported.</p> <details class=quote> <summary>Source code in <code>client/ayon_fusion/vendor/urllib3/contrib/securetransport.py</code></summary> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal>879</span>
+<span class=normal>880</span>
+<span class=normal>881</span>
+<span class=normal>882</span>
+<span class=normal>883</span>
+<span class=normal>884</span>
+<span class=normal>885</span>
+<span class=normal>886</span>
+<span class=normal>887</span>
+<span class=normal>888</span>
+<span class=normal>889</span></pre></div></td><td class=code><div><pre><span></span><code><span class=k>def</span><span class=w> </span><span class=nf>set_alpn_protocols</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>protocols</span><span class=p>):</span>
+<span class=w>    </span><span class=sd>&quot;&quot;&quot;</span>
+<span class=sd>    Sets the ALPN protocols that will later be set on the context.</span>
+
+<span class=sd>    Raises a NotImplementedError if ALPN is not supported.</span>
+<span class=sd>    &quot;&quot;&quot;</span>
+    <span class=k>if</span> <span class=ow>not</span> <span class=nb>hasattr</span><span class=p>(</span><span class=n>Security</span><span class=p>,</span> <span class=s2>&quot;SSLSetALPNProtocols&quot;</span><span class=p>):</span>
+        <span class=k>raise</span> <span class=ne>NotImplementedError</span><span class=p>(</span>
+            <span class=s2>&quot;SecureTransport supports ALPN only in macOS 10.12+&quot;</span>
+        <span class=p>)</span>
+    <span class=bp>self</span><span class=o>.</span><span class=n>_alpn_protocols</span> <span class=o>=</span> <span class=p>[</span><span class=n>six</span><span class=o>.</span><span class=n>ensure_binary</span><span class=p>(</span><span class=n>p</span><span class=p>)</span> <span class=k>for</span> <span class=n>p</span> <span class=ow>in</span> <span class=n>protocols</span><span class=p>]</span>
+</code></pre></div></td></tr></table></div> </details> </div> </div> </div> </div> </div> <div class="doc doc-object doc-class"> <h2 id=client.ayon_fusion.vendor.urllib3.contrib.securetransport.WrappedSocket class="doc doc-heading"> <code>WrappedSocket</code> </h2> <div class="doc doc-contents "> <p class="doc doc-class-bases"> Bases: <code><span title=object>object</span></code></p> <p>API-compatibility wrapper for Python's OpenSSL wrapped socket object.</p> <p>Note: _makefile_refs, _drop(), and _reuse() are needed for the garbage collector of PyPy.</p> <details class=quote> <summary>Source code in <code>client/ayon_fusion/vendor/urllib3/contrib/securetransport.py</code></summary> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal>326</span>
+<span class=normal>327</span>
+<span class=normal>328</span>
+<span class=normal>329</span>
+<span class=normal>330</span>
+<span class=normal>331</span>
+<span class=normal>332</span>
+<span class=normal>333</span>
+<span class=normal>334</span>
+<span class=normal>335</span>
+<span class=normal>336</span>
+<span class=normal>337</span>
+<span class=normal>338</span>
+<span class=normal>339</span>
+<span class=normal>340</span>
+<span class=normal>341</span>
+<span class=normal>342</span>
+<span class=normal>343</span>
+<span class=normal>344</span>
+<span class=normal>345</span>
+<span class=normal>346</span>
+<span class=normal>347</span>
+<span class=normal>348</span>
+<span class=normal>349</span>
+<span class=normal>350</span>
+<span class=normal>351</span>
+<span class=normal>352</span>
+<span class=normal>353</span>
+<span class=normal>354</span>
+<span class=normal>355</span>
+<span class=normal>356</span>
+<span class=normal>357</span>
+<span class=normal>358</span>
+<span class=normal>359</span>
+<span class=normal>360</span>
+<span class=normal>361</span>
+<span class=normal>362</span>
+<span class=normal>363</span>
+<span class=normal>364</span>
+<span class=normal>365</span>
+<span class=normal>366</span>
+<span class=normal>367</span>
+<span class=normal>368</span>
+<span class=normal>369</span>
+<span class=normal>370</span>
+<span class=normal>371</span>
+<span class=normal>372</span>
+<span class=normal>373</span>
+<span class=normal>374</span>
+<span class=normal>375</span>
+<span class=normal>376</span>
+<span class=normal>377</span>
+<span class=normal>378</span>
+<span class=normal>379</span>
+<span class=normal>380</span>
+<span class=normal>381</span>
+<span class=normal>382</span>
+<span class=normal>383</span>
+<span class=normal>384</span>
+<span class=normal>385</span>
+<span class=normal>386</span>
+<span class=normal>387</span>
+<span class=normal>388</span>
+<span class=normal>389</span>
+<span class=normal>390</span>
+<span class=normal>391</span>
+<span class=normal>392</span>
+<span class=normal>393</span>
+<span class=normal>394</span>
+<span class=normal>395</span>
+<span class=normal>396</span>
+<span class=normal>397</span>
+<span class=normal>398</span>
+<span class=normal>399</span>
+<span class=normal>400</span>
+<span class=normal>401</span>
+<span class=normal>402</span>
+<span class=normal>403</span>
+<span class=normal>404</span>
+<span class=normal>405</span>
+<span class=normal>406</span>
+<span class=normal>407</span>
+<span class=normal>408</span>
+<span class=normal>409</span>
+<span class=normal>410</span>
+<span class=normal>411</span>
+<span class=normal>412</span>
+<span class=normal>413</span>
+<span class=normal>414</span>
+<span class=normal>415</span>
+<span class=normal>416</span>
+<span class=normal>417</span>
+<span class=normal>418</span>
+<span class=normal>419</span>
+<span class=normal>420</span>
+<span class=normal>421</span>
+<span class=normal>422</span>
+<span class=normal>423</span>
+<span class=normal>424</span>
+<span class=normal>425</span>
+<span class=normal>426</span>
+<span class=normal>427</span>
+<span class=normal>428</span>
+<span class=normal>429</span>
+<span class=normal>430</span>
+<span class=normal>431</span>
+<span class=normal>432</span>
+<span class=normal>433</span>
+<span class=normal>434</span>
+<span class=normal>435</span>
+<span class=normal>436</span>
+<span class=normal>437</span>
+<span class=normal>438</span>
+<span class=normal>439</span>
+<span class=normal>440</span>
+<span class=normal>441</span>
+<span class=normal>442</span>
+<span class=normal>443</span>
+<span class=normal>444</span>
+<span class=normal>445</span>
+<span class=normal>446</span>
+<span class=normal>447</span>
+<span class=normal>448</span>
+<span class=normal>449</span>
+<span class=normal>450</span>
+<span class=normal>451</span>
+<span class=normal>452</span>
+<span class=normal>453</span>
+<span class=normal>454</span>
+<span class=normal>455</span>
+<span class=normal>456</span>
+<span class=normal>457</span>
+<span class=normal>458</span>
+<span class=normal>459</span>
+<span class=normal>460</span>
+<span class=normal>461</span>
+<span class=normal>462</span>
+<span class=normal>463</span>
+<span class=normal>464</span>
+<span class=normal>465</span>
+<span class=normal>466</span>
+<span class=normal>467</span>
+<span class=normal>468</span>
+<span class=normal>469</span>
+<span class=normal>470</span>
+<span class=normal>471</span>
+<span class=normal>472</span>
+<span class=normal>473</span>
+<span class=normal>474</span>
+<span class=normal>475</span>
+<span class=normal>476</span>
+<span class=normal>477</span>
+<span class=normal>478</span>
+<span class=normal>479</span>
+<span class=normal>480</span>
+<span class=normal>481</span>
+<span class=normal>482</span>
+<span class=normal>483</span>
+<span class=normal>484</span>
+<span class=normal>485</span>
+<span class=normal>486</span>
+<span class=normal>487</span>
+<span class=normal>488</span>
+<span class=normal>489</span>
+<span class=normal>490</span>
+<span class=normal>491</span>
+<span class=normal>492</span>
+<span class=normal>493</span>
+<span class=normal>494</span>
+<span class=normal>495</span>
+<span class=normal>496</span>
+<span class=normal>497</span>
+<span class=normal>498</span>
+<span class=normal>499</span>
+<span class=normal>500</span>
+<span class=normal>501</span>
+<span class=normal>502</span>
+<span class=normal>503</span>
+<span class=normal>504</span>
+<span class=normal>505</span>
+<span class=normal>506</span>
+<span class=normal>507</span>
+<span class=normal>508</span>
+<span class=normal>509</span>
+<span class=normal>510</span>
+<span class=normal>511</span>
+<span class=normal>512</span>
+<span class=normal>513</span>
+<span class=normal>514</span>
+<span class=normal>515</span>
+<span class=normal>516</span>
+<span class=normal>517</span>
+<span class=normal>518</span>
+<span class=normal>519</span>
+<span class=normal>520</span>
+<span class=normal>521</span>
+<span class=normal>522</span>
+<span class=normal>523</span>
+<span class=normal>524</span>
+<span class=normal>525</span>
+<span class=normal>526</span>
+<span class=normal>527</span>
+<span class=normal>528</span>
+<span class=normal>529</span>
+<span class=normal>530</span>
+<span class=normal>531</span>
+<span class=normal>532</span>
+<span class=normal>533</span>
+<span class=normal>534</span>
+<span class=normal>535</span>
+<span class=normal>536</span>
+<span class=normal>537</span>
+<span class=normal>538</span>
+<span class=normal>539</span>
+<span class=normal>540</span>
+<span class=normal>541</span>
+<span class=normal>542</span>
+<span class=normal>543</span>
+<span class=normal>544</span>
+<span class=normal>545</span>
+<span class=normal>546</span>
+<span class=normal>547</span>
+<span class=normal>548</span>
+<span class=normal>549</span>
+<span class=normal>550</span>
+<span class=normal>551</span>
+<span class=normal>552</span>
+<span class=normal>553</span>
+<span class=normal>554</span>
+<span class=normal>555</span>
+<span class=normal>556</span>
+<span class=normal>557</span>
+<span class=normal>558</span>
+<span class=normal>559</span>
+<span class=normal>560</span>
+<span class=normal>561</span>
+<span class=normal>562</span>
+<span class=normal>563</span>
+<span class=normal>564</span>
+<span class=normal>565</span>
+<span class=normal>566</span>
+<span class=normal>567</span>
+<span class=normal>568</span>
+<span class=normal>569</span>
+<span class=normal>570</span>
+<span class=normal>571</span>
+<span class=normal>572</span>
+<span class=normal>573</span>
+<span class=normal>574</span>
+<span class=normal>575</span>
+<span class=normal>576</span>
+<span class=normal>577</span>
+<span class=normal>578</span>
+<span class=normal>579</span>
+<span class=normal>580</span>
+<span class=normal>581</span>
+<span class=normal>582</span>
+<span class=normal>583</span>
+<span class=normal>584</span>
+<span class=normal>585</span>
+<span class=normal>586</span>
+<span class=normal>587</span>
+<span class=normal>588</span>
+<span class=normal>589</span>
+<span class=normal>590</span>
+<span class=normal>591</span>
+<span class=normal>592</span>
+<span class=normal>593</span>
+<span class=normal>594</span>
+<span class=normal>595</span>
+<span class=normal>596</span>
+<span class=normal>597</span>
+<span class=normal>598</span>
+<span class=normal>599</span>
+<span class=normal>600</span>
+<span class=normal>601</span>
+<span class=normal>602</span>
+<span class=normal>603</span>
+<span class=normal>604</span>
+<span class=normal>605</span>
+<span class=normal>606</span>
+<span class=normal>607</span>
+<span class=normal>608</span>
+<span class=normal>609</span>
+<span class=normal>610</span>
+<span class=normal>611</span>
+<span class=normal>612</span>
+<span class=normal>613</span>
+<span class=normal>614</span>
+<span class=normal>615</span>
+<span class=normal>616</span>
+<span class=normal>617</span>
+<span class=normal>618</span>
+<span class=normal>619</span>
+<span class=normal>620</span>
+<span class=normal>621</span>
+<span class=normal>622</span>
+<span class=normal>623</span>
+<span class=normal>624</span>
+<span class=normal>625</span>
+<span class=normal>626</span>
+<span class=normal>627</span>
+<span class=normal>628</span>
+<span class=normal>629</span>
+<span class=normal>630</span>
+<span class=normal>631</span>
+<span class=normal>632</span>
+<span class=normal>633</span>
+<span class=normal>634</span>
+<span class=normal>635</span>
+<span class=normal>636</span>
+<span class=normal>637</span>
+<span class=normal>638</span>
+<span class=normal>639</span>
+<span class=normal>640</span>
+<span class=normal>641</span>
+<span class=normal>642</span>
+<span class=normal>643</span>
+<span class=normal>644</span>
+<span class=normal>645</span>
+<span class=normal>646</span>
+<span class=normal>647</span>
+<span class=normal>648</span>
+<span class=normal>649</span>
+<span class=normal>650</span>
+<span class=normal>651</span>
+<span class=normal>652</span>
+<span class=normal>653</span>
+<span class=normal>654</span>
+<span class=normal>655</span>
+<span class=normal>656</span>
+<span class=normal>657</span>
+<span class=normal>658</span>
+<span class=normal>659</span>
+<span class=normal>660</span>
+<span class=normal>661</span>
+<span class=normal>662</span>
+<span class=normal>663</span>
+<span class=normal>664</span>
+<span class=normal>665</span>
+<span class=normal>666</span>
+<span class=normal>667</span>
+<span class=normal>668</span>
+<span class=normal>669</span>
+<span class=normal>670</span>
+<span class=normal>671</span>
+<span class=normal>672</span>
+<span class=normal>673</span>
+<span class=normal>674</span>
+<span class=normal>675</span>
+<span class=normal>676</span>
+<span class=normal>677</span>
+<span class=normal>678</span>
+<span class=normal>679</span>
+<span class=normal>680</span>
+<span class=normal>681</span>
+<span class=normal>682</span>
+<span class=normal>683</span>
+<span class=normal>684</span>
+<span class=normal>685</span>
+<span class=normal>686</span>
+<span class=normal>687</span>
+<span class=normal>688</span>
+<span class=normal>689</span>
+<span class=normal>690</span>
+<span class=normal>691</span>
+<span class=normal>692</span>
+<span class=normal>693</span>
+<span class=normal>694</span>
+<span class=normal>695</span>
+<span class=normal>696</span>
+<span class=normal>697</span>
+<span class=normal>698</span>
+<span class=normal>699</span>
+<span class=normal>700</span>
+<span class=normal>701</span>
+<span class=normal>702</span>
+<span class=normal>703</span>
+<span class=normal>704</span>
+<span class=normal>705</span>
+<span class=normal>706</span>
+<span class=normal>707</span>
+<span class=normal>708</span>
+<span class=normal>709</span>
+<span class=normal>710</span>
+<span class=normal>711</span>
+<span class=normal>712</span>
+<span class=normal>713</span>
+<span class=normal>714</span>
+<span class=normal>715</span>
+<span class=normal>716</span>
+<span class=normal>717</span>
+<span class=normal>718</span>
+<span class=normal>719</span>
+<span class=normal>720</span>
+<span class=normal>721</span>
+<span class=normal>722</span>
+<span class=normal>723</span>
+<span class=normal>724</span>
+<span class=normal>725</span>
+<span class=normal>726</span>
+<span class=normal>727</span>
+<span class=normal>728</span>
+<span class=normal>729</span>
+<span class=normal>730</span>
+<span class=normal>731</span>
+<span class=normal>732</span>
+<span class=normal>733</span>
+<span class=normal>734</span>
+<span class=normal>735</span>
+<span class=normal>736</span>
+<span class=normal>737</span>
+<span class=normal>738</span>
+<span class=normal>739</span>
+<span class=normal>740</span>
+<span class=normal>741</span>
+<span class=normal>742</span>
+<span class=normal>743</span>
+<span class=normal>744</span>
+<span class=normal>745</span>
+<span class=normal>746</span>
+<span class=normal>747</span>
+<span class=normal>748</span>
+<span class=normal>749</span>
+<span class=normal>750</span>
+<span class=normal>751</span>
+<span class=normal>752</span>
+<span class=normal>753</span>
+<span class=normal>754</span>
+<span class=normal>755</span>
+<span class=normal>756</span>
+<span class=normal>757</span>
+<span class=normal>758</span>
+<span class=normal>759</span>
+<span class=normal>760</span>
+<span class=normal>761</span>
+<span class=normal>762</span>
+<span class=normal>763</span>
+<span class=normal>764</span></pre></div></td><td class=code><div><pre><span></span><code><span class=k>class</span><span class=w> </span><span class=nc>WrappedSocket</span><span class=p>(</span><span class=nb>object</span><span class=p>):</span>
+<span class=w>    </span><span class=sd>&quot;&quot;&quot;</span>
+<span class=sd>    API-compatibility wrapper for Python&#39;s OpenSSL wrapped socket object.</span>
+
+<span class=sd>    Note: _makefile_refs, _drop(), and _reuse() are needed for the garbage</span>
+<span class=sd>    collector of PyPy.</span>
+<span class=sd>    &quot;&quot;&quot;</span>
+
+    <span class=k>def</span><span class=w> </span><span class=fm>__init__</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>socket</span><span class=p>):</span>
+        <span class=bp>self</span><span class=o>.</span><span class=n>socket</span> <span class=o>=</span> <span class=n>socket</span>
+        <span class=bp>self</span><span class=o>.</span><span class=n>context</span> <span class=o>=</span> <span class=kc>None</span>
+        <span class=bp>self</span><span class=o>.</span><span class=n>_makefile_refs</span> <span class=o>=</span> <span class=mi>0</span>
+        <span class=bp>self</span><span class=o>.</span><span class=n>_closed</span> <span class=o>=</span> <span class=kc>False</span>
+        <span class=bp>self</span><span class=o>.</span><span class=n>_exception</span> <span class=o>=</span> <span class=kc>None</span>
+        <span class=bp>self</span><span class=o>.</span><span class=n>_keychain</span> <span class=o>=</span> <span class=kc>None</span>
+        <span class=bp>self</span><span class=o>.</span><span class=n>_keychain_dir</span> <span class=o>=</span> <span class=kc>None</span>
+        <span class=bp>self</span><span class=o>.</span><span class=n>_client_cert_chain</span> <span class=o>=</span> <span class=kc>None</span>
+
+        <span class=c1># We save off the previously-configured timeout and then set it to</span>
+        <span class=c1># zero. This is done because we use select and friends to handle the</span>
+        <span class=c1># timeouts, but if we leave the timeout set on the lower socket then</span>
+        <span class=c1># Python will &quot;kindly&quot; call select on that socket again for us. Avoid</span>
+        <span class=c1># that by forcing the timeout to zero.</span>
+        <span class=bp>self</span><span class=o>.</span><span class=n>_timeout</span> <span class=o>=</span> <span class=bp>self</span><span class=o>.</span><span class=n>socket</span><span class=o>.</span><span class=n>gettimeout</span><span class=p>()</span>
+        <span class=bp>self</span><span class=o>.</span><span class=n>socket</span><span class=o>.</span><span class=n>settimeout</span><span class=p>(</span><span class=mi>0</span><span class=p>)</span>
+
+    <span class=nd>@contextlib</span><span class=o>.</span><span class=n>contextmanager</span>
+    <span class=k>def</span><span class=w> </span><span class=nf>_raise_on_error</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+<span class=w>        </span><span class=sd>&quot;&quot;&quot;</span>
+<span class=sd>        A context manager that can be used to wrap calls that do I/O from</span>
+<span class=sd>        SecureTransport. If any of the I/O callbacks hit an exception, this</span>
+<span class=sd>        context manager will correctly propagate the exception after the fact.</span>
+<span class=sd>        This avoids silently swallowing those exceptions.</span>
+
+<span class=sd>        It also correctly forces the socket closed.</span>
+<span class=sd>        &quot;&quot;&quot;</span>
+        <span class=bp>self</span><span class=o>.</span><span class=n>_exception</span> <span class=o>=</span> <span class=kc>None</span>
+
+        <span class=c1># We explicitly don&#39;t catch around this yield because in the unlikely</span>
+        <span class=c1># event that an exception was hit in the block we don&#39;t want to swallow</span>
+        <span class=c1># it.</span>
+        <span class=k>yield</span>
+        <span class=k>if</span> <span class=bp>self</span><span class=o>.</span><span class=n>_exception</span> <span class=ow>is</span> <span class=ow>not</span> <span class=kc>None</span><span class=p>:</span>
+            <span class=n>exception</span><span class=p>,</span> <span class=bp>self</span><span class=o>.</span><span class=n>_exception</span> <span class=o>=</span> <span class=bp>self</span><span class=o>.</span><span class=n>_exception</span><span class=p>,</span> <span class=kc>None</span>
+            <span class=bp>self</span><span class=o>.</span><span class=n>close</span><span class=p>()</span>
+            <span class=k>raise</span> <span class=n>exception</span>
+
+    <span class=k>def</span><span class=w> </span><span class=nf>_set_ciphers</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+<span class=w>        </span><span class=sd>&quot;&quot;&quot;</span>
+<span class=sd>        Sets up the allowed ciphers. By default this matches the set in</span>
+<span class=sd>        util.ssl_.DEFAULT_CIPHERS, at least as supported by macOS. This is done</span>
+<span class=sd>        custom and doesn&#39;t allow changing at this time, mostly because parsing</span>
+<span class=sd>        OpenSSL cipher strings is going to be a freaking nightmare.</span>
+<span class=sd>        &quot;&quot;&quot;</span>
+        <span class=n>ciphers</span> <span class=o>=</span> <span class=p>(</span><span class=n>Security</span><span class=o>.</span><span class=n>SSLCipherSuite</span> <span class=o>*</span> <span class=nb>len</span><span class=p>(</span><span class=n>CIPHER_SUITES</span><span class=p>))(</span><span class=o>*</span><span class=n>CIPHER_SUITES</span><span class=p>)</span>
+        <span class=n>result</span> <span class=o>=</span> <span class=n>Security</span><span class=o>.</span><span class=n>SSLSetEnabledCiphers</span><span class=p>(</span>
+            <span class=bp>self</span><span class=o>.</span><span class=n>context</span><span class=p>,</span> <span class=n>ciphers</span><span class=p>,</span> <span class=nb>len</span><span class=p>(</span><span class=n>CIPHER_SUITES</span><span class=p>)</span>
+        <span class=p>)</span>
+        <span class=n>_assert_no_error</span><span class=p>(</span><span class=n>result</span><span class=p>)</span>
+
+    <span class=k>def</span><span class=w> </span><span class=nf>_set_alpn_protocols</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>protocols</span><span class=p>):</span>
+<span class=w>        </span><span class=sd>&quot;&quot;&quot;</span>
+<span class=sd>        Sets up the ALPN protocols on the context.</span>
+<span class=sd>        &quot;&quot;&quot;</span>
+        <span class=k>if</span> <span class=ow>not</span> <span class=n>protocols</span><span class=p>:</span>
+            <span class=k>return</span>
+        <span class=n>protocols_arr</span> <span class=o>=</span> <span class=n>_create_cfstring_array</span><span class=p>(</span><span class=n>protocols</span><span class=p>)</span>
+        <span class=k>try</span><span class=p>:</span>
+            <span class=n>result</span> <span class=o>=</span> <span class=n>Security</span><span class=o>.</span><span class=n>SSLSetALPNProtocols</span><span class=p>(</span><span class=bp>self</span><span class=o>.</span><span class=n>context</span><span class=p>,</span> <span class=n>protocols_arr</span><span class=p>)</span>
+            <span class=n>_assert_no_error</span><span class=p>(</span><span class=n>result</span><span class=p>)</span>
+        <span class=k>finally</span><span class=p>:</span>
+            <span class=n>CoreFoundation</span><span class=o>.</span><span class=n>CFRelease</span><span class=p>(</span><span class=n>protocols_arr</span><span class=p>)</span>
+
+    <span class=k>def</span><span class=w> </span><span class=nf>_custom_validate</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>verify</span><span class=p>,</span> <span class=n>trust_bundle</span><span class=p>):</span>
+<span class=w>        </span><span class=sd>&quot;&quot;&quot;</span>
+<span class=sd>        Called when we have set custom validation. We do this in two cases:</span>
+<span class=sd>        first, when cert validation is entirely disabled; and second, when</span>
+<span class=sd>        using a custom trust DB.</span>
+<span class=sd>        Raises an SSLError if the connection is not trusted.</span>
+<span class=sd>        &quot;&quot;&quot;</span>
+        <span class=c1># If we disabled cert validation, just say: cool.</span>
+        <span class=k>if</span> <span class=ow>not</span> <span class=n>verify</span><span class=p>:</span>
+            <span class=k>return</span>
+
+        <span class=n>successes</span> <span class=o>=</span> <span class=p>(</span>
+            <span class=n>SecurityConst</span><span class=o>.</span><span class=n>kSecTrustResultUnspecified</span><span class=p>,</span>
+            <span class=n>SecurityConst</span><span class=o>.</span><span class=n>kSecTrustResultProceed</span><span class=p>,</span>
+        <span class=p>)</span>
+        <span class=k>try</span><span class=p>:</span>
+            <span class=n>trust_result</span> <span class=o>=</span> <span class=bp>self</span><span class=o>.</span><span class=n>_evaluate_trust</span><span class=p>(</span><span class=n>trust_bundle</span><span class=p>)</span>
+            <span class=k>if</span> <span class=n>trust_result</span> <span class=ow>in</span> <span class=n>successes</span><span class=p>:</span>
+                <span class=k>return</span>
+            <span class=n>reason</span> <span class=o>=</span> <span class=s2>&quot;error code: </span><span class=si>%d</span><span class=s2>&quot;</span> <span class=o>%</span> <span class=p>(</span><span class=n>trust_result</span><span class=p>,)</span>
+        <span class=k>except</span> <span class=ne>Exception</span> <span class=k>as</span> <span class=n>e</span><span class=p>:</span>
+            <span class=c1># Do not trust on error</span>
+            <span class=n>reason</span> <span class=o>=</span> <span class=s2>&quot;exception: </span><span class=si>%r</span><span class=s2>&quot;</span> <span class=o>%</span> <span class=p>(</span><span class=n>e</span><span class=p>,)</span>
+
+        <span class=c1># SecureTransport does not send an alert nor shuts down the connection.</span>
+        <span class=n>rec</span> <span class=o>=</span> <span class=n>_build_tls_unknown_ca_alert</span><span class=p>(</span><span class=bp>self</span><span class=o>.</span><span class=n>version</span><span class=p>())</span>
+        <span class=bp>self</span><span class=o>.</span><span class=n>socket</span><span class=o>.</span><span class=n>sendall</span><span class=p>(</span><span class=n>rec</span><span class=p>)</span>
+        <span class=c1># close the connection immediately</span>
+        <span class=c1># l_onoff = 1, activate linger</span>
+        <span class=c1># l_linger = 0, linger for 0 seoncds</span>
+        <span class=n>opts</span> <span class=o>=</span> <span class=n>struct</span><span class=o>.</span><span class=n>pack</span><span class=p>(</span><span class=s2>&quot;ii&quot;</span><span class=p>,</span> <span class=mi>1</span><span class=p>,</span> <span class=mi>0</span><span class=p>)</span>
+        <span class=bp>self</span><span class=o>.</span><span class=n>socket</span><span class=o>.</span><span class=n>setsockopt</span><span class=p>(</span><span class=n>socket</span><span class=o>.</span><span class=n>SOL_SOCKET</span><span class=p>,</span> <span class=n>socket</span><span class=o>.</span><span class=n>SO_LINGER</span><span class=p>,</span> <span class=n>opts</span><span class=p>)</span>
+        <span class=bp>self</span><span class=o>.</span><span class=n>close</span><span class=p>()</span>
+        <span class=k>raise</span> <span class=n>ssl</span><span class=o>.</span><span class=n>SSLError</span><span class=p>(</span><span class=s2>&quot;certificate verify failed, </span><span class=si>%s</span><span class=s2>&quot;</span> <span class=o>%</span> <span class=n>reason</span><span class=p>)</span>
+
+    <span class=k>def</span><span class=w> </span><span class=nf>_evaluate_trust</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>trust_bundle</span><span class=p>):</span>
+        <span class=c1># We want data in memory, so load it up.</span>
+        <span class=k>if</span> <span class=n>os</span><span class=o>.</span><span class=n>path</span><span class=o>.</span><span class=n>isfile</span><span class=p>(</span><span class=n>trust_bundle</span><span class=p>):</span>
+            <span class=k>with</span> <span class=nb>open</span><span class=p>(</span><span class=n>trust_bundle</span><span class=p>,</span> <span class=s2>&quot;rb&quot;</span><span class=p>)</span> <span class=k>as</span> <span class=n>f</span><span class=p>:</span>
+                <span class=n>trust_bundle</span> <span class=o>=</span> <span class=n>f</span><span class=o>.</span><span class=n>read</span><span class=p>()</span>
+
+        <span class=n>cert_array</span> <span class=o>=</span> <span class=kc>None</span>
+        <span class=n>trust</span> <span class=o>=</span> <span class=n>Security</span><span class=o>.</span><span class=n>SecTrustRef</span><span class=p>()</span>
+
+        <span class=k>try</span><span class=p>:</span>
+            <span class=c1># Get a CFArray that contains the certs we want.</span>
+            <span class=n>cert_array</span> <span class=o>=</span> <span class=n>_cert_array_from_pem</span><span class=p>(</span><span class=n>trust_bundle</span><span class=p>)</span>
+
+            <span class=c1># Ok, now the hard part. We want to get the SecTrustRef that ST has</span>
+            <span class=c1># created for this connection, shove our CAs into it, tell ST to</span>
+            <span class=c1># ignore everything else it knows, and then ask if it can build a</span>
+            <span class=c1># chain. This is a buuuunch of code.</span>
+            <span class=n>result</span> <span class=o>=</span> <span class=n>Security</span><span class=o>.</span><span class=n>SSLCopyPeerTrust</span><span class=p>(</span><span class=bp>self</span><span class=o>.</span><span class=n>context</span><span class=p>,</span> <span class=n>ctypes</span><span class=o>.</span><span class=n>byref</span><span class=p>(</span><span class=n>trust</span><span class=p>))</span>
+            <span class=n>_assert_no_error</span><span class=p>(</span><span class=n>result</span><span class=p>)</span>
+            <span class=k>if</span> <span class=ow>not</span> <span class=n>trust</span><span class=p>:</span>
+                <span class=k>raise</span> <span class=n>ssl</span><span class=o>.</span><span class=n>SSLError</span><span class=p>(</span><span class=s2>&quot;Failed to copy trust reference&quot;</span><span class=p>)</span>
+
+            <span class=n>result</span> <span class=o>=</span> <span class=n>Security</span><span class=o>.</span><span class=n>SecTrustSetAnchorCertificates</span><span class=p>(</span><span class=n>trust</span><span class=p>,</span> <span class=n>cert_array</span><span class=p>)</span>
+            <span class=n>_assert_no_error</span><span class=p>(</span><span class=n>result</span><span class=p>)</span>
+
+            <span class=n>result</span> <span class=o>=</span> <span class=n>Security</span><span class=o>.</span><span class=n>SecTrustSetAnchorCertificatesOnly</span><span class=p>(</span><span class=n>trust</span><span class=p>,</span> <span class=kc>True</span><span class=p>)</span>
+            <span class=n>_assert_no_error</span><span class=p>(</span><span class=n>result</span><span class=p>)</span>
+
+            <span class=n>trust_result</span> <span class=o>=</span> <span class=n>Security</span><span class=o>.</span><span class=n>SecTrustResultType</span><span class=p>()</span>
+            <span class=n>result</span> <span class=o>=</span> <span class=n>Security</span><span class=o>.</span><span class=n>SecTrustEvaluate</span><span class=p>(</span><span class=n>trust</span><span class=p>,</span> <span class=n>ctypes</span><span class=o>.</span><span class=n>byref</span><span class=p>(</span><span class=n>trust_result</span><span class=p>))</span>
+            <span class=n>_assert_no_error</span><span class=p>(</span><span class=n>result</span><span class=p>)</span>
+        <span class=k>finally</span><span class=p>:</span>
+            <span class=k>if</span> <span class=n>trust</span><span class=p>:</span>
+                <span class=n>CoreFoundation</span><span class=o>.</span><span class=n>CFRelease</span><span class=p>(</span><span class=n>trust</span><span class=p>)</span>
+
+            <span class=k>if</span> <span class=n>cert_array</span> <span class=ow>is</span> <span class=ow>not</span> <span class=kc>None</span><span class=p>:</span>
+                <span class=n>CoreFoundation</span><span class=o>.</span><span class=n>CFRelease</span><span class=p>(</span><span class=n>cert_array</span><span class=p>)</span>
+
+        <span class=k>return</span> <span class=n>trust_result</span><span class=o>.</span><span class=n>value</span>
+
+    <span class=k>def</span><span class=w> </span><span class=nf>handshake</span><span class=p>(</span>
+        <span class=bp>self</span><span class=p>,</span>
+        <span class=n>server_hostname</span><span class=p>,</span>
+        <span class=n>verify</span><span class=p>,</span>
+        <span class=n>trust_bundle</span><span class=p>,</span>
+        <span class=n>min_version</span><span class=p>,</span>
+        <span class=n>max_version</span><span class=p>,</span>
+        <span class=n>client_cert</span><span class=p>,</span>
+        <span class=n>client_key</span><span class=p>,</span>
+        <span class=n>client_key_passphrase</span><span class=p>,</span>
+        <span class=n>alpn_protocols</span><span class=p>,</span>
+    <span class=p>):</span>
+<span class=w>        </span><span class=sd>&quot;&quot;&quot;</span>
+<span class=sd>        Actually performs the TLS handshake. This is run automatically by</span>
+<span class=sd>        wrapped socket, and shouldn&#39;t be needed in user code.</span>
+<span class=sd>        &quot;&quot;&quot;</span>
+        <span class=c1># First, we do the initial bits of connection setup. We need to create</span>
+        <span class=c1># a context, set its I/O funcs, and set the connection reference.</span>
+        <span class=bp>self</span><span class=o>.</span><span class=n>context</span> <span class=o>=</span> <span class=n>Security</span><span class=o>.</span><span class=n>SSLCreateContext</span><span class=p>(</span>
+            <span class=kc>None</span><span class=p>,</span> <span class=n>SecurityConst</span><span class=o>.</span><span class=n>kSSLClientSide</span><span class=p>,</span> <span class=n>SecurityConst</span><span class=o>.</span><span class=n>kSSLStreamType</span>
+        <span class=p>)</span>
+        <span class=n>result</span> <span class=o>=</span> <span class=n>Security</span><span class=o>.</span><span class=n>SSLSetIOFuncs</span><span class=p>(</span>
+            <span class=bp>self</span><span class=o>.</span><span class=n>context</span><span class=p>,</span> <span class=n>_read_callback_pointer</span><span class=p>,</span> <span class=n>_write_callback_pointer</span>
+        <span class=p>)</span>
+        <span class=n>_assert_no_error</span><span class=p>(</span><span class=n>result</span><span class=p>)</span>
+
+        <span class=c1># Here we need to compute the handle to use. We do this by taking the</span>
+        <span class=c1># id of self modulo 2**31 - 1. If this is already in the dictionary, we</span>
+        <span class=c1># just keep incrementing by one until we find a free space.</span>
+        <span class=k>with</span> <span class=n>_connection_ref_lock</span><span class=p>:</span>
+            <span class=n>handle</span> <span class=o>=</span> <span class=nb>id</span><span class=p>(</span><span class=bp>self</span><span class=p>)</span> <span class=o>%</span> <span class=mi>2147483647</span>
+            <span class=k>while</span> <span class=n>handle</span> <span class=ow>in</span> <span class=n>_connection_refs</span><span class=p>:</span>
+                <span class=n>handle</span> <span class=o>=</span> <span class=p>(</span><span class=n>handle</span> <span class=o>+</span> <span class=mi>1</span><span class=p>)</span> <span class=o>%</span> <span class=mi>2147483647</span>
+            <span class=n>_connection_refs</span><span class=p>[</span><span class=n>handle</span><span class=p>]</span> <span class=o>=</span> <span class=bp>self</span>
+
+        <span class=n>result</span> <span class=o>=</span> <span class=n>Security</span><span class=o>.</span><span class=n>SSLSetConnection</span><span class=p>(</span><span class=bp>self</span><span class=o>.</span><span class=n>context</span><span class=p>,</span> <span class=n>handle</span><span class=p>)</span>
+        <span class=n>_assert_no_error</span><span class=p>(</span><span class=n>result</span><span class=p>)</span>
+
+        <span class=c1># If we have a server hostname, we should set that too.</span>
+        <span class=k>if</span> <span class=n>server_hostname</span><span class=p>:</span>
+            <span class=k>if</span> <span class=ow>not</span> <span class=nb>isinstance</span><span class=p>(</span><span class=n>server_hostname</span><span class=p>,</span> <span class=nb>bytes</span><span class=p>):</span>
+                <span class=n>server_hostname</span> <span class=o>=</span> <span class=n>server_hostname</span><span class=o>.</span><span class=n>encode</span><span class=p>(</span><span class=s2>&quot;utf-8&quot;</span><span class=p>)</span>
+
+            <span class=n>result</span> <span class=o>=</span> <span class=n>Security</span><span class=o>.</span><span class=n>SSLSetPeerDomainName</span><span class=p>(</span>
+                <span class=bp>self</span><span class=o>.</span><span class=n>context</span><span class=p>,</span> <span class=n>server_hostname</span><span class=p>,</span> <span class=nb>len</span><span class=p>(</span><span class=n>server_hostname</span><span class=p>)</span>
+            <span class=p>)</span>
+            <span class=n>_assert_no_error</span><span class=p>(</span><span class=n>result</span><span class=p>)</span>
+
+        <span class=c1># Setup the ciphers.</span>
+        <span class=bp>self</span><span class=o>.</span><span class=n>_set_ciphers</span><span class=p>()</span>
+
+        <span class=c1># Setup the ALPN protocols.</span>
+        <span class=bp>self</span><span class=o>.</span><span class=n>_set_alpn_protocols</span><span class=p>(</span><span class=n>alpn_protocols</span><span class=p>)</span>
+
+        <span class=c1># Set the minimum and maximum TLS versions.</span>
+        <span class=n>result</span> <span class=o>=</span> <span class=n>Security</span><span class=o>.</span><span class=n>SSLSetProtocolVersionMin</span><span class=p>(</span><span class=bp>self</span><span class=o>.</span><span class=n>context</span><span class=p>,</span> <span class=n>min_version</span><span class=p>)</span>
+        <span class=n>_assert_no_error</span><span class=p>(</span><span class=n>result</span><span class=p>)</span>
+
+        <span class=n>result</span> <span class=o>=</span> <span class=n>Security</span><span class=o>.</span><span class=n>SSLSetProtocolVersionMax</span><span class=p>(</span><span class=bp>self</span><span class=o>.</span><span class=n>context</span><span class=p>,</span> <span class=n>max_version</span><span class=p>)</span>
+        <span class=n>_assert_no_error</span><span class=p>(</span><span class=n>result</span><span class=p>)</span>
+
+        <span class=c1># If there&#39;s a trust DB, we need to use it. We do that by telling</span>
+        <span class=c1># SecureTransport to break on server auth. We also do that if we don&#39;t</span>
+        <span class=c1># want to validate the certs at all: we just won&#39;t actually do any</span>
+        <span class=c1># authing in that case.</span>
+        <span class=k>if</span> <span class=ow>not</span> <span class=n>verify</span> <span class=ow>or</span> <span class=n>trust_bundle</span> <span class=ow>is</span> <span class=ow>not</span> <span class=kc>None</span><span class=p>:</span>
+            <span class=n>result</span> <span class=o>=</span> <span class=n>Security</span><span class=o>.</span><span class=n>SSLSetSessionOption</span><span class=p>(</span>
+                <span class=bp>self</span><span class=o>.</span><span class=n>context</span><span class=p>,</span> <span class=n>SecurityConst</span><span class=o>.</span><span class=n>kSSLSessionOptionBreakOnServerAuth</span><span class=p>,</span> <span class=kc>True</span>
+            <span class=p>)</span>
+            <span class=n>_assert_no_error</span><span class=p>(</span><span class=n>result</span><span class=p>)</span>
+
+        <span class=c1># If there&#39;s a client cert, we need to use it.</span>
+        <span class=k>if</span> <span class=n>client_cert</span><span class=p>:</span>
+            <span class=bp>self</span><span class=o>.</span><span class=n>_keychain</span><span class=p>,</span> <span class=bp>self</span><span class=o>.</span><span class=n>_keychain_dir</span> <span class=o>=</span> <span class=n>_temporary_keychain</span><span class=p>()</span>
+            <span class=bp>self</span><span class=o>.</span><span class=n>_client_cert_chain</span> <span class=o>=</span> <span class=n>_load_client_cert_chain</span><span class=p>(</span>
+                <span class=bp>self</span><span class=o>.</span><span class=n>_keychain</span><span class=p>,</span> <span class=n>client_cert</span><span class=p>,</span> <span class=n>client_key</span>
+            <span class=p>)</span>
+            <span class=n>result</span> <span class=o>=</span> <span class=n>Security</span><span class=o>.</span><span class=n>SSLSetCertificate</span><span class=p>(</span><span class=bp>self</span><span class=o>.</span><span class=n>context</span><span class=p>,</span> <span class=bp>self</span><span class=o>.</span><span class=n>_client_cert_chain</span><span class=p>)</span>
+            <span class=n>_assert_no_error</span><span class=p>(</span><span class=n>result</span><span class=p>)</span>
+
+        <span class=k>while</span> <span class=kc>True</span><span class=p>:</span>
+            <span class=k>with</span> <span class=bp>self</span><span class=o>.</span><span class=n>_raise_on_error</span><span class=p>():</span>
+                <span class=n>result</span> <span class=o>=</span> <span class=n>Security</span><span class=o>.</span><span class=n>SSLHandshake</span><span class=p>(</span><span class=bp>self</span><span class=o>.</span><span class=n>context</span><span class=p>)</span>
+
+                <span class=k>if</span> <span class=n>result</span> <span class=o>==</span> <span class=n>SecurityConst</span><span class=o>.</span><span class=n>errSSLWouldBlock</span><span class=p>:</span>
+                    <span class=k>raise</span> <span class=n>socket</span><span class=o>.</span><span class=n>timeout</span><span class=p>(</span><span class=s2>&quot;handshake timed out&quot;</span><span class=p>)</span>
+                <span class=k>elif</span> <span class=n>result</span> <span class=o>==</span> <span class=n>SecurityConst</span><span class=o>.</span><span class=n>errSSLServerAuthCompleted</span><span class=p>:</span>
+                    <span class=bp>self</span><span class=o>.</span><span class=n>_custom_validate</span><span class=p>(</span><span class=n>verify</span><span class=p>,</span> <span class=n>trust_bundle</span><span class=p>)</span>
+                    <span class=k>continue</span>
+                <span class=k>else</span><span class=p>:</span>
+                    <span class=n>_assert_no_error</span><span class=p>(</span><span class=n>result</span><span class=p>)</span>
+                    <span class=k>break</span>
+
+    <span class=k>def</span><span class=w> </span><span class=nf>fileno</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+        <span class=k>return</span> <span class=bp>self</span><span class=o>.</span><span class=n>socket</span><span class=o>.</span><span class=n>fileno</span><span class=p>()</span>
+
+    <span class=c1># Copy-pasted from Python 3.5 source code</span>
+    <span class=k>def</span><span class=w> </span><span class=nf>_decref_socketios</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+        <span class=k>if</span> <span class=bp>self</span><span class=o>.</span><span class=n>_makefile_refs</span> <span class=o>&gt;</span> <span class=mi>0</span><span class=p>:</span>
+            <span class=bp>self</span><span class=o>.</span><span class=n>_makefile_refs</span> <span class=o>-=</span> <span class=mi>1</span>
+        <span class=k>if</span> <span class=bp>self</span><span class=o>.</span><span class=n>_closed</span><span class=p>:</span>
+            <span class=bp>self</span><span class=o>.</span><span class=n>close</span><span class=p>()</span>
+
+    <span class=k>def</span><span class=w> </span><span class=nf>recv</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>bufsiz</span><span class=p>):</span>
+        <span class=n>buffer</span> <span class=o>=</span> <span class=n>ctypes</span><span class=o>.</span><span class=n>create_string_buffer</span><span class=p>(</span><span class=n>bufsiz</span><span class=p>)</span>
+        <span class=n>bytes_read</span> <span class=o>=</span> <span class=bp>self</span><span class=o>.</span><span class=n>recv_into</span><span class=p>(</span><span class=n>buffer</span><span class=p>,</span> <span class=n>bufsiz</span><span class=p>)</span>
+        <span class=n>data</span> <span class=o>=</span> <span class=n>buffer</span><span class=p>[:</span><span class=n>bytes_read</span><span class=p>]</span>
+        <span class=k>return</span> <span class=n>data</span>
+
+    <span class=k>def</span><span class=w> </span><span class=nf>recv_into</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>buffer</span><span class=p>,</span> <span class=n>nbytes</span><span class=o>=</span><span class=kc>None</span><span class=p>):</span>
+        <span class=c1># Read short on EOF.</span>
+        <span class=k>if</span> <span class=bp>self</span><span class=o>.</span><span class=n>_closed</span><span class=p>:</span>
+            <span class=k>return</span> <span class=mi>0</span>
+
+        <span class=k>if</span> <span class=n>nbytes</span> <span class=ow>is</span> <span class=kc>None</span><span class=p>:</span>
+            <span class=n>nbytes</span> <span class=o>=</span> <span class=nb>len</span><span class=p>(</span><span class=n>buffer</span><span class=p>)</span>
+
+        <span class=n>buffer</span> <span class=o>=</span> <span class=p>(</span><span class=n>ctypes</span><span class=o>.</span><span class=n>c_char</span> <span class=o>*</span> <span class=n>nbytes</span><span class=p>)</span><span class=o>.</span><span class=n>from_buffer</span><span class=p>(</span><span class=n>buffer</span><span class=p>)</span>
+        <span class=n>processed_bytes</span> <span class=o>=</span> <span class=n>ctypes</span><span class=o>.</span><span class=n>c_size_t</span><span class=p>(</span><span class=mi>0</span><span class=p>)</span>
+
+        <span class=k>with</span> <span class=bp>self</span><span class=o>.</span><span class=n>_raise_on_error</span><span class=p>():</span>
+            <span class=n>result</span> <span class=o>=</span> <span class=n>Security</span><span class=o>.</span><span class=n>SSLRead</span><span class=p>(</span>
+                <span class=bp>self</span><span class=o>.</span><span class=n>context</span><span class=p>,</span> <span class=n>buffer</span><span class=p>,</span> <span class=n>nbytes</span><span class=p>,</span> <span class=n>ctypes</span><span class=o>.</span><span class=n>byref</span><span class=p>(</span><span class=n>processed_bytes</span><span class=p>)</span>
+            <span class=p>)</span>
+
+        <span class=c1># There are some result codes that we want to treat as &quot;not always</span>
+        <span class=c1># errors&quot;. Specifically, those are errSSLWouldBlock,</span>
+        <span class=c1># errSSLClosedGraceful, and errSSLClosedNoNotify.</span>
+        <span class=k>if</span> <span class=n>result</span> <span class=o>==</span> <span class=n>SecurityConst</span><span class=o>.</span><span class=n>errSSLWouldBlock</span><span class=p>:</span>
+            <span class=c1># If we didn&#39;t process any bytes, then this was just a time out.</span>
+            <span class=c1># However, we can get errSSLWouldBlock in situations when we *did*</span>
+            <span class=c1># read some data, and in those cases we should just read &quot;short&quot;</span>
+            <span class=c1># and return.</span>
+            <span class=k>if</span> <span class=n>processed_bytes</span><span class=o>.</span><span class=n>value</span> <span class=o>==</span> <span class=mi>0</span><span class=p>:</span>
+                <span class=c1># Timed out, no data read.</span>
+                <span class=k>raise</span> <span class=n>socket</span><span class=o>.</span><span class=n>timeout</span><span class=p>(</span><span class=s2>&quot;recv timed out&quot;</span><span class=p>)</span>
+        <span class=k>elif</span> <span class=n>result</span> <span class=ow>in</span> <span class=p>(</span>
+            <span class=n>SecurityConst</span><span class=o>.</span><span class=n>errSSLClosedGraceful</span><span class=p>,</span>
+            <span class=n>SecurityConst</span><span class=o>.</span><span class=n>errSSLClosedNoNotify</span><span class=p>,</span>
+        <span class=p>):</span>
+            <span class=c1># The remote peer has closed this connection. We should do so as</span>
+            <span class=c1># well. Note that we don&#39;t actually return here because in</span>
+            <span class=c1># principle this could actually be fired along with return data.</span>
+            <span class=c1># It&#39;s unlikely though.</span>
+            <span class=bp>self</span><span class=o>.</span><span class=n>close</span><span class=p>()</span>
+        <span class=k>else</span><span class=p>:</span>
+            <span class=n>_assert_no_error</span><span class=p>(</span><span class=n>result</span><span class=p>)</span>
+
+        <span class=c1># Ok, we read and probably succeeded. We should return whatever data</span>
+        <span class=c1># was actually read.</span>
+        <span class=k>return</span> <span class=n>processed_bytes</span><span class=o>.</span><span class=n>value</span>
+
+    <span class=k>def</span><span class=w> </span><span class=nf>settimeout</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>timeout</span><span class=p>):</span>
+        <span class=bp>self</span><span class=o>.</span><span class=n>_timeout</span> <span class=o>=</span> <span class=n>timeout</span>
+
+    <span class=k>def</span><span class=w> </span><span class=nf>gettimeout</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+        <span class=k>return</span> <span class=bp>self</span><span class=o>.</span><span class=n>_timeout</span>
+
+    <span class=k>def</span><span class=w> </span><span class=nf>send</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>data</span><span class=p>):</span>
+        <span class=n>processed_bytes</span> <span class=o>=</span> <span class=n>ctypes</span><span class=o>.</span><span class=n>c_size_t</span><span class=p>(</span><span class=mi>0</span><span class=p>)</span>
+
+        <span class=k>with</span> <span class=bp>self</span><span class=o>.</span><span class=n>_raise_on_error</span><span class=p>():</span>
+            <span class=n>result</span> <span class=o>=</span> <span class=n>Security</span><span class=o>.</span><span class=n>SSLWrite</span><span class=p>(</span>
+                <span class=bp>self</span><span class=o>.</span><span class=n>context</span><span class=p>,</span> <span class=n>data</span><span class=p>,</span> <span class=nb>len</span><span class=p>(</span><span class=n>data</span><span class=p>),</span> <span class=n>ctypes</span><span class=o>.</span><span class=n>byref</span><span class=p>(</span><span class=n>processed_bytes</span><span class=p>)</span>
+            <span class=p>)</span>
+
+        <span class=k>if</span> <span class=n>result</span> <span class=o>==</span> <span class=n>SecurityConst</span><span class=o>.</span><span class=n>errSSLWouldBlock</span> <span class=ow>and</span> <span class=n>processed_bytes</span><span class=o>.</span><span class=n>value</span> <span class=o>==</span> <span class=mi>0</span><span class=p>:</span>
+            <span class=c1># Timed out</span>
+            <span class=k>raise</span> <span class=n>socket</span><span class=o>.</span><span class=n>timeout</span><span class=p>(</span><span class=s2>&quot;send timed out&quot;</span><span class=p>)</span>
+        <span class=k>else</span><span class=p>:</span>
+            <span class=n>_assert_no_error</span><span class=p>(</span><span class=n>result</span><span class=p>)</span>
+
+        <span class=c1># We sent, and probably succeeded. Tell them how much we sent.</span>
+        <span class=k>return</span> <span class=n>processed_bytes</span><span class=o>.</span><span class=n>value</span>
+
+    <span class=k>def</span><span class=w> </span><span class=nf>sendall</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>data</span><span class=p>):</span>
+        <span class=n>total_sent</span> <span class=o>=</span> <span class=mi>0</span>
+        <span class=k>while</span> <span class=n>total_sent</span> <span class=o>&lt;</span> <span class=nb>len</span><span class=p>(</span><span class=n>data</span><span class=p>):</span>
+            <span class=n>sent</span> <span class=o>=</span> <span class=bp>self</span><span class=o>.</span><span class=n>send</span><span class=p>(</span><span class=n>data</span><span class=p>[</span><span class=n>total_sent</span> <span class=p>:</span> <span class=n>total_sent</span> <span class=o>+</span> <span class=n>SSL_WRITE_BLOCKSIZE</span><span class=p>])</span>
+            <span class=n>total_sent</span> <span class=o>+=</span> <span class=n>sent</span>
+
+    <span class=k>def</span><span class=w> </span><span class=nf>shutdown</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+        <span class=k>with</span> <span class=bp>self</span><span class=o>.</span><span class=n>_raise_on_error</span><span class=p>():</span>
+            <span class=n>Security</span><span class=o>.</span><span class=n>SSLClose</span><span class=p>(</span><span class=bp>self</span><span class=o>.</span><span class=n>context</span><span class=p>)</span>
+
+    <span class=k>def</span><span class=w> </span><span class=nf>close</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+        <span class=c1># TODO: should I do clean shutdown here? Do I have to?</span>
+        <span class=k>if</span> <span class=bp>self</span><span class=o>.</span><span class=n>_makefile_refs</span> <span class=o>&lt;</span> <span class=mi>1</span><span class=p>:</span>
+            <span class=bp>self</span><span class=o>.</span><span class=n>_closed</span> <span class=o>=</span> <span class=kc>True</span>
+            <span class=k>if</span> <span class=bp>self</span><span class=o>.</span><span class=n>context</span><span class=p>:</span>
+                <span class=n>CoreFoundation</span><span class=o>.</span><span class=n>CFRelease</span><span class=p>(</span><span class=bp>self</span><span class=o>.</span><span class=n>context</span><span class=p>)</span>
+                <span class=bp>self</span><span class=o>.</span><span class=n>context</span> <span class=o>=</span> <span class=kc>None</span>
+            <span class=k>if</span> <span class=bp>self</span><span class=o>.</span><span class=n>_client_cert_chain</span><span class=p>:</span>
+                <span class=n>CoreFoundation</span><span class=o>.</span><span class=n>CFRelease</span><span class=p>(</span><span class=bp>self</span><span class=o>.</span><span class=n>_client_cert_chain</span><span class=p>)</span>
+                <span class=bp>self</span><span class=o>.</span><span class=n>_client_cert_chain</span> <span class=o>=</span> <span class=kc>None</span>
+            <span class=k>if</span> <span class=bp>self</span><span class=o>.</span><span class=n>_keychain</span><span class=p>:</span>
+                <span class=n>Security</span><span class=o>.</span><span class=n>SecKeychainDelete</span><span class=p>(</span><span class=bp>self</span><span class=o>.</span><span class=n>_keychain</span><span class=p>)</span>
+                <span class=n>CoreFoundation</span><span class=o>.</span><span class=n>CFRelease</span><span class=p>(</span><span class=bp>self</span><span class=o>.</span><span class=n>_keychain</span><span class=p>)</span>
+                <span class=n>shutil</span><span class=o>.</span><span class=n>rmtree</span><span class=p>(</span><span class=bp>self</span><span class=o>.</span><span class=n>_keychain_dir</span><span class=p>)</span>
+                <span class=bp>self</span><span class=o>.</span><span class=n>_keychain</span> <span class=o>=</span> <span class=bp>self</span><span class=o>.</span><span class=n>_keychain_dir</span> <span class=o>=</span> <span class=kc>None</span>
+            <span class=k>return</span> <span class=bp>self</span><span class=o>.</span><span class=n>socket</span><span class=o>.</span><span class=n>close</span><span class=p>()</span>
+        <span class=k>else</span><span class=p>:</span>
+            <span class=bp>self</span><span class=o>.</span><span class=n>_makefile_refs</span> <span class=o>-=</span> <span class=mi>1</span>
+
+    <span class=k>def</span><span class=w> </span><span class=nf>getpeercert</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>binary_form</span><span class=o>=</span><span class=kc>False</span><span class=p>):</span>
+        <span class=c1># Urgh, annoying.</span>
+        <span class=c1>#</span>
+        <span class=c1># Here&#39;s how we do this:</span>
+        <span class=c1>#</span>
+        <span class=c1># 1. Call SSLCopyPeerTrust to get hold of the trust object for this</span>
+        <span class=c1>#    connection.</span>
+        <span class=c1># 2. Call SecTrustGetCertificateAtIndex for index 0 to get the leaf.</span>
+        <span class=c1># 3. To get the CN, call SecCertificateCopyCommonName and process that</span>
+        <span class=c1>#    string so that it&#39;s of the appropriate type.</span>
+        <span class=c1># 4. To get the SAN, we need to do something a bit more complex:</span>
+        <span class=c1>#    a. Call SecCertificateCopyValues to get the data, requesting</span>
+        <span class=c1>#       kSecOIDSubjectAltName.</span>
+        <span class=c1>#    b. Mess about with this dictionary to try to get the SANs out.</span>
+        <span class=c1>#</span>
+        <span class=c1># This is gross. Really gross. It&#39;s going to be a few hundred LoC extra</span>
+        <span class=c1># just to repeat something that SecureTransport can *already do*. So my</span>
+        <span class=c1># operating assumption at this time is that what we want to do is</span>
+        <span class=c1># instead to just flag to urllib3 that it shouldn&#39;t do its own hostname</span>
+        <span class=c1># validation when using SecureTransport.</span>
+        <span class=k>if</span> <span class=ow>not</span> <span class=n>binary_form</span><span class=p>:</span>
+            <span class=k>raise</span> <span class=ne>ValueError</span><span class=p>(</span><span class=s2>&quot;SecureTransport only supports dumping binary certs&quot;</span><span class=p>)</span>
+        <span class=n>trust</span> <span class=o>=</span> <span class=n>Security</span><span class=o>.</span><span class=n>SecTrustRef</span><span class=p>()</span>
+        <span class=n>certdata</span> <span class=o>=</span> <span class=kc>None</span>
+        <span class=n>der_bytes</span> <span class=o>=</span> <span class=kc>None</span>
+
+        <span class=k>try</span><span class=p>:</span>
+            <span class=c1># Grab the trust store.</span>
+            <span class=n>result</span> <span class=o>=</span> <span class=n>Security</span><span class=o>.</span><span class=n>SSLCopyPeerTrust</span><span class=p>(</span><span class=bp>self</span><span class=o>.</span><span class=n>context</span><span class=p>,</span> <span class=n>ctypes</span><span class=o>.</span><span class=n>byref</span><span class=p>(</span><span class=n>trust</span><span class=p>))</span>
+            <span class=n>_assert_no_error</span><span class=p>(</span><span class=n>result</span><span class=p>)</span>
+            <span class=k>if</span> <span class=ow>not</span> <span class=n>trust</span><span class=p>:</span>
+                <span class=c1># Probably we haven&#39;t done the handshake yet. No biggie.</span>
+                <span class=k>return</span> <span class=kc>None</span>
+
+            <span class=n>cert_count</span> <span class=o>=</span> <span class=n>Security</span><span class=o>.</span><span class=n>SecTrustGetCertificateCount</span><span class=p>(</span><span class=n>trust</span><span class=p>)</span>
+            <span class=k>if</span> <span class=ow>not</span> <span class=n>cert_count</span><span class=p>:</span>
+                <span class=c1># Also a case that might happen if we haven&#39;t handshaked.</span>
+                <span class=c1># Handshook? Handshaken?</span>
+                <span class=k>return</span> <span class=kc>None</span>
+
+            <span class=n>leaf</span> <span class=o>=</span> <span class=n>Security</span><span class=o>.</span><span class=n>SecTrustGetCertificateAtIndex</span><span class=p>(</span><span class=n>trust</span><span class=p>,</span> <span class=mi>0</span><span class=p>)</span>
+            <span class=k>assert</span> <span class=n>leaf</span>
+
+            <span class=c1># Ok, now we want the DER bytes.</span>
+            <span class=n>certdata</span> <span class=o>=</span> <span class=n>Security</span><span class=o>.</span><span class=n>SecCertificateCopyData</span><span class=p>(</span><span class=n>leaf</span><span class=p>)</span>
+            <span class=k>assert</span> <span class=n>certdata</span>
+
+            <span class=n>data_length</span> <span class=o>=</span> <span class=n>CoreFoundation</span><span class=o>.</span><span class=n>CFDataGetLength</span><span class=p>(</span><span class=n>certdata</span><span class=p>)</span>
+            <span class=n>data_buffer</span> <span class=o>=</span> <span class=n>CoreFoundation</span><span class=o>.</span><span class=n>CFDataGetBytePtr</span><span class=p>(</span><span class=n>certdata</span><span class=p>)</span>
+            <span class=n>der_bytes</span> <span class=o>=</span> <span class=n>ctypes</span><span class=o>.</span><span class=n>string_at</span><span class=p>(</span><span class=n>data_buffer</span><span class=p>,</span> <span class=n>data_length</span><span class=p>)</span>
+        <span class=k>finally</span><span class=p>:</span>
+            <span class=k>if</span> <span class=n>certdata</span><span class=p>:</span>
+                <span class=n>CoreFoundation</span><span class=o>.</span><span class=n>CFRelease</span><span class=p>(</span><span class=n>certdata</span><span class=p>)</span>
+            <span class=k>if</span> <span class=n>trust</span><span class=p>:</span>
+                <span class=n>CoreFoundation</span><span class=o>.</span><span class=n>CFRelease</span><span class=p>(</span><span class=n>trust</span><span class=p>)</span>
+
+        <span class=k>return</span> <span class=n>der_bytes</span>
+
+    <span class=k>def</span><span class=w> </span><span class=nf>version</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+        <span class=n>protocol</span> <span class=o>=</span> <span class=n>Security</span><span class=o>.</span><span class=n>SSLProtocol</span><span class=p>()</span>
+        <span class=n>result</span> <span class=o>=</span> <span class=n>Security</span><span class=o>.</span><span class=n>SSLGetNegotiatedProtocolVersion</span><span class=p>(</span>
+            <span class=bp>self</span><span class=o>.</span><span class=n>context</span><span class=p>,</span> <span class=n>ctypes</span><span class=o>.</span><span class=n>byref</span><span class=p>(</span><span class=n>protocol</span><span class=p>)</span>
+        <span class=p>)</span>
+        <span class=n>_assert_no_error</span><span class=p>(</span><span class=n>result</span><span class=p>)</span>
+        <span class=k>if</span> <span class=n>protocol</span><span class=o>.</span><span class=n>value</span> <span class=o>==</span> <span class=n>SecurityConst</span><span class=o>.</span><span class=n>kTLSProtocol13</span><span class=p>:</span>
+            <span class=k>raise</span> <span class=n>ssl</span><span class=o>.</span><span class=n>SSLError</span><span class=p>(</span><span class=s2>&quot;SecureTransport does not support TLS 1.3&quot;</span><span class=p>)</span>
+        <span class=k>elif</span> <span class=n>protocol</span><span class=o>.</span><span class=n>value</span> <span class=o>==</span> <span class=n>SecurityConst</span><span class=o>.</span><span class=n>kTLSProtocol12</span><span class=p>:</span>
+            <span class=k>return</span> <span class=s2>&quot;TLSv1.2&quot;</span>
+        <span class=k>elif</span> <span class=n>protocol</span><span class=o>.</span><span class=n>value</span> <span class=o>==</span> <span class=n>SecurityConst</span><span class=o>.</span><span class=n>kTLSProtocol11</span><span class=p>:</span>
+            <span class=k>return</span> <span class=s2>&quot;TLSv1.1&quot;</span>
+        <span class=k>elif</span> <span class=n>protocol</span><span class=o>.</span><span class=n>value</span> <span class=o>==</span> <span class=n>SecurityConst</span><span class=o>.</span><span class=n>kTLSProtocol1</span><span class=p>:</span>
+            <span class=k>return</span> <span class=s2>&quot;TLSv1&quot;</span>
+        <span class=k>elif</span> <span class=n>protocol</span><span class=o>.</span><span class=n>value</span> <span class=o>==</span> <span class=n>SecurityConst</span><span class=o>.</span><span class=n>kSSLProtocol3</span><span class=p>:</span>
+            <span class=k>return</span> <span class=s2>&quot;SSLv3&quot;</span>
+        <span class=k>elif</span> <span class=n>protocol</span><span class=o>.</span><span class=n>value</span> <span class=o>==</span> <span class=n>SecurityConst</span><span class=o>.</span><span class=n>kSSLProtocol2</span><span class=p>:</span>
+            <span class=k>return</span> <span class=s2>&quot;SSLv2&quot;</span>
+        <span class=k>else</span><span class=p>:</span>
+            <span class=k>raise</span> <span class=n>ssl</span><span class=o>.</span><span class=n>SSLError</span><span class=p>(</span><span class=s2>&quot;Unknown TLS version: </span><span class=si>%r</span><span class=s2>&quot;</span> <span class=o>%</span> <span class=n>protocol</span><span class=p>)</span>
+
+    <span class=k>def</span><span class=w> </span><span class=nf>_reuse</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+        <span class=bp>self</span><span class=o>.</span><span class=n>_makefile_refs</span> <span class=o>+=</span> <span class=mi>1</span>
+
+    <span class=k>def</span><span class=w> </span><span class=nf>_drop</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+        <span class=k>if</span> <span class=bp>self</span><span class=o>.</span><span class=n>_makefile_refs</span> <span class=o>&lt;</span> <span class=mi>1</span><span class=p>:</span>
+            <span class=bp>self</span><span class=o>.</span><span class=n>close</span><span class=p>()</span>
+        <span class=k>else</span><span class=p>:</span>
+            <span class=bp>self</span><span class=o>.</span><span class=n>_makefile_refs</span> <span class=o>-=</span> <span class=mi>1</span>
+</code></pre></div></td></tr></table></div> </details> <div class="doc doc-children"> <div class="doc doc-object doc-function"> <h3 id=client.ayon_fusion.vendor.urllib3.contrib.securetransport.WrappedSocket.handshake class="doc doc-heading"> <code class="highlight language-python"><span class=n>handshake</span><span class=p>(</span><span class=n>server_hostname</span><span class=p>,</span> <span class=n>verify</span><span class=p>,</span> <span class=n>trust_bundle</span><span class=p>,</span> <span class=n>min_version</span><span class=p>,</span> <span class=n>max_version</span><span class=p>,</span> <span class=n>client_cert</span><span class=p>,</span> <span class=n>client_key</span><span class=p>,</span> <span class=n>client_key_passphrase</span><span class=p>,</span> <span class=n>alpn_protocols</span><span class=p>)</span></code> </h3> <div class="doc doc-contents "> <p>Actually performs the TLS handshake. This is run automatically by wrapped socket, and shouldn't be needed in user code.</p> <details class=quote> <summary>Source code in <code>client/ayon_fusion/vendor/urllib3/contrib/securetransport.py</code></summary> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal>474</span>
+<span class=normal>475</span>
+<span class=normal>476</span>
+<span class=normal>477</span>
+<span class=normal>478</span>
+<span class=normal>479</span>
+<span class=normal>480</span>
+<span class=normal>481</span>
+<span class=normal>482</span>
+<span class=normal>483</span>
+<span class=normal>484</span>
+<span class=normal>485</span>
+<span class=normal>486</span>
+<span class=normal>487</span>
+<span class=normal>488</span>
+<span class=normal>489</span>
+<span class=normal>490</span>
+<span class=normal>491</span>
+<span class=normal>492</span>
+<span class=normal>493</span>
+<span class=normal>494</span>
+<span class=normal>495</span>
+<span class=normal>496</span>
+<span class=normal>497</span>
+<span class=normal>498</span>
+<span class=normal>499</span>
+<span class=normal>500</span>
+<span class=normal>501</span>
+<span class=normal>502</span>
+<span class=normal>503</span>
+<span class=normal>504</span>
+<span class=normal>505</span>
+<span class=normal>506</span>
+<span class=normal>507</span>
+<span class=normal>508</span>
+<span class=normal>509</span>
+<span class=normal>510</span>
+<span class=normal>511</span>
+<span class=normal>512</span>
+<span class=normal>513</span>
+<span class=normal>514</span>
+<span class=normal>515</span>
+<span class=normal>516</span>
+<span class=normal>517</span>
+<span class=normal>518</span>
+<span class=normal>519</span>
+<span class=normal>520</span>
+<span class=normal>521</span>
+<span class=normal>522</span>
+<span class=normal>523</span>
+<span class=normal>524</span>
+<span class=normal>525</span>
+<span class=normal>526</span>
+<span class=normal>527</span>
+<span class=normal>528</span>
+<span class=normal>529</span>
+<span class=normal>530</span>
+<span class=normal>531</span>
+<span class=normal>532</span>
+<span class=normal>533</span>
+<span class=normal>534</span>
+<span class=normal>535</span>
+<span class=normal>536</span>
+<span class=normal>537</span>
+<span class=normal>538</span>
+<span class=normal>539</span>
+<span class=normal>540</span>
+<span class=normal>541</span>
+<span class=normal>542</span>
+<span class=normal>543</span>
+<span class=normal>544</span>
+<span class=normal>545</span>
+<span class=normal>546</span>
+<span class=normal>547</span>
+<span class=normal>548</span>
+<span class=normal>549</span>
+<span class=normal>550</span>
+<span class=normal>551</span>
+<span class=normal>552</span>
+<span class=normal>553</span>
+<span class=normal>554</span>
+<span class=normal>555</span>
+<span class=normal>556</span>
+<span class=normal>557</span>
+<span class=normal>558</span>
+<span class=normal>559</span>
+<span class=normal>560</span>
+<span class=normal>561</span>
+<span class=normal>562</span>
+<span class=normal>563</span>
+<span class=normal>564</span>
+<span class=normal>565</span></pre></div></td><td class=code><div><pre><span></span><code><span class=k>def</span><span class=w> </span><span class=nf>handshake</span><span class=p>(</span>
+    <span class=bp>self</span><span class=p>,</span>
+    <span class=n>server_hostname</span><span class=p>,</span>
+    <span class=n>verify</span><span class=p>,</span>
+    <span class=n>trust_bundle</span><span class=p>,</span>
+    <span class=n>min_version</span><span class=p>,</span>
+    <span class=n>max_version</span><span class=p>,</span>
+    <span class=n>client_cert</span><span class=p>,</span>
+    <span class=n>client_key</span><span class=p>,</span>
+    <span class=n>client_key_passphrase</span><span class=p>,</span>
+    <span class=n>alpn_protocols</span><span class=p>,</span>
+<span class=p>):</span>
+<span class=w>    </span><span class=sd>&quot;&quot;&quot;</span>
+<span class=sd>    Actually performs the TLS handshake. This is run automatically by</span>
+<span class=sd>    wrapped socket, and shouldn&#39;t be needed in user code.</span>
+<span class=sd>    &quot;&quot;&quot;</span>
+    <span class=c1># First, we do the initial bits of connection setup. We need to create</span>
+    <span class=c1># a context, set its I/O funcs, and set the connection reference.</span>
+    <span class=bp>self</span><span class=o>.</span><span class=n>context</span> <span class=o>=</span> <span class=n>Security</span><span class=o>.</span><span class=n>SSLCreateContext</span><span class=p>(</span>
+        <span class=kc>None</span><span class=p>,</span> <span class=n>SecurityConst</span><span class=o>.</span><span class=n>kSSLClientSide</span><span class=p>,</span> <span class=n>SecurityConst</span><span class=o>.</span><span class=n>kSSLStreamType</span>
+    <span class=p>)</span>
+    <span class=n>result</span> <span class=o>=</span> <span class=n>Security</span><span class=o>.</span><span class=n>SSLSetIOFuncs</span><span class=p>(</span>
+        <span class=bp>self</span><span class=o>.</span><span class=n>context</span><span class=p>,</span> <span class=n>_read_callback_pointer</span><span class=p>,</span> <span class=n>_write_callback_pointer</span>
+    <span class=p>)</span>
+    <span class=n>_assert_no_error</span><span class=p>(</span><span class=n>result</span><span class=p>)</span>
+
+    <span class=c1># Here we need to compute the handle to use. We do this by taking the</span>
+    <span class=c1># id of self modulo 2**31 - 1. If this is already in the dictionary, we</span>
+    <span class=c1># just keep incrementing by one until we find a free space.</span>
+    <span class=k>with</span> <span class=n>_connection_ref_lock</span><span class=p>:</span>
+        <span class=n>handle</span> <span class=o>=</span> <span class=nb>id</span><span class=p>(</span><span class=bp>self</span><span class=p>)</span> <span class=o>%</span> <span class=mi>2147483647</span>
+        <span class=k>while</span> <span class=n>handle</span> <span class=ow>in</span> <span class=n>_connection_refs</span><span class=p>:</span>
+            <span class=n>handle</span> <span class=o>=</span> <span class=p>(</span><span class=n>handle</span> <span class=o>+</span> <span class=mi>1</span><span class=p>)</span> <span class=o>%</span> <span class=mi>2147483647</span>
+        <span class=n>_connection_refs</span><span class=p>[</span><span class=n>handle</span><span class=p>]</span> <span class=o>=</span> <span class=bp>self</span>
+
+    <span class=n>result</span> <span class=o>=</span> <span class=n>Security</span><span class=o>.</span><span class=n>SSLSetConnection</span><span class=p>(</span><span class=bp>self</span><span class=o>.</span><span class=n>context</span><span class=p>,</span> <span class=n>handle</span><span class=p>)</span>
+    <span class=n>_assert_no_error</span><span class=p>(</span><span class=n>result</span><span class=p>)</span>
+
+    <span class=c1># If we have a server hostname, we should set that too.</span>
+    <span class=k>if</span> <span class=n>server_hostname</span><span class=p>:</span>
+        <span class=k>if</span> <span class=ow>not</span> <span class=nb>isinstance</span><span class=p>(</span><span class=n>server_hostname</span><span class=p>,</span> <span class=nb>bytes</span><span class=p>):</span>
+            <span class=n>server_hostname</span> <span class=o>=</span> <span class=n>server_hostname</span><span class=o>.</span><span class=n>encode</span><span class=p>(</span><span class=s2>&quot;utf-8&quot;</span><span class=p>)</span>
+
+        <span class=n>result</span> <span class=o>=</span> <span class=n>Security</span><span class=o>.</span><span class=n>SSLSetPeerDomainName</span><span class=p>(</span>
+            <span class=bp>self</span><span class=o>.</span><span class=n>context</span><span class=p>,</span> <span class=n>server_hostname</span><span class=p>,</span> <span class=nb>len</span><span class=p>(</span><span class=n>server_hostname</span><span class=p>)</span>
+        <span class=p>)</span>
+        <span class=n>_assert_no_error</span><span class=p>(</span><span class=n>result</span><span class=p>)</span>
+
+    <span class=c1># Setup the ciphers.</span>
+    <span class=bp>self</span><span class=o>.</span><span class=n>_set_ciphers</span><span class=p>()</span>
+
+    <span class=c1># Setup the ALPN protocols.</span>
+    <span class=bp>self</span><span class=o>.</span><span class=n>_set_alpn_protocols</span><span class=p>(</span><span class=n>alpn_protocols</span><span class=p>)</span>
+
+    <span class=c1># Set the minimum and maximum TLS versions.</span>
+    <span class=n>result</span> <span class=o>=</span> <span class=n>Security</span><span class=o>.</span><span class=n>SSLSetProtocolVersionMin</span><span class=p>(</span><span class=bp>self</span><span class=o>.</span><span class=n>context</span><span class=p>,</span> <span class=n>min_version</span><span class=p>)</span>
+    <span class=n>_assert_no_error</span><span class=p>(</span><span class=n>result</span><span class=p>)</span>
+
+    <span class=n>result</span> <span class=o>=</span> <span class=n>Security</span><span class=o>.</span><span class=n>SSLSetProtocolVersionMax</span><span class=p>(</span><span class=bp>self</span><span class=o>.</span><span class=n>context</span><span class=p>,</span> <span class=n>max_version</span><span class=p>)</span>
+    <span class=n>_assert_no_error</span><span class=p>(</span><span class=n>result</span><span class=p>)</span>
+
+    <span class=c1># If there&#39;s a trust DB, we need to use it. We do that by telling</span>
+    <span class=c1># SecureTransport to break on server auth. We also do that if we don&#39;t</span>
+    <span class=c1># want to validate the certs at all: we just won&#39;t actually do any</span>
+    <span class=c1># authing in that case.</span>
+    <span class=k>if</span> <span class=ow>not</span> <span class=n>verify</span> <span class=ow>or</span> <span class=n>trust_bundle</span> <span class=ow>is</span> <span class=ow>not</span> <span class=kc>None</span><span class=p>:</span>
+        <span class=n>result</span> <span class=o>=</span> <span class=n>Security</span><span class=o>.</span><span class=n>SSLSetSessionOption</span><span class=p>(</span>
+            <span class=bp>self</span><span class=o>.</span><span class=n>context</span><span class=p>,</span> <span class=n>SecurityConst</span><span class=o>.</span><span class=n>kSSLSessionOptionBreakOnServerAuth</span><span class=p>,</span> <span class=kc>True</span>
+        <span class=p>)</span>
+        <span class=n>_assert_no_error</span><span class=p>(</span><span class=n>result</span><span class=p>)</span>
+
+    <span class=c1># If there&#39;s a client cert, we need to use it.</span>
+    <span class=k>if</span> <span class=n>client_cert</span><span class=p>:</span>
+        <span class=bp>self</span><span class=o>.</span><span class=n>_keychain</span><span class=p>,</span> <span class=bp>self</span><span class=o>.</span><span class=n>_keychain_dir</span> <span class=o>=</span> <span class=n>_temporary_keychain</span><span class=p>()</span>
+        <span class=bp>self</span><span class=o>.</span><span class=n>_client_cert_chain</span> <span class=o>=</span> <span class=n>_load_client_cert_chain</span><span class=p>(</span>
+            <span class=bp>self</span><span class=o>.</span><span class=n>_keychain</span><span class=p>,</span> <span class=n>client_cert</span><span class=p>,</span> <span class=n>client_key</span>
+        <span class=p>)</span>
+        <span class=n>result</span> <span class=o>=</span> <span class=n>Security</span><span class=o>.</span><span class=n>SSLSetCertificate</span><span class=p>(</span><span class=bp>self</span><span class=o>.</span><span class=n>context</span><span class=p>,</span> <span class=bp>self</span><span class=o>.</span><span class=n>_client_cert_chain</span><span class=p>)</span>
+        <span class=n>_assert_no_error</span><span class=p>(</span><span class=n>result</span><span class=p>)</span>
+
+    <span class=k>while</span> <span class=kc>True</span><span class=p>:</span>
+        <span class=k>with</span> <span class=bp>self</span><span class=o>.</span><span class=n>_raise_on_error</span><span class=p>():</span>
+            <span class=n>result</span> <span class=o>=</span> <span class=n>Security</span><span class=o>.</span><span class=n>SSLHandshake</span><span class=p>(</span><span class=bp>self</span><span class=o>.</span><span class=n>context</span><span class=p>)</span>
+
+            <span class=k>if</span> <span class=n>result</span> <span class=o>==</span> <span class=n>SecurityConst</span><span class=o>.</span><span class=n>errSSLWouldBlock</span><span class=p>:</span>
+                <span class=k>raise</span> <span class=n>socket</span><span class=o>.</span><span class=n>timeout</span><span class=p>(</span><span class=s2>&quot;handshake timed out&quot;</span><span class=p>)</span>
+            <span class=k>elif</span> <span class=n>result</span> <span class=o>==</span> <span class=n>SecurityConst</span><span class=o>.</span><span class=n>errSSLServerAuthCompleted</span><span class=p>:</span>
+                <span class=bp>self</span><span class=o>.</span><span class=n>_custom_validate</span><span class=p>(</span><span class=n>verify</span><span class=p>,</span> <span class=n>trust_bundle</span><span class=p>)</span>
+                <span class=k>continue</span>
+            <span class=k>else</span><span class=p>:</span>
+                <span class=n>_assert_no_error</span><span class=p>(</span><span class=n>result</span><span class=p>)</span>
+                <span class=k>break</span>
+</code></pre></div></td></tr></table></div> </details> </div> </div> </div> </div> </div> <div class="doc doc-object doc-function"> <h2 id=client.ayon_fusion.vendor.urllib3.contrib.securetransport.extract_from_urllib3 class="doc doc-heading"> <code class="highlight language-python"><span class=n>extract_from_urllib3</span><span class=p>()</span></code> </h2> <div class="doc doc-contents "> <p>Undo monkey-patching by :func:<code>inject_into_urllib3</code>.</p> <details class=quote> <summary>Source code in <code>client/ayon_fusion/vendor/urllib3/contrib/securetransport.py</code></summary> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal>201</span>
+<span class=normal>202</span>
+<span class=normal>203</span>
+<span class=normal>204</span>
+<span class=normal>205</span>
+<span class=normal>206</span>
+<span class=normal>207</span>
+<span class=normal>208</span>
+<span class=normal>209</span>
+<span class=normal>210</span></pre></div></td><td class=code><div><pre><span></span><code><span class=k>def</span><span class=w> </span><span class=nf>extract_from_urllib3</span><span class=p>():</span>
+<span class=w>    </span><span class=sd>&quot;&quot;&quot;</span>
+<span class=sd>    Undo monkey-patching by :func:`inject_into_urllib3`.</span>
+<span class=sd>    &quot;&quot;&quot;</span>
+    <span class=n>util</span><span class=o>.</span><span class=n>SSLContext</span> <span class=o>=</span> <span class=n>orig_util_SSLContext</span>
+    <span class=n>util</span><span class=o>.</span><span class=n>ssl_</span><span class=o>.</span><span class=n>SSLContext</span> <span class=o>=</span> <span class=n>orig_util_SSLContext</span>
+    <span class=n>util</span><span class=o>.</span><span class=n>HAS_SNI</span> <span class=o>=</span> <span class=n>orig_util_HAS_SNI</span>
+    <span class=n>util</span><span class=o>.</span><span class=n>ssl_</span><span class=o>.</span><span class=n>HAS_SNI</span> <span class=o>=</span> <span class=n>orig_util_HAS_SNI</span>
+    <span class=n>util</span><span class=o>.</span><span class=n>IS_SECURETRANSPORT</span> <span class=o>=</span> <span class=kc>False</span>
+    <span class=n>util</span><span class=o>.</span><span class=n>ssl_</span><span class=o>.</span><span class=n>IS_SECURETRANSPORT</span> <span class=o>=</span> <span class=kc>False</span>
+</code></pre></div></td></tr></table></div> </details> </div> </div> <div class="doc doc-object doc-function"> <h2 id=client.ayon_fusion.vendor.urllib3.contrib.securetransport.inject_into_urllib3 class="doc doc-heading"> <code class="highlight language-python"><span class=n>inject_into_urllib3</span><span class=p>()</span></code> </h2> <div class="doc doc-contents "> <p>Monkey-patch urllib3 with SecureTransport-backed SSL-support.</p> <details class=quote> <summary>Source code in <code>client/ayon_fusion/vendor/urllib3/contrib/securetransport.py</code></summary> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal>189</span>
+<span class=normal>190</span>
+<span class=normal>191</span>
+<span class=normal>192</span>
+<span class=normal>193</span>
+<span class=normal>194</span>
+<span class=normal>195</span>
+<span class=normal>196</span>
+<span class=normal>197</span>
+<span class=normal>198</span></pre></div></td><td class=code><div><pre><span></span><code><span class=k>def</span><span class=w> </span><span class=nf>inject_into_urllib3</span><span class=p>():</span>
+<span class=w>    </span><span class=sd>&quot;&quot;&quot;</span>
+<span class=sd>    Monkey-patch urllib3 with SecureTransport-backed SSL-support.</span>
+<span class=sd>    &quot;&quot;&quot;</span>
+    <span class=n>util</span><span class=o>.</span><span class=n>SSLContext</span> <span class=o>=</span> <span class=n>SecureTransportContext</span>
+    <span class=n>util</span><span class=o>.</span><span class=n>ssl_</span><span class=o>.</span><span class=n>SSLContext</span> <span class=o>=</span> <span class=n>SecureTransportContext</span>
+    <span class=n>util</span><span class=o>.</span><span class=n>HAS_SNI</span> <span class=o>=</span> <span class=n>HAS_SNI</span>
+    <span class=n>util</span><span class=o>.</span><span class=n>ssl_</span><span class=o>.</span><span class=n>HAS_SNI</span> <span class=o>=</span> <span class=n>HAS_SNI</span>
+    <span class=n>util</span><span class=o>.</span><span class=n>IS_SECURETRANSPORT</span> <span class=o>=</span> <span class=kc>True</span>
+    <span class=n>util</span><span class=o>.</span><span class=n>ssl_</span><span class=o>.</span><span class=n>IS_SECURETRANSPORT</span> <span class=o>=</span> <span class=kc>True</span>
+</code></pre></div></td></tr></table></div> </details> </div> </div> </div> </div> </div> </article> </div> <script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script> </div> </main> <footer class=md-footer> <div class="md-footer-meta md-typeset"> <div class="md-footer-meta__inner md-grid"> <div class=md-copyright> Made with <a href=https://squidfunk.github.io/mkdocs-material/ target=_blank rel=noopener> Material for MkDocs </a> </div> </div> </div> </footer> </div> <div class=md-dialog data-md-component=dialog> <div class="md-dialog__inner md-typeset"></div> </div> <script id=__config type=application/json>{"base": "../../../../../..", "features": ["navigation.sections", "navigation.path", "navigation.prune"], "search": "../../../../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script> <script src=../../../../../../assets/javascripts/bundle.c8b220af.min.js></script> </body> </html>

@@ -1,0 +1,1049 @@
+<!doctype html><html lang=en class=no-js> <head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><link rel=prev href=_version.html><link rel=next href=connectionpool.html><link rel=icon href=../../../../../img/favicon.ico><meta name=generator content="mkdocs-1.6.1, mkdocs-material-9.6.9"><title>connection - ayon-fusion</title><link rel=stylesheet href=../../../../../assets/stylesheets/main.4af4bdda.min.css><link rel=stylesheet href=../../../../../assets/stylesheets/palette.06af60db.min.css><script src=https://unpkg.com/iframe-worker/shim></script><link rel=preconnect href=https://fonts.gstatic.com crossorigin><link rel=stylesheet href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback"><style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style><link rel=stylesheet href=../../../../../assets/_mkdocstrings.css><link rel=stylesheet href=../../../../../css/custom.css><script>__md_scope=new URL("../../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script></head> <body dir=ltr data-md-color-scheme=slate data-md-color-primary=indigo data-md-color-accent=indigo> <input class=md-toggle data-md-toggle=drawer type=checkbox id=__drawer autocomplete=off> <input class=md-toggle data-md-toggle=search type=checkbox id=__search autocomplete=off> <label class=md-overlay for=__drawer></label> <div data-md-component=skip> <a href=#client.ayon_fusion.vendor.urllib3.connection class=md-skip> Skip to content </a> </div> <div data-md-component=announce> </div> <div data-md-color-scheme=default data-md-component=outdated hidden> </div> <header class="md-header md-header--shadow" data-md-component=header> <nav class="md-header__inner md-grid" aria-label=Header> <a href=../../../../../index.html title=ayon-fusion class="md-header__button md-logo" aria-label=ayon-fusion data-md-component=logo> <img src=../../../../../img/ay-symbol-blackw-full.png alt=logo> </a> <label class="md-header__button md-icon" for=__drawer> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg> </label> <div class=md-header__title data-md-component=header-title> <div class=md-header__ellipsis> <div class=md-header__topic> <span class=md-ellipsis> ayon-fusion </span> </div> <div class=md-header__topic data-md-component=header-topic> <span class=md-ellipsis> connection </span> </div> </div> </div> <form class=md-header__option data-md-component=palette> <input class=md-option data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme=slate data-md-color-primary=indigo data-md-color-accent=indigo aria-label="Switch to light mode" type=radio name=__palette id=__palette_0> <label class="md-header__button md-icon" title="Switch to light mode" for=__palette_1 hidden> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6m0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4M7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"/></svg> </label> <input class=md-option data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme=default data-md-color-primary=indigo data-md-color-accent=indigo aria-label="Switch to dark mode" type=radio name=__palette id=__palette_1> <label class="md-header__button md-icon" title="Switch to dark mode" for=__palette_0 hidden> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg> </label> </form> <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script> <label class="md-header__button md-icon" for=__search> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg> </label> <div class=md-search data-md-component=search role=dialog> <label class=md-search__overlay for=__search></label> <div class=md-search__inner role=search> <form class=md-search__form name=search> <input type=text class=md-search__input name=query aria-label=Search placeholder=Search autocapitalize=off autocorrect=off autocomplete=off spellcheck=false data-md-component=search-query required> <label class="md-search__icon md-icon" for=__search> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg> </label> <nav class=md-search__options aria-label=Search> <button type=reset class="md-search__icon md-icon" title=Clear aria-label=Clear tabindex=-1> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg> </button> </nav> </form> <div class=md-search__output> <div class=md-search__scrollwrap tabindex=0 data-md-scrollfix> <div class=md-search-result data-md-component=search-result> <div class=md-search-result__meta> Initializing search </div> <ol class=md-search-result__list role=presentation></ol> </div> </div> </div> </div> </div> <div class=md-header__source> <a href=https://github.com/ynput/ayon-fusion title="Go to repository" class=md-source data-md-component=source> <div class="md-source__icon md-icon"> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 448 512"><!-- Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg> </div> <div class=md-source__repository> GitHub </div> </a> </div> </nav> </header> <div class=md-container data-md-component=container> <main class=md-main data-md-component=main> <div class="md-main__inner md-grid"> <div class="md-sidebar md-sidebar--primary" data-md-component=sidebar data-md-type=navigation> <div class=md-sidebar__scrollwrap> <div class=md-sidebar__inner> <nav class="md-nav md-nav--primary" aria-label=Navigation data-md-level=0> <label class=md-nav__title for=__drawer> <a href=../../../../../index.html title=ayon-fusion class="md-nav__button md-logo" aria-label=ayon-fusion data-md-component=logo> <img src=../../../../../img/ay-symbol-blackw-full.png alt=logo> </a> ayon-fusion </label> <div class=md-nav__source> <a href=https://github.com/ynput/ayon-fusion title="Go to repository" class=md-source data-md-component=source> <div class="md-source__icon md-icon"> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 448 512"><!-- Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg> </div> <div class=md-source__repository> GitHub </div> </a> </div> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../../../../index.html class=md-nav__link> <span class=md-ellipsis> Home </span> </a> </li> <li class=md-nav__item> <a href=../../../../../license.html class=md-nav__link> <span class=md-ellipsis> License </span> </a> </li> <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_3 checked> <label class=md-nav__link for=__nav_3 id=__nav_3_label tabindex> <span class=md-ellipsis> Reference </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=1 aria-labelledby=__nav_3_label aria-expanded=true> <label class=md-nav__title for=__nav_3> <span class="md-nav__icon md-icon"></span> Reference </label> <ul class=md-nav__list data-md-scrollfix> <li class="md-nav__item md-nav__item--active md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_3_1 checked> <label class=md-nav__link for=__nav_3_1 id=__nav_3_1_label tabindex=0> <span class=md-ellipsis> client </span> <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav data-md-level=2 aria-labelledby=__nav_3_1_label aria-expanded=true> <label class=md-nav__title for=__nav_3_1> <span class="md-nav__icon md-icon"></span> client </label> <ul class=md-nav__list data-md-scrollfix> <li class="md-nav__item md-nav__item--active md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_3_1_1 checked> <div class="md-nav__link md-nav__container"> <a href=../../index.html class="md-nav__link "> <span class=md-ellipsis> ayon_fusion </span> </a> <label class="md-nav__link " for=__nav_3_1_1 id=__nav_3_1_1_label tabindex=0> <span class="md-nav__icon md-icon"></span> </label> </div> <nav class=md-nav data-md-level=3 aria-labelledby=__nav_3_1_1_label aria-expanded=true> <label class=md-nav__title for=__nav_3_1_1> <span class="md-nav__icon md-icon"></span> ayon_fusion </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../addon.html class=md-nav__link> <span class=md-ellipsis> addon </span> </a> </li> <li class="md-nav__item md-nav__item--pruned md-nav__item--nested"> <a href=../../api/action.html class=md-nav__link> <span class=md-ellipsis> api </span> <span class="md-nav__icon md-icon"></span> </a> </li> <li class="md-nav__item md-nav__item--pruned md-nav__item--nested"> <a href=../../deploy/MenuScripts/install_pyside2.html class=md-nav__link> <span class=md-ellipsis> deploy </span> <span class="md-nav__icon md-icon"></span> </a> </li> <li class="md-nav__item md-nav__item--pruned md-nav__item--nested"> <a href=../../hooks/pre_fusion_launch_menu_hook.html class=md-nav__link> <span class=md-ellipsis> hooks </span> <span class="md-nav__icon md-icon"></span> </a> </li> <li class="md-nav__item md-nav__item--pruned md-nav__item--nested"> <a href=../../plugins/create/create_image_saver.html class=md-nav__link> <span class=md-ellipsis> plugins </span> <span class="md-nav__icon md-icon"></span> </a> </li> <li class="md-nav__item md-nav__item--pruned md-nav__item--nested"> <a href=../../scripts/duplicate_with_inputs.html class=md-nav__link> <span class=md-ellipsis> scripts </span> <span class="md-nav__icon md-icon"></span> </a> </li> <li class="md-nav__item md-nav__item--active md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_3_1_1_7 checked> <div class="md-nav__link md-nav__container"> <a href=../index.html class="md-nav__link "> <span class=md-ellipsis> vendor </span> </a> <label class="md-nav__link " for=__nav_3_1_1_7 id=__nav_3_1_1_7_label tabindex=0> <span class="md-nav__icon md-icon"></span> </label> </div> <nav class=md-nav data-md-level=4 aria-labelledby=__nav_3_1_1_7_label aria-expanded=true> <label class=md-nav__title for=__nav_3_1_1_7> <span class="md-nav__icon md-icon"></span> vendor </label> <ul class=md-nav__list data-md-scrollfix> <li class="md-nav__item md-nav__item--pruned md-nav__item--nested"> <a href=../attr/_cmp.html class=md-nav__link> <span class=md-ellipsis> attr </span> <span class="md-nav__icon md-icon"></span> </a> </li> <li class="md-nav__item md-nav__item--active md-nav__item--nested"> <input class="md-nav__toggle md-toggle " type=checkbox id=__nav_3_1_1_7_2 checked> <div class="md-nav__link md-nav__container"> <a href=index.html class="md-nav__link "> <span class=md-ellipsis> urllib3 </span> </a> <label class="md-nav__link " for=__nav_3_1_1_7_2 id=__nav_3_1_1_7_2_label tabindex=0> <span class="md-nav__icon md-icon"></span> </label> </div> <nav class=md-nav data-md-level=5 aria-labelledby=__nav_3_1_1_7_2_label aria-expanded=true> <label class=md-nav__title for=__nav_3_1_1_7_2> <span class="md-nav__icon md-icon"></span> urllib3 </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=_collections.html class=md-nav__link> <span class=md-ellipsis> _collections </span> </a> </li> <li class=md-nav__item> <a href=_version.html class=md-nav__link> <span class=md-ellipsis> _version </span> </a> </li> <li class="md-nav__item md-nav__item--active"> <input class="md-nav__toggle md-toggle" type=checkbox id=__toc> <label class="md-nav__link md-nav__link--active" for=__toc> <span class=md-ellipsis> connection </span> <span class="md-nav__icon md-icon"></span> </label> <a href=connection.html class="md-nav__link md-nav__link--active"> <span class=md-ellipsis> connection </span> </a> <nav class="md-nav md-nav--secondary" aria-label="Table of contents"> <label class=md-nav__title for=__toc> <span class="md-nav__icon md-icon"></span> Table of contents </label> <ul class=md-nav__list data-md-component=toc data-md-scrollfix> <li class=md-nav__item> <a href=#client.ayon_fusion.vendor.urllib3.connection class=md-nav__link> <span class=md-ellipsis> connection </span> </a> </li> <li class=md-nav__item> <a href=#client.ayon_fusion.vendor.urllib3.connection.DummyConnection class=md-nav__link> <span class=md-ellipsis> DummyConnection </span> </a> </li> <li class=md-nav__item> <a href=#client.ayon_fusion.vendor.urllib3.connection.HTTPConnection class=md-nav__link> <span class=md-ellipsis> HTTPConnection </span> </a> <nav class=md-nav aria-label=HTTPConnection> <ul class=md-nav__list> <li class=md-nav__item> <a href=#client.ayon_fusion.vendor.urllib3.connection.HTTPConnection.host class=md-nav__link> <span class=md-ellipsis> host </span> </a> </li> <li class=md-nav__item> <a href=#client.ayon_fusion.vendor.urllib3.connection.HTTPConnection.putheader class=md-nav__link> <span class=md-ellipsis> putheader </span> </a> </li> <li class=md-nav__item> <a href=#client.ayon_fusion.vendor.urllib3.connection.HTTPConnection.putrequest class=md-nav__link> <span class=md-ellipsis> putrequest </span> </a> </li> <li class=md-nav__item> <a href=#client.ayon_fusion.vendor.urllib3.connection.HTTPConnection.request_chunked class=md-nav__link> <span class=md-ellipsis> request_chunked </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#client.ayon_fusion.vendor.urllib3.connection.HTTPSConnection class=md-nav__link> <span class=md-ellipsis> HTTPSConnection </span> </a> <nav class=md-nav aria-label=HTTPSConnection> <ul class=md-nav__list> <li class=md-nav__item> <a href=#client.ayon_fusion.vendor.urllib3.connection.HTTPSConnection.set_cert class=md-nav__link> <span class=md-ellipsis> set_cert </span> </a> </li> </ul> </nav> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=connectionpool.html class=md-nav__link> <span class=md-ellipsis> connectionpool </span> </a> </li> <li class="md-nav__item md-nav__item--pruned md-nav__item--nested"> <a href=contrib/_appengine_environ.html class=md-nav__link> <span class=md-ellipsis> contrib </span> <span class="md-nav__icon md-icon"></span> </a> </li> <li class=md-nav__item> <a href=exceptions.html class=md-nav__link> <span class=md-ellipsis> exceptions </span> </a> </li> <li class=md-nav__item> <a href=fields.html class=md-nav__link> <span class=md-ellipsis> fields </span> </a> </li> <li class=md-nav__item> <a href=filepost.html class=md-nav__link> <span class=md-ellipsis> filepost </span> </a> </li> <li class="md-nav__item md-nav__item--pruned md-nav__item--nested"> <a href=packages/backports/makefile.html class=md-nav__link> <span class=md-ellipsis> packages </span> <span class="md-nav__icon md-icon"></span> </a> </li> <li class=md-nav__item> <a href=poolmanager.html class=md-nav__link> <span class=md-ellipsis> poolmanager </span> </a> </li> <li class=md-nav__item> <a href=request.html class=md-nav__link> <span class=md-ellipsis> request </span> </a> </li> <li class=md-nav__item> <a href=response.html class=md-nav__link> <span class=md-ellipsis> response </span> </a> </li> <li class="md-nav__item md-nav__item--pruned md-nav__item--nested"> <a href=util/connection.html class=md-nav__link> <span class=md-ellipsis> util </span> <span class="md-nav__icon md-icon"></span> </a> </li> </ul> </nav> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=../../version.html class=md-nav__link> <span class=md-ellipsis> version </span> </a> </li> </ul> </nav> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--pruned md-nav__item--nested"> <a href=../../../../server/imageio.html class=md-nav__link> <span class=md-ellipsis> server </span> <span class="md-nav__icon md-icon"></span> </a> </li> </ul> </nav> </li> </ul> </nav> </div> </div> </div> <div class="md-sidebar md-sidebar--secondary" data-md-component=sidebar data-md-type=toc> <div class=md-sidebar__scrollwrap> <div class=md-sidebar__inner> <nav class="md-nav md-nav--secondary" aria-label="Table of contents"> <label class=md-nav__title for=__toc> <span class="md-nav__icon md-icon"></span> Table of contents </label> <ul class=md-nav__list data-md-component=toc data-md-scrollfix> <li class=md-nav__item> <a href=#client.ayon_fusion.vendor.urllib3.connection class=md-nav__link> <span class=md-ellipsis> connection </span> </a> </li> <li class=md-nav__item> <a href=#client.ayon_fusion.vendor.urllib3.connection.DummyConnection class=md-nav__link> <span class=md-ellipsis> DummyConnection </span> </a> </li> <li class=md-nav__item> <a href=#client.ayon_fusion.vendor.urllib3.connection.HTTPConnection class=md-nav__link> <span class=md-ellipsis> HTTPConnection </span> </a> <nav class=md-nav aria-label=HTTPConnection> <ul class=md-nav__list> <li class=md-nav__item> <a href=#client.ayon_fusion.vendor.urllib3.connection.HTTPConnection.host class=md-nav__link> <span class=md-ellipsis> host </span> </a> </li> <li class=md-nav__item> <a href=#client.ayon_fusion.vendor.urllib3.connection.HTTPConnection.putheader class=md-nav__link> <span class=md-ellipsis> putheader </span> </a> </li> <li class=md-nav__item> <a href=#client.ayon_fusion.vendor.urllib3.connection.HTTPConnection.putrequest class=md-nav__link> <span class=md-ellipsis> putrequest </span> </a> </li> <li class=md-nav__item> <a href=#client.ayon_fusion.vendor.urllib3.connection.HTTPConnection.request_chunked class=md-nav__link> <span class=md-ellipsis> request_chunked </span> </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=#client.ayon_fusion.vendor.urllib3.connection.HTTPSConnection class=md-nav__link> <span class=md-ellipsis> HTTPSConnection </span> </a> <nav class=md-nav aria-label=HTTPSConnection> <ul class=md-nav__list> <li class=md-nav__item> <a href=#client.ayon_fusion.vendor.urllib3.connection.HTTPSConnection.set_cert class=md-nav__link> <span class=md-ellipsis> set_cert </span> </a> </li> </ul> </nav> </li> </ul> </nav> </div> </div> </div> <div class=md-content data-md-component=content> <article class="md-content__inner md-typeset"> <h1>connection</h1> <div class="doc doc-object doc-module"> <a id=client.ayon_fusion.vendor.urllib3.connection></a> <div class="doc doc-contents first"> <div class="doc doc-children"> <div class="doc doc-object doc-class"> <h2 id=client.ayon_fusion.vendor.urllib3.connection.DummyConnection class="doc doc-heading"> <code>DummyConnection</code> </h2> <div class="doc doc-contents "> <p class="doc doc-class-bases"> Bases: <code><span title=object>object</span></code></p> <p>Used to detect a failed ConnectionCls import.</p> <details class=quote> <summary>Source code in <code>client/ayon_fusion/vendor/urllib3/connection.py</code></summary> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal>529</span>
+<span class=normal>530</span>
+<span class=normal>531</span>
+<span class=normal>532</span></pre></div></td><td class=code><div><pre><span></span><code><span class=k>class</span><span class=w> </span><span class=nc>DummyConnection</span><span class=p>(</span><span class=nb>object</span><span class=p>):</span>
+<span class=w>    </span><span class=sd>&quot;&quot;&quot;Used to detect a failed ConnectionCls import.&quot;&quot;&quot;</span>
+
+    <span class=k>pass</span>
+</code></pre></div></td></tr></table></div> </details> </div> </div> <div class="doc doc-object doc-class"> <h2 id=client.ayon_fusion.vendor.urllib3.connection.HTTPConnection class="doc doc-heading"> <code>HTTPConnection</code> </h2> <div class="doc doc-contents "> <p class="doc doc-class-bases"> Bases: <code><span title=client.ayon_fusion.vendor.urllib3.packages.six.moves.http_client.HTTPConnection>HTTPConnection</span></code>, <code><span title=object>object</span></code></p> <p>Based on :class:<code>http.client.HTTPConnection</code> but provides an extra constructor backwards-compatibility layer between older and newer Pythons.</p> <p>Additional keyword parameters are used to configure attributes of the connection. Accepted parameters include:</p> <ul> <li><code>strict</code>: See the documentation on :class:<code>urllib3.connectionpool.HTTPConnectionPool</code></li> <li><code>source_address</code>: Set the source address for the current connection.</li> <li><code>socket_options</code>: Set specific options on the underlying socket. If not specified, then defaults are loaded from <code>HTTPConnection.default_socket_options</code> which includes disabling Nagle's algorithm (sets TCP_NODELAY to 1) unless the connection is behind a proxy.</li> </ul> <p>For example, if you wish to enable TCP Keep Alive in addition to the defaults, you might pass:</p> <p>.. code-block:: python</p> <pre><code> HTTPConnection.default_socket_options + [
+     (socket.SOL_SOCKET, socket.SO_KEEPALIVE, 1),
+ ]
+</code></pre> <p>Or you may want to disable the defaults by passing an empty list (e.g., <code>[]</code>).</p> <details class=quote> <summary>Source code in <code>client/ayon_fusion/vendor/urllib3/connection.py</code></summary> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal> 75</span>
+<span class=normal> 76</span>
+<span class=normal> 77</span>
+<span class=normal> 78</span>
+<span class=normal> 79</span>
+<span class=normal> 80</span>
+<span class=normal> 81</span>
+<span class=normal> 82</span>
+<span class=normal> 83</span>
+<span class=normal> 84</span>
+<span class=normal> 85</span>
+<span class=normal> 86</span>
+<span class=normal> 87</span>
+<span class=normal> 88</span>
+<span class=normal> 89</span>
+<span class=normal> 90</span>
+<span class=normal> 91</span>
+<span class=normal> 92</span>
+<span class=normal> 93</span>
+<span class=normal> 94</span>
+<span class=normal> 95</span>
+<span class=normal> 96</span>
+<span class=normal> 97</span>
+<span class=normal> 98</span>
+<span class=normal> 99</span>
+<span class=normal>100</span>
+<span class=normal>101</span>
+<span class=normal>102</span>
+<span class=normal>103</span>
+<span class=normal>104</span>
+<span class=normal>105</span>
+<span class=normal>106</span>
+<span class=normal>107</span>
+<span class=normal>108</span>
+<span class=normal>109</span>
+<span class=normal>110</span>
+<span class=normal>111</span>
+<span class=normal>112</span>
+<span class=normal>113</span>
+<span class=normal>114</span>
+<span class=normal>115</span>
+<span class=normal>116</span>
+<span class=normal>117</span>
+<span class=normal>118</span>
+<span class=normal>119</span>
+<span class=normal>120</span>
+<span class=normal>121</span>
+<span class=normal>122</span>
+<span class=normal>123</span>
+<span class=normal>124</span>
+<span class=normal>125</span>
+<span class=normal>126</span>
+<span class=normal>127</span>
+<span class=normal>128</span>
+<span class=normal>129</span>
+<span class=normal>130</span>
+<span class=normal>131</span>
+<span class=normal>132</span>
+<span class=normal>133</span>
+<span class=normal>134</span>
+<span class=normal>135</span>
+<span class=normal>136</span>
+<span class=normal>137</span>
+<span class=normal>138</span>
+<span class=normal>139</span>
+<span class=normal>140</span>
+<span class=normal>141</span>
+<span class=normal>142</span>
+<span class=normal>143</span>
+<span class=normal>144</span>
+<span class=normal>145</span>
+<span class=normal>146</span>
+<span class=normal>147</span>
+<span class=normal>148</span>
+<span class=normal>149</span>
+<span class=normal>150</span>
+<span class=normal>151</span>
+<span class=normal>152</span>
+<span class=normal>153</span>
+<span class=normal>154</span>
+<span class=normal>155</span>
+<span class=normal>156</span>
+<span class=normal>157</span>
+<span class=normal>158</span>
+<span class=normal>159</span>
+<span class=normal>160</span>
+<span class=normal>161</span>
+<span class=normal>162</span>
+<span class=normal>163</span>
+<span class=normal>164</span>
+<span class=normal>165</span>
+<span class=normal>166</span>
+<span class=normal>167</span>
+<span class=normal>168</span>
+<span class=normal>169</span>
+<span class=normal>170</span>
+<span class=normal>171</span>
+<span class=normal>172</span>
+<span class=normal>173</span>
+<span class=normal>174</span>
+<span class=normal>175</span>
+<span class=normal>176</span>
+<span class=normal>177</span>
+<span class=normal>178</span>
+<span class=normal>179</span>
+<span class=normal>180</span>
+<span class=normal>181</span>
+<span class=normal>182</span>
+<span class=normal>183</span>
+<span class=normal>184</span>
+<span class=normal>185</span>
+<span class=normal>186</span>
+<span class=normal>187</span>
+<span class=normal>188</span>
+<span class=normal>189</span>
+<span class=normal>190</span>
+<span class=normal>191</span>
+<span class=normal>192</span>
+<span class=normal>193</span>
+<span class=normal>194</span>
+<span class=normal>195</span>
+<span class=normal>196</span>
+<span class=normal>197</span>
+<span class=normal>198</span>
+<span class=normal>199</span>
+<span class=normal>200</span>
+<span class=normal>201</span>
+<span class=normal>202</span>
+<span class=normal>203</span>
+<span class=normal>204</span>
+<span class=normal>205</span>
+<span class=normal>206</span>
+<span class=normal>207</span>
+<span class=normal>208</span>
+<span class=normal>209</span>
+<span class=normal>210</span>
+<span class=normal>211</span>
+<span class=normal>212</span>
+<span class=normal>213</span>
+<span class=normal>214</span>
+<span class=normal>215</span>
+<span class=normal>216</span>
+<span class=normal>217</span>
+<span class=normal>218</span>
+<span class=normal>219</span>
+<span class=normal>220</span>
+<span class=normal>221</span>
+<span class=normal>222</span>
+<span class=normal>223</span>
+<span class=normal>224</span>
+<span class=normal>225</span>
+<span class=normal>226</span>
+<span class=normal>227</span>
+<span class=normal>228</span>
+<span class=normal>229</span>
+<span class=normal>230</span>
+<span class=normal>231</span>
+<span class=normal>232</span>
+<span class=normal>233</span>
+<span class=normal>234</span>
+<span class=normal>235</span>
+<span class=normal>236</span>
+<span class=normal>237</span>
+<span class=normal>238</span>
+<span class=normal>239</span>
+<span class=normal>240</span>
+<span class=normal>241</span>
+<span class=normal>242</span>
+<span class=normal>243</span>
+<span class=normal>244</span>
+<span class=normal>245</span>
+<span class=normal>246</span>
+<span class=normal>247</span>
+<span class=normal>248</span>
+<span class=normal>249</span>
+<span class=normal>250</span>
+<span class=normal>251</span>
+<span class=normal>252</span>
+<span class=normal>253</span>
+<span class=normal>254</span>
+<span class=normal>255</span>
+<span class=normal>256</span>
+<span class=normal>257</span>
+<span class=normal>258</span>
+<span class=normal>259</span>
+<span class=normal>260</span>
+<span class=normal>261</span>
+<span class=normal>262</span>
+<span class=normal>263</span>
+<span class=normal>264</span>
+<span class=normal>265</span>
+<span class=normal>266</span>
+<span class=normal>267</span>
+<span class=normal>268</span>
+<span class=normal>269</span>
+<span class=normal>270</span>
+<span class=normal>271</span>
+<span class=normal>272</span>
+<span class=normal>273</span></pre></div></td><td class=code><div><pre><span></span><code><span class=k>class</span><span class=w> </span><span class=nc>HTTPConnection</span><span class=p>(</span><span class=n>_HTTPConnection</span><span class=p>,</span> <span class=nb>object</span><span class=p>):</span>
+<span class=w>    </span><span class=sd>&quot;&quot;&quot;</span>
+<span class=sd>    Based on :class:`http.client.HTTPConnection` but provides an extra constructor</span>
+<span class=sd>    backwards-compatibility layer between older and newer Pythons.</span>
+
+<span class=sd>    Additional keyword parameters are used to configure attributes of the connection.</span>
+<span class=sd>    Accepted parameters include:</span>
+
+<span class=sd>    - ``strict``: See the documentation on :class:`urllib3.connectionpool.HTTPConnectionPool`</span>
+<span class=sd>    - ``source_address``: Set the source address for the current connection.</span>
+<span class=sd>    - ``socket_options``: Set specific options on the underlying socket. If not specified, then</span>
+<span class=sd>      defaults are loaded from ``HTTPConnection.default_socket_options`` which includes disabling</span>
+<span class=sd>      Nagle&#39;s algorithm (sets TCP_NODELAY to 1) unless the connection is behind a proxy.</span>
+
+<span class=sd>      For example, if you wish to enable TCP Keep Alive in addition to the defaults,</span>
+<span class=sd>      you might pass:</span>
+
+<span class=sd>      .. code-block:: python</span>
+
+<span class=sd>         HTTPConnection.default_socket_options + [</span>
+<span class=sd>             (socket.SOL_SOCKET, socket.SO_KEEPALIVE, 1),</span>
+<span class=sd>         ]</span>
+
+<span class=sd>      Or you may want to disable the defaults by passing an empty list (e.g., ``[]``).</span>
+<span class=sd>    &quot;&quot;&quot;</span>
+
+    <span class=n>default_port</span> <span class=o>=</span> <span class=n>port_by_scheme</span><span class=p>[</span><span class=s2>&quot;http&quot;</span><span class=p>]</span>
+
+    <span class=c1>#: Disable Nagle&#39;s algorithm by default.</span>
+    <span class=c1>#: ``[(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)]``</span>
+    <span class=n>default_socket_options</span> <span class=o>=</span> <span class=p>[(</span><span class=n>socket</span><span class=o>.</span><span class=n>IPPROTO_TCP</span><span class=p>,</span> <span class=n>socket</span><span class=o>.</span><span class=n>TCP_NODELAY</span><span class=p>,</span> <span class=mi>1</span><span class=p>)]</span>
+
+    <span class=c1>#: Whether this connection verifies the host&#39;s certificate.</span>
+    <span class=n>is_verified</span> <span class=o>=</span> <span class=kc>False</span>
+
+    <span class=k>def</span><span class=w> </span><span class=fm>__init__</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=o>*</span><span class=n>args</span><span class=p>,</span> <span class=o>**</span><span class=n>kw</span><span class=p>):</span>
+        <span class=k>if</span> <span class=ow>not</span> <span class=n>six</span><span class=o>.</span><span class=n>PY2</span><span class=p>:</span>
+            <span class=n>kw</span><span class=o>.</span><span class=n>pop</span><span class=p>(</span><span class=s2>&quot;strict&quot;</span><span class=p>,</span> <span class=kc>None</span><span class=p>)</span>
+
+        <span class=c1># Pre-set source_address.</span>
+        <span class=bp>self</span><span class=o>.</span><span class=n>source_address</span> <span class=o>=</span> <span class=n>kw</span><span class=o>.</span><span class=n>get</span><span class=p>(</span><span class=s2>&quot;source_address&quot;</span><span class=p>)</span>
+
+        <span class=c1>#: The socket options provided by the user. If no options are</span>
+        <span class=c1>#: provided, we use the default options.</span>
+        <span class=bp>self</span><span class=o>.</span><span class=n>socket_options</span> <span class=o>=</span> <span class=n>kw</span><span class=o>.</span><span class=n>pop</span><span class=p>(</span><span class=s2>&quot;socket_options&quot;</span><span class=p>,</span> <span class=bp>self</span><span class=o>.</span><span class=n>default_socket_options</span><span class=p>)</span>
+
+        <span class=c1># Proxy options provided by the user.</span>
+        <span class=bp>self</span><span class=o>.</span><span class=n>proxy</span> <span class=o>=</span> <span class=n>kw</span><span class=o>.</span><span class=n>pop</span><span class=p>(</span><span class=s2>&quot;proxy&quot;</span><span class=p>,</span> <span class=kc>None</span><span class=p>)</span>
+        <span class=bp>self</span><span class=o>.</span><span class=n>proxy_config</span> <span class=o>=</span> <span class=n>kw</span><span class=o>.</span><span class=n>pop</span><span class=p>(</span><span class=s2>&quot;proxy_config&quot;</span><span class=p>,</span> <span class=kc>None</span><span class=p>)</span>
+
+        <span class=n>_HTTPConnection</span><span class=o>.</span><span class=fm>__init__</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=o>*</span><span class=n>args</span><span class=p>,</span> <span class=o>**</span><span class=n>kw</span><span class=p>)</span>
+
+    <span class=nd>@property</span>
+    <span class=k>def</span><span class=w> </span><span class=nf>host</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+<span class=w>        </span><span class=sd>&quot;&quot;&quot;</span>
+<span class=sd>        Getter method to remove any trailing dots that indicate the hostname is an FQDN.</span>
+
+<span class=sd>        In general, SSL certificates don&#39;t include the trailing dot indicating a</span>
+<span class=sd>        fully-qualified domain name, and thus, they don&#39;t validate properly when</span>
+<span class=sd>        checked against a domain name that includes the dot. In addition, some</span>
+<span class=sd>        servers may not expect to receive the trailing dot when provided.</span>
+
+<span class=sd>        However, the hostname with trailing dot is critical to DNS resolution; doing a</span>
+<span class=sd>        lookup with the trailing dot will properly only resolve the appropriate FQDN,</span>
+<span class=sd>        whereas a lookup without a trailing dot will search the system&#39;s search domain</span>
+<span class=sd>        list. Thus, it&#39;s important to keep the original host around for use only in</span>
+<span class=sd>        those cases where it&#39;s appropriate (i.e., when doing DNS lookup to establish the</span>
+<span class=sd>        actual TCP connection across which we&#39;re going to send HTTP requests).</span>
+<span class=sd>        &quot;&quot;&quot;</span>
+        <span class=k>return</span> <span class=bp>self</span><span class=o>.</span><span class=n>_dns_host</span><span class=o>.</span><span class=n>rstrip</span><span class=p>(</span><span class=s2>&quot;.&quot;</span><span class=p>)</span>
+
+    <span class=nd>@host</span><span class=o>.</span><span class=n>setter</span>
+    <span class=k>def</span><span class=w> </span><span class=nf>host</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>value</span><span class=p>):</span>
+<span class=w>        </span><span class=sd>&quot;&quot;&quot;</span>
+<span class=sd>        Setter for the `host` property.</span>
+
+<span class=sd>        We assume that only urllib3 uses the _dns_host attribute; httplib itself</span>
+<span class=sd>        only uses `host`, and it seems reasonable that other libraries follow suit.</span>
+<span class=sd>        &quot;&quot;&quot;</span>
+        <span class=bp>self</span><span class=o>.</span><span class=n>_dns_host</span> <span class=o>=</span> <span class=n>value</span>
+
+    <span class=k>def</span><span class=w> </span><span class=nf>_new_conn</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+<span class=w>        </span><span class=sd>&quot;&quot;&quot;Establish a socket connection and set nodelay settings on it.</span>
+
+<span class=sd>        :return: New socket connection.</span>
+<span class=sd>        &quot;&quot;&quot;</span>
+        <span class=n>extra_kw</span> <span class=o>=</span> <span class=p>{}</span>
+        <span class=k>if</span> <span class=bp>self</span><span class=o>.</span><span class=n>source_address</span><span class=p>:</span>
+            <span class=n>extra_kw</span><span class=p>[</span><span class=s2>&quot;source_address&quot;</span><span class=p>]</span> <span class=o>=</span> <span class=bp>self</span><span class=o>.</span><span class=n>source_address</span>
+
+        <span class=k>if</span> <span class=bp>self</span><span class=o>.</span><span class=n>socket_options</span><span class=p>:</span>
+            <span class=n>extra_kw</span><span class=p>[</span><span class=s2>&quot;socket_options&quot;</span><span class=p>]</span> <span class=o>=</span> <span class=bp>self</span><span class=o>.</span><span class=n>socket_options</span>
+
+        <span class=k>try</span><span class=p>:</span>
+            <span class=n>conn</span> <span class=o>=</span> <span class=n>connection</span><span class=o>.</span><span class=n>create_connection</span><span class=p>(</span>
+                <span class=p>(</span><span class=bp>self</span><span class=o>.</span><span class=n>_dns_host</span><span class=p>,</span> <span class=bp>self</span><span class=o>.</span><span class=n>port</span><span class=p>),</span> <span class=bp>self</span><span class=o>.</span><span class=n>timeout</span><span class=p>,</span> <span class=o>**</span><span class=n>extra_kw</span>
+            <span class=p>)</span>
+
+        <span class=k>except</span> <span class=n>SocketTimeout</span><span class=p>:</span>
+            <span class=k>raise</span> <span class=n>ConnectTimeoutError</span><span class=p>(</span>
+                <span class=bp>self</span><span class=p>,</span>
+                <span class=s2>&quot;Connection to </span><span class=si>%s</span><span class=s2> timed out. (connect timeout=</span><span class=si>%s</span><span class=s2>)&quot;</span>
+                <span class=o>%</span> <span class=p>(</span><span class=bp>self</span><span class=o>.</span><span class=n>host</span><span class=p>,</span> <span class=bp>self</span><span class=o>.</span><span class=n>timeout</span><span class=p>),</span>
+            <span class=p>)</span>
+
+        <span class=k>except</span> <span class=n>SocketError</span> <span class=k>as</span> <span class=n>e</span><span class=p>:</span>
+            <span class=k>raise</span> <span class=n>NewConnectionError</span><span class=p>(</span>
+                <span class=bp>self</span><span class=p>,</span> <span class=s2>&quot;Failed to establish a new connection: </span><span class=si>%s</span><span class=s2>&quot;</span> <span class=o>%</span> <span class=n>e</span>
+            <span class=p>)</span>
+
+        <span class=k>return</span> <span class=n>conn</span>
+
+    <span class=k>def</span><span class=w> </span><span class=nf>_is_using_tunnel</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+        <span class=c1># Google App Engine&#39;s httplib does not define _tunnel_host</span>
+        <span class=k>return</span> <span class=nb>getattr</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=s2>&quot;_tunnel_host&quot;</span><span class=p>,</span> <span class=kc>None</span><span class=p>)</span>
+
+    <span class=k>def</span><span class=w> </span><span class=nf>_prepare_conn</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>conn</span><span class=p>):</span>
+        <span class=bp>self</span><span class=o>.</span><span class=n>sock</span> <span class=o>=</span> <span class=n>conn</span>
+        <span class=k>if</span> <span class=bp>self</span><span class=o>.</span><span class=n>_is_using_tunnel</span><span class=p>():</span>
+            <span class=c1># TODO: Fix tunnel so it doesn&#39;t depend on self.sock state.</span>
+            <span class=bp>self</span><span class=o>.</span><span class=n>_tunnel</span><span class=p>()</span>
+            <span class=c1># Mark this connection as not reusable</span>
+            <span class=bp>self</span><span class=o>.</span><span class=n>auto_open</span> <span class=o>=</span> <span class=mi>0</span>
+
+    <span class=k>def</span><span class=w> </span><span class=nf>connect</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+        <span class=n>conn</span> <span class=o>=</span> <span class=bp>self</span><span class=o>.</span><span class=n>_new_conn</span><span class=p>()</span>
+        <span class=bp>self</span><span class=o>.</span><span class=n>_prepare_conn</span><span class=p>(</span><span class=n>conn</span><span class=p>)</span>
+
+    <span class=k>def</span><span class=w> </span><span class=nf>putrequest</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>method</span><span class=p>,</span> <span class=n>url</span><span class=p>,</span> <span class=o>*</span><span class=n>args</span><span class=p>,</span> <span class=o>**</span><span class=n>kwargs</span><span class=p>):</span>
+<span class=w>        </span><span class=sd>&quot;&quot;&quot; &quot;&quot;&quot;</span>
+        <span class=c1># Empty docstring because the indentation of CPython&#39;s implementation</span>
+        <span class=c1># is broken but we don&#39;t want this method in our documentation.</span>
+        <span class=n>match</span> <span class=o>=</span> <span class=n>_CONTAINS_CONTROL_CHAR_RE</span><span class=o>.</span><span class=n>search</span><span class=p>(</span><span class=n>method</span><span class=p>)</span>
+        <span class=k>if</span> <span class=n>match</span><span class=p>:</span>
+            <span class=k>raise</span> <span class=ne>ValueError</span><span class=p>(</span>
+                <span class=s2>&quot;Method cannot contain non-token characters </span><span class=si>%r</span><span class=s2> (found at least </span><span class=si>%r</span><span class=s2>)&quot;</span>
+                <span class=o>%</span> <span class=p>(</span><span class=n>method</span><span class=p>,</span> <span class=n>match</span><span class=o>.</span><span class=n>group</span><span class=p>())</span>
+            <span class=p>)</span>
+
+        <span class=k>return</span> <span class=n>_HTTPConnection</span><span class=o>.</span><span class=n>putrequest</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>method</span><span class=p>,</span> <span class=n>url</span><span class=p>,</span> <span class=o>*</span><span class=n>args</span><span class=p>,</span> <span class=o>**</span><span class=n>kwargs</span><span class=p>)</span>
+
+    <span class=k>def</span><span class=w> </span><span class=nf>putheader</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>header</span><span class=p>,</span> <span class=o>*</span><span class=n>values</span><span class=p>):</span>
+<span class=w>        </span><span class=sd>&quot;&quot;&quot; &quot;&quot;&quot;</span>
+        <span class=k>if</span> <span class=ow>not</span> <span class=nb>any</span><span class=p>(</span><span class=nb>isinstance</span><span class=p>(</span><span class=n>v</span><span class=p>,</span> <span class=nb>str</span><span class=p>)</span> <span class=ow>and</span> <span class=n>v</span> <span class=o>==</span> <span class=n>SKIP_HEADER</span> <span class=k>for</span> <span class=n>v</span> <span class=ow>in</span> <span class=n>values</span><span class=p>):</span>
+            <span class=n>_HTTPConnection</span><span class=o>.</span><span class=n>putheader</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>header</span><span class=p>,</span> <span class=o>*</span><span class=n>values</span><span class=p>)</span>
+        <span class=k>elif</span> <span class=n>six</span><span class=o>.</span><span class=n>ensure_str</span><span class=p>(</span><span class=n>header</span><span class=o>.</span><span class=n>lower</span><span class=p>())</span> <span class=ow>not</span> <span class=ow>in</span> <span class=n>SKIPPABLE_HEADERS</span><span class=p>:</span>
+            <span class=k>raise</span> <span class=ne>ValueError</span><span class=p>(</span>
+                <span class=s2>&quot;urllib3.util.SKIP_HEADER only supports &#39;</span><span class=si>%s</span><span class=s2>&#39;&quot;</span>
+                <span class=o>%</span> <span class=p>(</span><span class=s2>&quot;&#39;, &#39;&quot;</span><span class=o>.</span><span class=n>join</span><span class=p>(</span><span class=nb>map</span><span class=p>(</span><span class=nb>str</span><span class=o>.</span><span class=n>title</span><span class=p>,</span> <span class=nb>sorted</span><span class=p>(</span><span class=n>SKIPPABLE_HEADERS</span><span class=p>))),)</span>
+            <span class=p>)</span>
+
+    <span class=k>def</span><span class=w> </span><span class=nf>request</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>method</span><span class=p>,</span> <span class=n>url</span><span class=p>,</span> <span class=n>body</span><span class=o>=</span><span class=kc>None</span><span class=p>,</span> <span class=n>headers</span><span class=o>=</span><span class=kc>None</span><span class=p>):</span>
+        <span class=k>if</span> <span class=n>headers</span> <span class=ow>is</span> <span class=kc>None</span><span class=p>:</span>
+            <span class=n>headers</span> <span class=o>=</span> <span class=p>{}</span>
+        <span class=k>else</span><span class=p>:</span>
+            <span class=c1># Avoid modifying the headers passed into .request()</span>
+            <span class=n>headers</span> <span class=o>=</span> <span class=n>headers</span><span class=o>.</span><span class=n>copy</span><span class=p>()</span>
+        <span class=k>if</span> <span class=s2>&quot;user-agent&quot;</span> <span class=ow>not</span> <span class=ow>in</span> <span class=p>(</span><span class=n>six</span><span class=o>.</span><span class=n>ensure_str</span><span class=p>(</span><span class=n>k</span><span class=o>.</span><span class=n>lower</span><span class=p>())</span> <span class=k>for</span> <span class=n>k</span> <span class=ow>in</span> <span class=n>headers</span><span class=p>):</span>
+            <span class=n>headers</span><span class=p>[</span><span class=s2>&quot;User-Agent&quot;</span><span class=p>]</span> <span class=o>=</span> <span class=n>_get_default_user_agent</span><span class=p>()</span>
+        <span class=nb>super</span><span class=p>(</span><span class=n>HTTPConnection</span><span class=p>,</span> <span class=bp>self</span><span class=p>)</span><span class=o>.</span><span class=n>request</span><span class=p>(</span><span class=n>method</span><span class=p>,</span> <span class=n>url</span><span class=p>,</span> <span class=n>body</span><span class=o>=</span><span class=n>body</span><span class=p>,</span> <span class=n>headers</span><span class=o>=</span><span class=n>headers</span><span class=p>)</span>
+
+    <span class=k>def</span><span class=w> </span><span class=nf>request_chunked</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>method</span><span class=p>,</span> <span class=n>url</span><span class=p>,</span> <span class=n>body</span><span class=o>=</span><span class=kc>None</span><span class=p>,</span> <span class=n>headers</span><span class=o>=</span><span class=kc>None</span><span class=p>):</span>
+<span class=w>        </span><span class=sd>&quot;&quot;&quot;</span>
+<span class=sd>        Alternative to the common request method, which sends the</span>
+<span class=sd>        body with chunked encoding and not as one block</span>
+<span class=sd>        &quot;&quot;&quot;</span>
+        <span class=n>headers</span> <span class=o>=</span> <span class=n>headers</span> <span class=ow>or</span> <span class=p>{}</span>
+        <span class=n>header_keys</span> <span class=o>=</span> <span class=nb>set</span><span class=p>([</span><span class=n>six</span><span class=o>.</span><span class=n>ensure_str</span><span class=p>(</span><span class=n>k</span><span class=o>.</span><span class=n>lower</span><span class=p>())</span> <span class=k>for</span> <span class=n>k</span> <span class=ow>in</span> <span class=n>headers</span><span class=p>])</span>
+        <span class=n>skip_accept_encoding</span> <span class=o>=</span> <span class=s2>&quot;accept-encoding&quot;</span> <span class=ow>in</span> <span class=n>header_keys</span>
+        <span class=n>skip_host</span> <span class=o>=</span> <span class=s2>&quot;host&quot;</span> <span class=ow>in</span> <span class=n>header_keys</span>
+        <span class=bp>self</span><span class=o>.</span><span class=n>putrequest</span><span class=p>(</span>
+            <span class=n>method</span><span class=p>,</span> <span class=n>url</span><span class=p>,</span> <span class=n>skip_accept_encoding</span><span class=o>=</span><span class=n>skip_accept_encoding</span><span class=p>,</span> <span class=n>skip_host</span><span class=o>=</span><span class=n>skip_host</span>
+        <span class=p>)</span>
+        <span class=k>if</span> <span class=s2>&quot;user-agent&quot;</span> <span class=ow>not</span> <span class=ow>in</span> <span class=n>header_keys</span><span class=p>:</span>
+            <span class=bp>self</span><span class=o>.</span><span class=n>putheader</span><span class=p>(</span><span class=s2>&quot;User-Agent&quot;</span><span class=p>,</span> <span class=n>_get_default_user_agent</span><span class=p>())</span>
+        <span class=k>for</span> <span class=n>header</span><span class=p>,</span> <span class=n>value</span> <span class=ow>in</span> <span class=n>headers</span><span class=o>.</span><span class=n>items</span><span class=p>():</span>
+            <span class=bp>self</span><span class=o>.</span><span class=n>putheader</span><span class=p>(</span><span class=n>header</span><span class=p>,</span> <span class=n>value</span><span class=p>)</span>
+        <span class=k>if</span> <span class=s2>&quot;transfer-encoding&quot;</span> <span class=ow>not</span> <span class=ow>in</span> <span class=n>header_keys</span><span class=p>:</span>
+            <span class=bp>self</span><span class=o>.</span><span class=n>putheader</span><span class=p>(</span><span class=s2>&quot;Transfer-Encoding&quot;</span><span class=p>,</span> <span class=s2>&quot;chunked&quot;</span><span class=p>)</span>
+        <span class=bp>self</span><span class=o>.</span><span class=n>endheaders</span><span class=p>()</span>
+
+        <span class=k>if</span> <span class=n>body</span> <span class=ow>is</span> <span class=ow>not</span> <span class=kc>None</span><span class=p>:</span>
+            <span class=n>stringish_types</span> <span class=o>=</span> <span class=n>six</span><span class=o>.</span><span class=n>string_types</span> <span class=o>+</span> <span class=p>(</span><span class=nb>bytes</span><span class=p>,)</span>
+            <span class=k>if</span> <span class=nb>isinstance</span><span class=p>(</span><span class=n>body</span><span class=p>,</span> <span class=n>stringish_types</span><span class=p>):</span>
+                <span class=n>body</span> <span class=o>=</span> <span class=p>(</span><span class=n>body</span><span class=p>,)</span>
+            <span class=k>for</span> <span class=n>chunk</span> <span class=ow>in</span> <span class=n>body</span><span class=p>:</span>
+                <span class=k>if</span> <span class=ow>not</span> <span class=n>chunk</span><span class=p>:</span>
+                    <span class=k>continue</span>
+                <span class=k>if</span> <span class=ow>not</span> <span class=nb>isinstance</span><span class=p>(</span><span class=n>chunk</span><span class=p>,</span> <span class=nb>bytes</span><span class=p>):</span>
+                    <span class=n>chunk</span> <span class=o>=</span> <span class=n>chunk</span><span class=o>.</span><span class=n>encode</span><span class=p>(</span><span class=s2>&quot;utf8&quot;</span><span class=p>)</span>
+                <span class=n>len_str</span> <span class=o>=</span> <span class=nb>hex</span><span class=p>(</span><span class=nb>len</span><span class=p>(</span><span class=n>chunk</span><span class=p>))[</span><span class=mi>2</span><span class=p>:]</span>
+                <span class=n>to_send</span> <span class=o>=</span> <span class=nb>bytearray</span><span class=p>(</span><span class=n>len_str</span><span class=o>.</span><span class=n>encode</span><span class=p>())</span>
+                <span class=n>to_send</span> <span class=o>+=</span> <span class=sa>b</span><span class=s2>&quot;</span><span class=se>\r\n</span><span class=s2>&quot;</span>
+                <span class=n>to_send</span> <span class=o>+=</span> <span class=n>chunk</span>
+                <span class=n>to_send</span> <span class=o>+=</span> <span class=sa>b</span><span class=s2>&quot;</span><span class=se>\r\n</span><span class=s2>&quot;</span>
+                <span class=bp>self</span><span class=o>.</span><span class=n>send</span><span class=p>(</span><span class=n>to_send</span><span class=p>)</span>
+
+        <span class=c1># After the if clause, to always have a closed body</span>
+        <span class=bp>self</span><span class=o>.</span><span class=n>send</span><span class=p>(</span><span class=sa>b</span><span class=s2>&quot;0</span><span class=se>\r\n\r\n</span><span class=s2>&quot;</span><span class=p>)</span>
+</code></pre></div></td></tr></table></div> </details> <div class="doc doc-children"> <div class="doc doc-object doc-attribute"> <h3 id=client.ayon_fusion.vendor.urllib3.connection.HTTPConnection.host class="doc doc-heading"> <code class="highlight language-python"><span class=n>host</span></code> <span class="doc doc-labels"> <small class="doc doc-label doc-label-property"><code>property</code></small> <small class="doc doc-label doc-label-writable"><code>writable</code></small> </span> </h3> <div class="doc doc-contents "> <p>Getter method to remove any trailing dots that indicate the hostname is an FQDN.</p> <p>In general, SSL certificates don't include the trailing dot indicating a fully-qualified domain name, and thus, they don't validate properly when checked against a domain name that includes the dot. In addition, some servers may not expect to receive the trailing dot when provided.</p> <p>However, the hostname with trailing dot is critical to DNS resolution; doing a lookup with the trailing dot will properly only resolve the appropriate FQDN, whereas a lookup without a trailing dot will search the system's search domain list. Thus, it's important to keep the original host around for use only in those cases where it's appropriate (i.e., when doing DNS lookup to establish the actual TCP connection across which we're going to send HTTP requests).</p> </div> </div> <div class="doc doc-object doc-function"> <h3 id=client.ayon_fusion.vendor.urllib3.connection.HTTPConnection.putheader class="doc doc-heading"> <code class="highlight language-python"><span class=n>putheader</span><span class=p>(</span><span class=n>header</span><span class=p>,</span> <span class=o>*</span><span class=n>values</span><span class=p>)</span></code> </h3> <div class="doc doc-contents "> <details class=quote> <summary>Source code in <code>client/ayon_fusion/vendor/urllib3/connection.py</code></summary> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal>216</span>
+<span class=normal>217</span>
+<span class=normal>218</span>
+<span class=normal>219</span>
+<span class=normal>220</span>
+<span class=normal>221</span>
+<span class=normal>222</span>
+<span class=normal>223</span>
+<span class=normal>224</span></pre></div></td><td class=code><div><pre><span></span><code><span class=k>def</span><span class=w> </span><span class=nf>putheader</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>header</span><span class=p>,</span> <span class=o>*</span><span class=n>values</span><span class=p>):</span>
+<span class=w>    </span><span class=sd>&quot;&quot;&quot; &quot;&quot;&quot;</span>
+    <span class=k>if</span> <span class=ow>not</span> <span class=nb>any</span><span class=p>(</span><span class=nb>isinstance</span><span class=p>(</span><span class=n>v</span><span class=p>,</span> <span class=nb>str</span><span class=p>)</span> <span class=ow>and</span> <span class=n>v</span> <span class=o>==</span> <span class=n>SKIP_HEADER</span> <span class=k>for</span> <span class=n>v</span> <span class=ow>in</span> <span class=n>values</span><span class=p>):</span>
+        <span class=n>_HTTPConnection</span><span class=o>.</span><span class=n>putheader</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>header</span><span class=p>,</span> <span class=o>*</span><span class=n>values</span><span class=p>)</span>
+    <span class=k>elif</span> <span class=n>six</span><span class=o>.</span><span class=n>ensure_str</span><span class=p>(</span><span class=n>header</span><span class=o>.</span><span class=n>lower</span><span class=p>())</span> <span class=ow>not</span> <span class=ow>in</span> <span class=n>SKIPPABLE_HEADERS</span><span class=p>:</span>
+        <span class=k>raise</span> <span class=ne>ValueError</span><span class=p>(</span>
+            <span class=s2>&quot;urllib3.util.SKIP_HEADER only supports &#39;</span><span class=si>%s</span><span class=s2>&#39;&quot;</span>
+            <span class=o>%</span> <span class=p>(</span><span class=s2>&quot;&#39;, &#39;&quot;</span><span class=o>.</span><span class=n>join</span><span class=p>(</span><span class=nb>map</span><span class=p>(</span><span class=nb>str</span><span class=o>.</span><span class=n>title</span><span class=p>,</span> <span class=nb>sorted</span><span class=p>(</span><span class=n>SKIPPABLE_HEADERS</span><span class=p>))),)</span>
+        <span class=p>)</span>
+</code></pre></div></td></tr></table></div> </details> </div> </div> <div class="doc doc-object doc-function"> <h3 id=client.ayon_fusion.vendor.urllib3.connection.HTTPConnection.putrequest class="doc doc-heading"> <code class="highlight language-python"><span class=n>putrequest</span><span class=p>(</span><span class=n>method</span><span class=p>,</span> <span class=n>url</span><span class=p>,</span> <span class=o>*</span><span class=n>args</span><span class=p>,</span> <span class=o>**</span><span class=n>kwargs</span><span class=p>)</span></code> </h3> <div class="doc doc-contents "> <details class=quote> <summary>Source code in <code>client/ayon_fusion/vendor/urllib3/connection.py</code></summary> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal>203</span>
+<span class=normal>204</span>
+<span class=normal>205</span>
+<span class=normal>206</span>
+<span class=normal>207</span>
+<span class=normal>208</span>
+<span class=normal>209</span>
+<span class=normal>210</span>
+<span class=normal>211</span>
+<span class=normal>212</span>
+<span class=normal>213</span>
+<span class=normal>214</span></pre></div></td><td class=code><div><pre><span></span><code><span class=k>def</span><span class=w> </span><span class=nf>putrequest</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>method</span><span class=p>,</span> <span class=n>url</span><span class=p>,</span> <span class=o>*</span><span class=n>args</span><span class=p>,</span> <span class=o>**</span><span class=n>kwargs</span><span class=p>):</span>
+<span class=w>    </span><span class=sd>&quot;&quot;&quot; &quot;&quot;&quot;</span>
+    <span class=c1># Empty docstring because the indentation of CPython&#39;s implementation</span>
+    <span class=c1># is broken but we don&#39;t want this method in our documentation.</span>
+    <span class=n>match</span> <span class=o>=</span> <span class=n>_CONTAINS_CONTROL_CHAR_RE</span><span class=o>.</span><span class=n>search</span><span class=p>(</span><span class=n>method</span><span class=p>)</span>
+    <span class=k>if</span> <span class=n>match</span><span class=p>:</span>
+        <span class=k>raise</span> <span class=ne>ValueError</span><span class=p>(</span>
+            <span class=s2>&quot;Method cannot contain non-token characters </span><span class=si>%r</span><span class=s2> (found at least </span><span class=si>%r</span><span class=s2>)&quot;</span>
+            <span class=o>%</span> <span class=p>(</span><span class=n>method</span><span class=p>,</span> <span class=n>match</span><span class=o>.</span><span class=n>group</span><span class=p>())</span>
+        <span class=p>)</span>
+
+    <span class=k>return</span> <span class=n>_HTTPConnection</span><span class=o>.</span><span class=n>putrequest</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>method</span><span class=p>,</span> <span class=n>url</span><span class=p>,</span> <span class=o>*</span><span class=n>args</span><span class=p>,</span> <span class=o>**</span><span class=n>kwargs</span><span class=p>)</span>
+</code></pre></div></td></tr></table></div> </details> </div> </div> <div class="doc doc-object doc-function"> <h3 id=client.ayon_fusion.vendor.urllib3.connection.HTTPConnection.request_chunked class="doc doc-heading"> <code class="highlight language-python"><span class=n>request_chunked</span><span class=p>(</span><span class=n>method</span><span class=p>,</span> <span class=n>url</span><span class=p>,</span> <span class=n>body</span><span class=o>=</span><span class=kc>None</span><span class=p>,</span> <span class=n>headers</span><span class=o>=</span><span class=kc>None</span><span class=p>)</span></code> </h3> <div class="doc doc-contents "> <p>Alternative to the common request method, which sends the body with chunked encoding and not as one block</p> <details class=quote> <summary>Source code in <code>client/ayon_fusion/vendor/urllib3/connection.py</code></summary> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal>236</span>
+<span class=normal>237</span>
+<span class=normal>238</span>
+<span class=normal>239</span>
+<span class=normal>240</span>
+<span class=normal>241</span>
+<span class=normal>242</span>
+<span class=normal>243</span>
+<span class=normal>244</span>
+<span class=normal>245</span>
+<span class=normal>246</span>
+<span class=normal>247</span>
+<span class=normal>248</span>
+<span class=normal>249</span>
+<span class=normal>250</span>
+<span class=normal>251</span>
+<span class=normal>252</span>
+<span class=normal>253</span>
+<span class=normal>254</span>
+<span class=normal>255</span>
+<span class=normal>256</span>
+<span class=normal>257</span>
+<span class=normal>258</span>
+<span class=normal>259</span>
+<span class=normal>260</span>
+<span class=normal>261</span>
+<span class=normal>262</span>
+<span class=normal>263</span>
+<span class=normal>264</span>
+<span class=normal>265</span>
+<span class=normal>266</span>
+<span class=normal>267</span>
+<span class=normal>268</span>
+<span class=normal>269</span>
+<span class=normal>270</span>
+<span class=normal>271</span>
+<span class=normal>272</span>
+<span class=normal>273</span></pre></div></td><td class=code><div><pre><span></span><code><span class=k>def</span><span class=w> </span><span class=nf>request_chunked</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>method</span><span class=p>,</span> <span class=n>url</span><span class=p>,</span> <span class=n>body</span><span class=o>=</span><span class=kc>None</span><span class=p>,</span> <span class=n>headers</span><span class=o>=</span><span class=kc>None</span><span class=p>):</span>
+<span class=w>    </span><span class=sd>&quot;&quot;&quot;</span>
+<span class=sd>    Alternative to the common request method, which sends the</span>
+<span class=sd>    body with chunked encoding and not as one block</span>
+<span class=sd>    &quot;&quot;&quot;</span>
+    <span class=n>headers</span> <span class=o>=</span> <span class=n>headers</span> <span class=ow>or</span> <span class=p>{}</span>
+    <span class=n>header_keys</span> <span class=o>=</span> <span class=nb>set</span><span class=p>([</span><span class=n>six</span><span class=o>.</span><span class=n>ensure_str</span><span class=p>(</span><span class=n>k</span><span class=o>.</span><span class=n>lower</span><span class=p>())</span> <span class=k>for</span> <span class=n>k</span> <span class=ow>in</span> <span class=n>headers</span><span class=p>])</span>
+    <span class=n>skip_accept_encoding</span> <span class=o>=</span> <span class=s2>&quot;accept-encoding&quot;</span> <span class=ow>in</span> <span class=n>header_keys</span>
+    <span class=n>skip_host</span> <span class=o>=</span> <span class=s2>&quot;host&quot;</span> <span class=ow>in</span> <span class=n>header_keys</span>
+    <span class=bp>self</span><span class=o>.</span><span class=n>putrequest</span><span class=p>(</span>
+        <span class=n>method</span><span class=p>,</span> <span class=n>url</span><span class=p>,</span> <span class=n>skip_accept_encoding</span><span class=o>=</span><span class=n>skip_accept_encoding</span><span class=p>,</span> <span class=n>skip_host</span><span class=o>=</span><span class=n>skip_host</span>
+    <span class=p>)</span>
+    <span class=k>if</span> <span class=s2>&quot;user-agent&quot;</span> <span class=ow>not</span> <span class=ow>in</span> <span class=n>header_keys</span><span class=p>:</span>
+        <span class=bp>self</span><span class=o>.</span><span class=n>putheader</span><span class=p>(</span><span class=s2>&quot;User-Agent&quot;</span><span class=p>,</span> <span class=n>_get_default_user_agent</span><span class=p>())</span>
+    <span class=k>for</span> <span class=n>header</span><span class=p>,</span> <span class=n>value</span> <span class=ow>in</span> <span class=n>headers</span><span class=o>.</span><span class=n>items</span><span class=p>():</span>
+        <span class=bp>self</span><span class=o>.</span><span class=n>putheader</span><span class=p>(</span><span class=n>header</span><span class=p>,</span> <span class=n>value</span><span class=p>)</span>
+    <span class=k>if</span> <span class=s2>&quot;transfer-encoding&quot;</span> <span class=ow>not</span> <span class=ow>in</span> <span class=n>header_keys</span><span class=p>:</span>
+        <span class=bp>self</span><span class=o>.</span><span class=n>putheader</span><span class=p>(</span><span class=s2>&quot;Transfer-Encoding&quot;</span><span class=p>,</span> <span class=s2>&quot;chunked&quot;</span><span class=p>)</span>
+    <span class=bp>self</span><span class=o>.</span><span class=n>endheaders</span><span class=p>()</span>
+
+    <span class=k>if</span> <span class=n>body</span> <span class=ow>is</span> <span class=ow>not</span> <span class=kc>None</span><span class=p>:</span>
+        <span class=n>stringish_types</span> <span class=o>=</span> <span class=n>six</span><span class=o>.</span><span class=n>string_types</span> <span class=o>+</span> <span class=p>(</span><span class=nb>bytes</span><span class=p>,)</span>
+        <span class=k>if</span> <span class=nb>isinstance</span><span class=p>(</span><span class=n>body</span><span class=p>,</span> <span class=n>stringish_types</span><span class=p>):</span>
+            <span class=n>body</span> <span class=o>=</span> <span class=p>(</span><span class=n>body</span><span class=p>,)</span>
+        <span class=k>for</span> <span class=n>chunk</span> <span class=ow>in</span> <span class=n>body</span><span class=p>:</span>
+            <span class=k>if</span> <span class=ow>not</span> <span class=n>chunk</span><span class=p>:</span>
+                <span class=k>continue</span>
+            <span class=k>if</span> <span class=ow>not</span> <span class=nb>isinstance</span><span class=p>(</span><span class=n>chunk</span><span class=p>,</span> <span class=nb>bytes</span><span class=p>):</span>
+                <span class=n>chunk</span> <span class=o>=</span> <span class=n>chunk</span><span class=o>.</span><span class=n>encode</span><span class=p>(</span><span class=s2>&quot;utf8&quot;</span><span class=p>)</span>
+            <span class=n>len_str</span> <span class=o>=</span> <span class=nb>hex</span><span class=p>(</span><span class=nb>len</span><span class=p>(</span><span class=n>chunk</span><span class=p>))[</span><span class=mi>2</span><span class=p>:]</span>
+            <span class=n>to_send</span> <span class=o>=</span> <span class=nb>bytearray</span><span class=p>(</span><span class=n>len_str</span><span class=o>.</span><span class=n>encode</span><span class=p>())</span>
+            <span class=n>to_send</span> <span class=o>+=</span> <span class=sa>b</span><span class=s2>&quot;</span><span class=se>\r\n</span><span class=s2>&quot;</span>
+            <span class=n>to_send</span> <span class=o>+=</span> <span class=n>chunk</span>
+            <span class=n>to_send</span> <span class=o>+=</span> <span class=sa>b</span><span class=s2>&quot;</span><span class=se>\r\n</span><span class=s2>&quot;</span>
+            <span class=bp>self</span><span class=o>.</span><span class=n>send</span><span class=p>(</span><span class=n>to_send</span><span class=p>)</span>
+
+    <span class=c1># After the if clause, to always have a closed body</span>
+    <span class=bp>self</span><span class=o>.</span><span class=n>send</span><span class=p>(</span><span class=sa>b</span><span class=s2>&quot;0</span><span class=se>\r\n\r\n</span><span class=s2>&quot;</span><span class=p>)</span>
+</code></pre></div></td></tr></table></div> </details> </div> </div> </div> </div> </div> <div class="doc doc-object doc-class"> <h2 id=client.ayon_fusion.vendor.urllib3.connection.HTTPSConnection class="doc doc-heading"> <code>HTTPSConnection</code> </h2> <div class="doc doc-contents "> <p class="doc doc-class-bases"> Bases: <code><a class="autorefs autorefs-internal" title="HTTPConnection (client.ayon_fusion.vendor.urllib3.connection.HTTPConnection)" href=#client.ayon_fusion.vendor.urllib3.connection.HTTPConnection>HTTPConnection</a></code></p> <p>Many of the parameters to this constructor are passed to the underlying SSL socket by means of :py:func:<code>urllib3.util.ssl_wrap_socket</code>.</p> <details class=quote> <summary>Source code in <code>client/ayon_fusion/vendor/urllib3/connection.py</code></summary> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal>276</span>
+<span class=normal>277</span>
+<span class=normal>278</span>
+<span class=normal>279</span>
+<span class=normal>280</span>
+<span class=normal>281</span>
+<span class=normal>282</span>
+<span class=normal>283</span>
+<span class=normal>284</span>
+<span class=normal>285</span>
+<span class=normal>286</span>
+<span class=normal>287</span>
+<span class=normal>288</span>
+<span class=normal>289</span>
+<span class=normal>290</span>
+<span class=normal>291</span>
+<span class=normal>292</span>
+<span class=normal>293</span>
+<span class=normal>294</span>
+<span class=normal>295</span>
+<span class=normal>296</span>
+<span class=normal>297</span>
+<span class=normal>298</span>
+<span class=normal>299</span>
+<span class=normal>300</span>
+<span class=normal>301</span>
+<span class=normal>302</span>
+<span class=normal>303</span>
+<span class=normal>304</span>
+<span class=normal>305</span>
+<span class=normal>306</span>
+<span class=normal>307</span>
+<span class=normal>308</span>
+<span class=normal>309</span>
+<span class=normal>310</span>
+<span class=normal>311</span>
+<span class=normal>312</span>
+<span class=normal>313</span>
+<span class=normal>314</span>
+<span class=normal>315</span>
+<span class=normal>316</span>
+<span class=normal>317</span>
+<span class=normal>318</span>
+<span class=normal>319</span>
+<span class=normal>320</span>
+<span class=normal>321</span>
+<span class=normal>322</span>
+<span class=normal>323</span>
+<span class=normal>324</span>
+<span class=normal>325</span>
+<span class=normal>326</span>
+<span class=normal>327</span>
+<span class=normal>328</span>
+<span class=normal>329</span>
+<span class=normal>330</span>
+<span class=normal>331</span>
+<span class=normal>332</span>
+<span class=normal>333</span>
+<span class=normal>334</span>
+<span class=normal>335</span>
+<span class=normal>336</span>
+<span class=normal>337</span>
+<span class=normal>338</span>
+<span class=normal>339</span>
+<span class=normal>340</span>
+<span class=normal>341</span>
+<span class=normal>342</span>
+<span class=normal>343</span>
+<span class=normal>344</span>
+<span class=normal>345</span>
+<span class=normal>346</span>
+<span class=normal>347</span>
+<span class=normal>348</span>
+<span class=normal>349</span>
+<span class=normal>350</span>
+<span class=normal>351</span>
+<span class=normal>352</span>
+<span class=normal>353</span>
+<span class=normal>354</span>
+<span class=normal>355</span>
+<span class=normal>356</span>
+<span class=normal>357</span>
+<span class=normal>358</span>
+<span class=normal>359</span>
+<span class=normal>360</span>
+<span class=normal>361</span>
+<span class=normal>362</span>
+<span class=normal>363</span>
+<span class=normal>364</span>
+<span class=normal>365</span>
+<span class=normal>366</span>
+<span class=normal>367</span>
+<span class=normal>368</span>
+<span class=normal>369</span>
+<span class=normal>370</span>
+<span class=normal>371</span>
+<span class=normal>372</span>
+<span class=normal>373</span>
+<span class=normal>374</span>
+<span class=normal>375</span>
+<span class=normal>376</span>
+<span class=normal>377</span>
+<span class=normal>378</span>
+<span class=normal>379</span>
+<span class=normal>380</span>
+<span class=normal>381</span>
+<span class=normal>382</span>
+<span class=normal>383</span>
+<span class=normal>384</span>
+<span class=normal>385</span>
+<span class=normal>386</span>
+<span class=normal>387</span>
+<span class=normal>388</span>
+<span class=normal>389</span>
+<span class=normal>390</span>
+<span class=normal>391</span>
+<span class=normal>392</span>
+<span class=normal>393</span>
+<span class=normal>394</span>
+<span class=normal>395</span>
+<span class=normal>396</span>
+<span class=normal>397</span>
+<span class=normal>398</span>
+<span class=normal>399</span>
+<span class=normal>400</span>
+<span class=normal>401</span>
+<span class=normal>402</span>
+<span class=normal>403</span>
+<span class=normal>404</span>
+<span class=normal>405</span>
+<span class=normal>406</span>
+<span class=normal>407</span>
+<span class=normal>408</span>
+<span class=normal>409</span>
+<span class=normal>410</span>
+<span class=normal>411</span>
+<span class=normal>412</span>
+<span class=normal>413</span>
+<span class=normal>414</span>
+<span class=normal>415</span>
+<span class=normal>416</span>
+<span class=normal>417</span>
+<span class=normal>418</span>
+<span class=normal>419</span>
+<span class=normal>420</span>
+<span class=normal>421</span>
+<span class=normal>422</span>
+<span class=normal>423</span>
+<span class=normal>424</span>
+<span class=normal>425</span>
+<span class=normal>426</span>
+<span class=normal>427</span>
+<span class=normal>428</span>
+<span class=normal>429</span>
+<span class=normal>430</span>
+<span class=normal>431</span>
+<span class=normal>432</span>
+<span class=normal>433</span>
+<span class=normal>434</span>
+<span class=normal>435</span>
+<span class=normal>436</span>
+<span class=normal>437</span>
+<span class=normal>438</span>
+<span class=normal>439</span>
+<span class=normal>440</span>
+<span class=normal>441</span>
+<span class=normal>442</span>
+<span class=normal>443</span>
+<span class=normal>444</span>
+<span class=normal>445</span>
+<span class=normal>446</span>
+<span class=normal>447</span>
+<span class=normal>448</span>
+<span class=normal>449</span>
+<span class=normal>450</span>
+<span class=normal>451</span>
+<span class=normal>452</span>
+<span class=normal>453</span>
+<span class=normal>454</span>
+<span class=normal>455</span>
+<span class=normal>456</span>
+<span class=normal>457</span>
+<span class=normal>458</span>
+<span class=normal>459</span>
+<span class=normal>460</span>
+<span class=normal>461</span>
+<span class=normal>462</span>
+<span class=normal>463</span>
+<span class=normal>464</span>
+<span class=normal>465</span>
+<span class=normal>466</span>
+<span class=normal>467</span>
+<span class=normal>468</span>
+<span class=normal>469</span>
+<span class=normal>470</span>
+<span class=normal>471</span>
+<span class=normal>472</span>
+<span class=normal>473</span>
+<span class=normal>474</span>
+<span class=normal>475</span>
+<span class=normal>476</span>
+<span class=normal>477</span>
+<span class=normal>478</span>
+<span class=normal>479</span>
+<span class=normal>480</span>
+<span class=normal>481</span>
+<span class=normal>482</span>
+<span class=normal>483</span>
+<span class=normal>484</span>
+<span class=normal>485</span>
+<span class=normal>486</span>
+<span class=normal>487</span>
+<span class=normal>488</span>
+<span class=normal>489</span>
+<span class=normal>490</span>
+<span class=normal>491</span>
+<span class=normal>492</span>
+<span class=normal>493</span>
+<span class=normal>494</span>
+<span class=normal>495</span>
+<span class=normal>496</span>
+<span class=normal>497</span>
+<span class=normal>498</span>
+<span class=normal>499</span>
+<span class=normal>500</span>
+<span class=normal>501</span>
+<span class=normal>502</span>
+<span class=normal>503</span>
+<span class=normal>504</span>
+<span class=normal>505</span>
+<span class=normal>506</span>
+<span class=normal>507</span></pre></div></td><td class=code><div><pre><span></span><code><span class=k>class</span><span class=w> </span><span class=nc>HTTPSConnection</span><span class=p>(</span><span class=n>HTTPConnection</span><span class=p>):</span>
+<span class=w>    </span><span class=sd>&quot;&quot;&quot;</span>
+<span class=sd>    Many of the parameters to this constructor are passed to the underlying SSL</span>
+<span class=sd>    socket by means of :py:func:`urllib3.util.ssl_wrap_socket`.</span>
+<span class=sd>    &quot;&quot;&quot;</span>
+
+    <span class=n>default_port</span> <span class=o>=</span> <span class=n>port_by_scheme</span><span class=p>[</span><span class=s2>&quot;https&quot;</span><span class=p>]</span>
+
+    <span class=n>cert_reqs</span> <span class=o>=</span> <span class=kc>None</span>
+    <span class=n>ca_certs</span> <span class=o>=</span> <span class=kc>None</span>
+    <span class=n>ca_cert_dir</span> <span class=o>=</span> <span class=kc>None</span>
+    <span class=n>ca_cert_data</span> <span class=o>=</span> <span class=kc>None</span>
+    <span class=n>ssl_version</span> <span class=o>=</span> <span class=kc>None</span>
+    <span class=n>assert_fingerprint</span> <span class=o>=</span> <span class=kc>None</span>
+    <span class=n>tls_in_tls_required</span> <span class=o>=</span> <span class=kc>False</span>
+
+    <span class=k>def</span><span class=w> </span><span class=fm>__init__</span><span class=p>(</span>
+        <span class=bp>self</span><span class=p>,</span>
+        <span class=n>host</span><span class=p>,</span>
+        <span class=n>port</span><span class=o>=</span><span class=kc>None</span><span class=p>,</span>
+        <span class=n>key_file</span><span class=o>=</span><span class=kc>None</span><span class=p>,</span>
+        <span class=n>cert_file</span><span class=o>=</span><span class=kc>None</span><span class=p>,</span>
+        <span class=n>key_password</span><span class=o>=</span><span class=kc>None</span><span class=p>,</span>
+        <span class=n>strict</span><span class=o>=</span><span class=kc>None</span><span class=p>,</span>
+        <span class=n>timeout</span><span class=o>=</span><span class=n>socket</span><span class=o>.</span><span class=n>_GLOBAL_DEFAULT_TIMEOUT</span><span class=p>,</span>
+        <span class=n>ssl_context</span><span class=o>=</span><span class=kc>None</span><span class=p>,</span>
+        <span class=n>server_hostname</span><span class=o>=</span><span class=kc>None</span><span class=p>,</span>
+        <span class=o>**</span><span class=n>kw</span>
+    <span class=p>):</span>
+
+        <span class=n>HTTPConnection</span><span class=o>.</span><span class=fm>__init__</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>host</span><span class=p>,</span> <span class=n>port</span><span class=p>,</span> <span class=n>strict</span><span class=o>=</span><span class=n>strict</span><span class=p>,</span> <span class=n>timeout</span><span class=o>=</span><span class=n>timeout</span><span class=p>,</span> <span class=o>**</span><span class=n>kw</span><span class=p>)</span>
+
+        <span class=bp>self</span><span class=o>.</span><span class=n>key_file</span> <span class=o>=</span> <span class=n>key_file</span>
+        <span class=bp>self</span><span class=o>.</span><span class=n>cert_file</span> <span class=o>=</span> <span class=n>cert_file</span>
+        <span class=bp>self</span><span class=o>.</span><span class=n>key_password</span> <span class=o>=</span> <span class=n>key_password</span>
+        <span class=bp>self</span><span class=o>.</span><span class=n>ssl_context</span> <span class=o>=</span> <span class=n>ssl_context</span>
+        <span class=bp>self</span><span class=o>.</span><span class=n>server_hostname</span> <span class=o>=</span> <span class=n>server_hostname</span>
+
+        <span class=c1># Required property for Google AppEngine 1.9.0 which otherwise causes</span>
+        <span class=c1># HTTPS requests to go out as HTTP. (See Issue #356)</span>
+        <span class=bp>self</span><span class=o>.</span><span class=n>_protocol</span> <span class=o>=</span> <span class=s2>&quot;https&quot;</span>
+
+    <span class=k>def</span><span class=w> </span><span class=nf>set_cert</span><span class=p>(</span>
+        <span class=bp>self</span><span class=p>,</span>
+        <span class=n>key_file</span><span class=o>=</span><span class=kc>None</span><span class=p>,</span>
+        <span class=n>cert_file</span><span class=o>=</span><span class=kc>None</span><span class=p>,</span>
+        <span class=n>cert_reqs</span><span class=o>=</span><span class=kc>None</span><span class=p>,</span>
+        <span class=n>key_password</span><span class=o>=</span><span class=kc>None</span><span class=p>,</span>
+        <span class=n>ca_certs</span><span class=o>=</span><span class=kc>None</span><span class=p>,</span>
+        <span class=n>assert_hostname</span><span class=o>=</span><span class=kc>None</span><span class=p>,</span>
+        <span class=n>assert_fingerprint</span><span class=o>=</span><span class=kc>None</span><span class=p>,</span>
+        <span class=n>ca_cert_dir</span><span class=o>=</span><span class=kc>None</span><span class=p>,</span>
+        <span class=n>ca_cert_data</span><span class=o>=</span><span class=kc>None</span><span class=p>,</span>
+    <span class=p>):</span>
+<span class=w>        </span><span class=sd>&quot;&quot;&quot;</span>
+<span class=sd>        This method should only be called once, before the connection is used.</span>
+<span class=sd>        &quot;&quot;&quot;</span>
+        <span class=c1># If cert_reqs is not provided we&#39;ll assume CERT_REQUIRED unless we also</span>
+        <span class=c1># have an SSLContext object in which case we&#39;ll use its verify_mode.</span>
+        <span class=k>if</span> <span class=n>cert_reqs</span> <span class=ow>is</span> <span class=kc>None</span><span class=p>:</span>
+            <span class=k>if</span> <span class=bp>self</span><span class=o>.</span><span class=n>ssl_context</span> <span class=ow>is</span> <span class=ow>not</span> <span class=kc>None</span><span class=p>:</span>
+                <span class=n>cert_reqs</span> <span class=o>=</span> <span class=bp>self</span><span class=o>.</span><span class=n>ssl_context</span><span class=o>.</span><span class=n>verify_mode</span>
+            <span class=k>else</span><span class=p>:</span>
+                <span class=n>cert_reqs</span> <span class=o>=</span> <span class=n>resolve_cert_reqs</span><span class=p>(</span><span class=kc>None</span><span class=p>)</span>
+
+        <span class=bp>self</span><span class=o>.</span><span class=n>key_file</span> <span class=o>=</span> <span class=n>key_file</span>
+        <span class=bp>self</span><span class=o>.</span><span class=n>cert_file</span> <span class=o>=</span> <span class=n>cert_file</span>
+        <span class=bp>self</span><span class=o>.</span><span class=n>cert_reqs</span> <span class=o>=</span> <span class=n>cert_reqs</span>
+        <span class=bp>self</span><span class=o>.</span><span class=n>key_password</span> <span class=o>=</span> <span class=n>key_password</span>
+        <span class=bp>self</span><span class=o>.</span><span class=n>assert_hostname</span> <span class=o>=</span> <span class=n>assert_hostname</span>
+        <span class=bp>self</span><span class=o>.</span><span class=n>assert_fingerprint</span> <span class=o>=</span> <span class=n>assert_fingerprint</span>
+        <span class=bp>self</span><span class=o>.</span><span class=n>ca_certs</span> <span class=o>=</span> <span class=n>ca_certs</span> <span class=ow>and</span> <span class=n>os</span><span class=o>.</span><span class=n>path</span><span class=o>.</span><span class=n>expanduser</span><span class=p>(</span><span class=n>ca_certs</span><span class=p>)</span>
+        <span class=bp>self</span><span class=o>.</span><span class=n>ca_cert_dir</span> <span class=o>=</span> <span class=n>ca_cert_dir</span> <span class=ow>and</span> <span class=n>os</span><span class=o>.</span><span class=n>path</span><span class=o>.</span><span class=n>expanduser</span><span class=p>(</span><span class=n>ca_cert_dir</span><span class=p>)</span>
+        <span class=bp>self</span><span class=o>.</span><span class=n>ca_cert_data</span> <span class=o>=</span> <span class=n>ca_cert_data</span>
+
+    <span class=k>def</span><span class=w> </span><span class=nf>connect</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+        <span class=c1># Add certificate verification</span>
+        <span class=n>conn</span> <span class=o>=</span> <span class=bp>self</span><span class=o>.</span><span class=n>_new_conn</span><span class=p>()</span>
+        <span class=n>hostname</span> <span class=o>=</span> <span class=bp>self</span><span class=o>.</span><span class=n>host</span>
+        <span class=n>tls_in_tls</span> <span class=o>=</span> <span class=kc>False</span>
+
+        <span class=k>if</span> <span class=bp>self</span><span class=o>.</span><span class=n>_is_using_tunnel</span><span class=p>():</span>
+            <span class=k>if</span> <span class=bp>self</span><span class=o>.</span><span class=n>tls_in_tls_required</span><span class=p>:</span>
+                <span class=n>conn</span> <span class=o>=</span> <span class=bp>self</span><span class=o>.</span><span class=n>_connect_tls_proxy</span><span class=p>(</span><span class=n>hostname</span><span class=p>,</span> <span class=n>conn</span><span class=p>)</span>
+                <span class=n>tls_in_tls</span> <span class=o>=</span> <span class=kc>True</span>
+
+            <span class=bp>self</span><span class=o>.</span><span class=n>sock</span> <span class=o>=</span> <span class=n>conn</span>
+
+            <span class=c1># Calls self._set_hostport(), so self.host is</span>
+            <span class=c1># self._tunnel_host below.</span>
+            <span class=bp>self</span><span class=o>.</span><span class=n>_tunnel</span><span class=p>()</span>
+            <span class=c1># Mark this connection as not reusable</span>
+            <span class=bp>self</span><span class=o>.</span><span class=n>auto_open</span> <span class=o>=</span> <span class=mi>0</span>
+
+            <span class=c1># Override the host with the one we&#39;re requesting data from.</span>
+            <span class=n>hostname</span> <span class=o>=</span> <span class=bp>self</span><span class=o>.</span><span class=n>_tunnel_host</span>
+
+        <span class=n>server_hostname</span> <span class=o>=</span> <span class=n>hostname</span>
+        <span class=k>if</span> <span class=bp>self</span><span class=o>.</span><span class=n>server_hostname</span> <span class=ow>is</span> <span class=ow>not</span> <span class=kc>None</span><span class=p>:</span>
+            <span class=n>server_hostname</span> <span class=o>=</span> <span class=bp>self</span><span class=o>.</span><span class=n>server_hostname</span>
+
+        <span class=n>is_time_off</span> <span class=o>=</span> <span class=n>datetime</span><span class=o>.</span><span class=n>date</span><span class=o>.</span><span class=n>today</span><span class=p>()</span> <span class=o>&lt;</span> <span class=n>RECENT_DATE</span>
+        <span class=k>if</span> <span class=n>is_time_off</span><span class=p>:</span>
+            <span class=n>warnings</span><span class=o>.</span><span class=n>warn</span><span class=p>(</span>
+                <span class=p>(</span>
+                    <span class=s2>&quot;System time is way off (before </span><span class=si>{0}</span><span class=s2>). This will probably &quot;</span>
+                    <span class=s2>&quot;lead to SSL verification errors&quot;</span>
+                <span class=p>)</span><span class=o>.</span><span class=n>format</span><span class=p>(</span><span class=n>RECENT_DATE</span><span class=p>),</span>
+                <span class=n>SystemTimeWarning</span><span class=p>,</span>
+            <span class=p>)</span>
+
+        <span class=c1># Wrap socket using verification with the root certs in</span>
+        <span class=c1># trusted_root_certs</span>
+        <span class=n>default_ssl_context</span> <span class=o>=</span> <span class=kc>False</span>
+        <span class=k>if</span> <span class=bp>self</span><span class=o>.</span><span class=n>ssl_context</span> <span class=ow>is</span> <span class=kc>None</span><span class=p>:</span>
+            <span class=n>default_ssl_context</span> <span class=o>=</span> <span class=kc>True</span>
+            <span class=bp>self</span><span class=o>.</span><span class=n>ssl_context</span> <span class=o>=</span> <span class=n>create_urllib3_context</span><span class=p>(</span>
+                <span class=n>ssl_version</span><span class=o>=</span><span class=n>resolve_ssl_version</span><span class=p>(</span><span class=bp>self</span><span class=o>.</span><span class=n>ssl_version</span><span class=p>),</span>
+                <span class=n>cert_reqs</span><span class=o>=</span><span class=n>resolve_cert_reqs</span><span class=p>(</span><span class=bp>self</span><span class=o>.</span><span class=n>cert_reqs</span><span class=p>),</span>
+            <span class=p>)</span>
+
+        <span class=n>context</span> <span class=o>=</span> <span class=bp>self</span><span class=o>.</span><span class=n>ssl_context</span>
+        <span class=n>context</span><span class=o>.</span><span class=n>verify_mode</span> <span class=o>=</span> <span class=n>resolve_cert_reqs</span><span class=p>(</span><span class=bp>self</span><span class=o>.</span><span class=n>cert_reqs</span><span class=p>)</span>
+
+        <span class=c1># Try to load OS default certs if none are given.</span>
+        <span class=c1># Works well on Windows (requires Python3.4+)</span>
+        <span class=k>if</span> <span class=p>(</span>
+            <span class=ow>not</span> <span class=bp>self</span><span class=o>.</span><span class=n>ca_certs</span>
+            <span class=ow>and</span> <span class=ow>not</span> <span class=bp>self</span><span class=o>.</span><span class=n>ca_cert_dir</span>
+            <span class=ow>and</span> <span class=ow>not</span> <span class=bp>self</span><span class=o>.</span><span class=n>ca_cert_data</span>
+            <span class=ow>and</span> <span class=n>default_ssl_context</span>
+            <span class=ow>and</span> <span class=nb>hasattr</span><span class=p>(</span><span class=n>context</span><span class=p>,</span> <span class=s2>&quot;load_default_certs&quot;</span><span class=p>)</span>
+        <span class=p>):</span>
+            <span class=n>context</span><span class=o>.</span><span class=n>load_default_certs</span><span class=p>()</span>
+
+        <span class=bp>self</span><span class=o>.</span><span class=n>sock</span> <span class=o>=</span> <span class=n>ssl_wrap_socket</span><span class=p>(</span>
+            <span class=n>sock</span><span class=o>=</span><span class=n>conn</span><span class=p>,</span>
+            <span class=n>keyfile</span><span class=o>=</span><span class=bp>self</span><span class=o>.</span><span class=n>key_file</span><span class=p>,</span>
+            <span class=n>certfile</span><span class=o>=</span><span class=bp>self</span><span class=o>.</span><span class=n>cert_file</span><span class=p>,</span>
+            <span class=n>key_password</span><span class=o>=</span><span class=bp>self</span><span class=o>.</span><span class=n>key_password</span><span class=p>,</span>
+            <span class=n>ca_certs</span><span class=o>=</span><span class=bp>self</span><span class=o>.</span><span class=n>ca_certs</span><span class=p>,</span>
+            <span class=n>ca_cert_dir</span><span class=o>=</span><span class=bp>self</span><span class=o>.</span><span class=n>ca_cert_dir</span><span class=p>,</span>
+            <span class=n>ca_cert_data</span><span class=o>=</span><span class=bp>self</span><span class=o>.</span><span class=n>ca_cert_data</span><span class=p>,</span>
+            <span class=n>server_hostname</span><span class=o>=</span><span class=n>server_hostname</span><span class=p>,</span>
+            <span class=n>ssl_context</span><span class=o>=</span><span class=n>context</span><span class=p>,</span>
+            <span class=n>tls_in_tls</span><span class=o>=</span><span class=n>tls_in_tls</span><span class=p>,</span>
+        <span class=p>)</span>
+
+        <span class=c1># If we&#39;re using all defaults and the connection</span>
+        <span class=c1># is TLSv1 or TLSv1.1 we throw a DeprecationWarning</span>
+        <span class=c1># for the host.</span>
+        <span class=k>if</span> <span class=p>(</span>
+            <span class=n>default_ssl_context</span>
+            <span class=ow>and</span> <span class=bp>self</span><span class=o>.</span><span class=n>ssl_version</span> <span class=ow>is</span> <span class=kc>None</span>
+            <span class=ow>and</span> <span class=nb>hasattr</span><span class=p>(</span><span class=bp>self</span><span class=o>.</span><span class=n>sock</span><span class=p>,</span> <span class=s2>&quot;version&quot;</span><span class=p>)</span>
+            <span class=ow>and</span> <span class=bp>self</span><span class=o>.</span><span class=n>sock</span><span class=o>.</span><span class=n>version</span><span class=p>()</span> <span class=ow>in</span> <span class=p>{</span><span class=s2>&quot;TLSv1&quot;</span><span class=p>,</span> <span class=s2>&quot;TLSv1.1&quot;</span><span class=p>}</span>
+        <span class=p>):</span>
+            <span class=n>warnings</span><span class=o>.</span><span class=n>warn</span><span class=p>(</span>
+                <span class=s2>&quot;Negotiating TLSv1/TLSv1.1 by default is deprecated &quot;</span>
+                <span class=s2>&quot;and will be disabled in urllib3 v2.0.0. Connecting to &quot;</span>
+                <span class=s2>&quot;&#39;</span><span class=si>%s</span><span class=s2>&#39; with &#39;</span><span class=si>%s</span><span class=s2>&#39; can be enabled by explicitly opting-in &quot;</span>
+                <span class=s2>&quot;with &#39;ssl_version&#39;&quot;</span> <span class=o>%</span> <span class=p>(</span><span class=bp>self</span><span class=o>.</span><span class=n>host</span><span class=p>,</span> <span class=bp>self</span><span class=o>.</span><span class=n>sock</span><span class=o>.</span><span class=n>version</span><span class=p>()),</span>
+                <span class=ne>DeprecationWarning</span><span class=p>,</span>
+            <span class=p>)</span>
+
+        <span class=k>if</span> <span class=bp>self</span><span class=o>.</span><span class=n>assert_fingerprint</span><span class=p>:</span>
+            <span class=n>assert_fingerprint</span><span class=p>(</span>
+                <span class=bp>self</span><span class=o>.</span><span class=n>sock</span><span class=o>.</span><span class=n>getpeercert</span><span class=p>(</span><span class=n>binary_form</span><span class=o>=</span><span class=kc>True</span><span class=p>),</span> <span class=bp>self</span><span class=o>.</span><span class=n>assert_fingerprint</span>
+            <span class=p>)</span>
+        <span class=k>elif</span> <span class=p>(</span>
+            <span class=n>context</span><span class=o>.</span><span class=n>verify_mode</span> <span class=o>!=</span> <span class=n>ssl</span><span class=o>.</span><span class=n>CERT_NONE</span>
+            <span class=ow>and</span> <span class=ow>not</span> <span class=nb>getattr</span><span class=p>(</span><span class=n>context</span><span class=p>,</span> <span class=s2>&quot;check_hostname&quot;</span><span class=p>,</span> <span class=kc>False</span><span class=p>)</span>
+            <span class=ow>and</span> <span class=bp>self</span><span class=o>.</span><span class=n>assert_hostname</span> <span class=ow>is</span> <span class=ow>not</span> <span class=kc>False</span>
+        <span class=p>):</span>
+            <span class=c1># While urllib3 attempts to always turn off hostname matching from</span>
+            <span class=c1># the TLS library, this cannot always be done. So we check whether</span>
+            <span class=c1># the TLS Library still thinks it&#39;s matching hostnames.</span>
+            <span class=n>cert</span> <span class=o>=</span> <span class=bp>self</span><span class=o>.</span><span class=n>sock</span><span class=o>.</span><span class=n>getpeercert</span><span class=p>()</span>
+            <span class=k>if</span> <span class=ow>not</span> <span class=n>cert</span><span class=o>.</span><span class=n>get</span><span class=p>(</span><span class=s2>&quot;subjectAltName&quot;</span><span class=p>,</span> <span class=p>()):</span>
+                <span class=n>warnings</span><span class=o>.</span><span class=n>warn</span><span class=p>(</span>
+                    <span class=p>(</span>
+                        <span class=s2>&quot;Certificate for </span><span class=si>{0}</span><span class=s2> has no `subjectAltName`, falling back to check for a &quot;</span>
+                        <span class=s2>&quot;`commonName` for now. This feature is being removed by major browsers and &quot;</span>
+                        <span class=s2>&quot;deprecated by RFC 2818. (See https://github.com/urllib3/urllib3/issues/497 &quot;</span>
+                        <span class=s2>&quot;for details.)&quot;</span><span class=o>.</span><span class=n>format</span><span class=p>(</span><span class=n>hostname</span><span class=p>)</span>
+                    <span class=p>),</span>
+                    <span class=n>SubjectAltNameWarning</span><span class=p>,</span>
+                <span class=p>)</span>
+            <span class=n>_match_hostname</span><span class=p>(</span><span class=n>cert</span><span class=p>,</span> <span class=bp>self</span><span class=o>.</span><span class=n>assert_hostname</span> <span class=ow>or</span> <span class=n>server_hostname</span><span class=p>)</span>
+
+        <span class=bp>self</span><span class=o>.</span><span class=n>is_verified</span> <span class=o>=</span> <span class=p>(</span>
+            <span class=n>context</span><span class=o>.</span><span class=n>verify_mode</span> <span class=o>==</span> <span class=n>ssl</span><span class=o>.</span><span class=n>CERT_REQUIRED</span>
+            <span class=ow>or</span> <span class=bp>self</span><span class=o>.</span><span class=n>assert_fingerprint</span> <span class=ow>is</span> <span class=ow>not</span> <span class=kc>None</span>
+        <span class=p>)</span>
+
+    <span class=k>def</span><span class=w> </span><span class=nf>_connect_tls_proxy</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>hostname</span><span class=p>,</span> <span class=n>conn</span><span class=p>):</span>
+<span class=w>        </span><span class=sd>&quot;&quot;&quot;</span>
+<span class=sd>        Establish a TLS connection to the proxy using the provided SSL context.</span>
+<span class=sd>        &quot;&quot;&quot;</span>
+        <span class=n>proxy_config</span> <span class=o>=</span> <span class=bp>self</span><span class=o>.</span><span class=n>proxy_config</span>
+        <span class=n>ssl_context</span> <span class=o>=</span> <span class=n>proxy_config</span><span class=o>.</span><span class=n>ssl_context</span>
+        <span class=k>if</span> <span class=n>ssl_context</span><span class=p>:</span>
+            <span class=c1># If the user provided a proxy context, we assume CA and client</span>
+            <span class=c1># certificates have already been set</span>
+            <span class=k>return</span> <span class=n>ssl_wrap_socket</span><span class=p>(</span>
+                <span class=n>sock</span><span class=o>=</span><span class=n>conn</span><span class=p>,</span>
+                <span class=n>server_hostname</span><span class=o>=</span><span class=n>hostname</span><span class=p>,</span>
+                <span class=n>ssl_context</span><span class=o>=</span><span class=n>ssl_context</span><span class=p>,</span>
+            <span class=p>)</span>
+
+        <span class=n>ssl_context</span> <span class=o>=</span> <span class=n>create_proxy_ssl_context</span><span class=p>(</span>
+            <span class=bp>self</span><span class=o>.</span><span class=n>ssl_version</span><span class=p>,</span>
+            <span class=bp>self</span><span class=o>.</span><span class=n>cert_reqs</span><span class=p>,</span>
+            <span class=bp>self</span><span class=o>.</span><span class=n>ca_certs</span><span class=p>,</span>
+            <span class=bp>self</span><span class=o>.</span><span class=n>ca_cert_dir</span><span class=p>,</span>
+            <span class=bp>self</span><span class=o>.</span><span class=n>ca_cert_data</span><span class=p>,</span>
+        <span class=p>)</span>
+        <span class=c1># By default urllib3&#39;s SSLContext disables `check_hostname` and uses</span>
+        <span class=c1># a custom check. For proxies we&#39;re good with relying on the default</span>
+        <span class=c1># verification.</span>
+        <span class=n>ssl_context</span><span class=o>.</span><span class=n>check_hostname</span> <span class=o>=</span> <span class=kc>True</span>
+
+        <span class=c1># If no cert was provided, use only the default options for server</span>
+        <span class=c1># certificate validation</span>
+        <span class=k>return</span> <span class=n>ssl_wrap_socket</span><span class=p>(</span>
+            <span class=n>sock</span><span class=o>=</span><span class=n>conn</span><span class=p>,</span>
+            <span class=n>ca_certs</span><span class=o>=</span><span class=bp>self</span><span class=o>.</span><span class=n>ca_certs</span><span class=p>,</span>
+            <span class=n>ca_cert_dir</span><span class=o>=</span><span class=bp>self</span><span class=o>.</span><span class=n>ca_cert_dir</span><span class=p>,</span>
+            <span class=n>ca_cert_data</span><span class=o>=</span><span class=bp>self</span><span class=o>.</span><span class=n>ca_cert_data</span><span class=p>,</span>
+            <span class=n>server_hostname</span><span class=o>=</span><span class=n>hostname</span><span class=p>,</span>
+            <span class=n>ssl_context</span><span class=o>=</span><span class=n>ssl_context</span><span class=p>,</span>
+        <span class=p>)</span>
+</code></pre></div></td></tr></table></div> </details> <div class="doc doc-children"> <div class="doc doc-object doc-function"> <h3 id=client.ayon_fusion.vendor.urllib3.connection.HTTPSConnection.set_cert class="doc doc-heading"> <code class="highlight language-python"><span class=n>set_cert</span><span class=p>(</span><span class=n>key_file</span><span class=o>=</span><span class=kc>None</span><span class=p>,</span> <span class=n>cert_file</span><span class=o>=</span><span class=kc>None</span><span class=p>,</span> <span class=n>cert_reqs</span><span class=o>=</span><span class=kc>None</span><span class=p>,</span> <span class=n>key_password</span><span class=o>=</span><span class=kc>None</span><span class=p>,</span> <span class=n>ca_certs</span><span class=o>=</span><span class=kc>None</span><span class=p>,</span> <span class=n>assert_hostname</span><span class=o>=</span><span class=kc>None</span><span class=p>,</span> <span class=n>assert_fingerprint</span><span class=o>=</span><span class=kc>None</span><span class=p>,</span> <span class=n>ca_cert_dir</span><span class=o>=</span><span class=kc>None</span><span class=p>,</span> <span class=n>ca_cert_data</span><span class=o>=</span><span class=kc>None</span><span class=p>)</span></code> </h3> <div class="doc doc-contents "> <p>This method should only be called once, before the connection is used.</p> <details class=quote> <summary>Source code in <code>client/ayon_fusion/vendor/urllib3/connection.py</code></summary> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal>318</span>
+<span class=normal>319</span>
+<span class=normal>320</span>
+<span class=normal>321</span>
+<span class=normal>322</span>
+<span class=normal>323</span>
+<span class=normal>324</span>
+<span class=normal>325</span>
+<span class=normal>326</span>
+<span class=normal>327</span>
+<span class=normal>328</span>
+<span class=normal>329</span>
+<span class=normal>330</span>
+<span class=normal>331</span>
+<span class=normal>332</span>
+<span class=normal>333</span>
+<span class=normal>334</span>
+<span class=normal>335</span>
+<span class=normal>336</span>
+<span class=normal>337</span>
+<span class=normal>338</span>
+<span class=normal>339</span>
+<span class=normal>340</span>
+<span class=normal>341</span>
+<span class=normal>342</span>
+<span class=normal>343</span>
+<span class=normal>344</span>
+<span class=normal>345</span>
+<span class=normal>346</span>
+<span class=normal>347</span>
+<span class=normal>348</span>
+<span class=normal>349</span></pre></div></td><td class=code><div><pre><span></span><code><span class=k>def</span><span class=w> </span><span class=nf>set_cert</span><span class=p>(</span>
+    <span class=bp>self</span><span class=p>,</span>
+    <span class=n>key_file</span><span class=o>=</span><span class=kc>None</span><span class=p>,</span>
+    <span class=n>cert_file</span><span class=o>=</span><span class=kc>None</span><span class=p>,</span>
+    <span class=n>cert_reqs</span><span class=o>=</span><span class=kc>None</span><span class=p>,</span>
+    <span class=n>key_password</span><span class=o>=</span><span class=kc>None</span><span class=p>,</span>
+    <span class=n>ca_certs</span><span class=o>=</span><span class=kc>None</span><span class=p>,</span>
+    <span class=n>assert_hostname</span><span class=o>=</span><span class=kc>None</span><span class=p>,</span>
+    <span class=n>assert_fingerprint</span><span class=o>=</span><span class=kc>None</span><span class=p>,</span>
+    <span class=n>ca_cert_dir</span><span class=o>=</span><span class=kc>None</span><span class=p>,</span>
+    <span class=n>ca_cert_data</span><span class=o>=</span><span class=kc>None</span><span class=p>,</span>
+<span class=p>):</span>
+<span class=w>    </span><span class=sd>&quot;&quot;&quot;</span>
+<span class=sd>    This method should only be called once, before the connection is used.</span>
+<span class=sd>    &quot;&quot;&quot;</span>
+    <span class=c1># If cert_reqs is not provided we&#39;ll assume CERT_REQUIRED unless we also</span>
+    <span class=c1># have an SSLContext object in which case we&#39;ll use its verify_mode.</span>
+    <span class=k>if</span> <span class=n>cert_reqs</span> <span class=ow>is</span> <span class=kc>None</span><span class=p>:</span>
+        <span class=k>if</span> <span class=bp>self</span><span class=o>.</span><span class=n>ssl_context</span> <span class=ow>is</span> <span class=ow>not</span> <span class=kc>None</span><span class=p>:</span>
+            <span class=n>cert_reqs</span> <span class=o>=</span> <span class=bp>self</span><span class=o>.</span><span class=n>ssl_context</span><span class=o>.</span><span class=n>verify_mode</span>
+        <span class=k>else</span><span class=p>:</span>
+            <span class=n>cert_reqs</span> <span class=o>=</span> <span class=n>resolve_cert_reqs</span><span class=p>(</span><span class=kc>None</span><span class=p>)</span>
+
+    <span class=bp>self</span><span class=o>.</span><span class=n>key_file</span> <span class=o>=</span> <span class=n>key_file</span>
+    <span class=bp>self</span><span class=o>.</span><span class=n>cert_file</span> <span class=o>=</span> <span class=n>cert_file</span>
+    <span class=bp>self</span><span class=o>.</span><span class=n>cert_reqs</span> <span class=o>=</span> <span class=n>cert_reqs</span>
+    <span class=bp>self</span><span class=o>.</span><span class=n>key_password</span> <span class=o>=</span> <span class=n>key_password</span>
+    <span class=bp>self</span><span class=o>.</span><span class=n>assert_hostname</span> <span class=o>=</span> <span class=n>assert_hostname</span>
+    <span class=bp>self</span><span class=o>.</span><span class=n>assert_fingerprint</span> <span class=o>=</span> <span class=n>assert_fingerprint</span>
+    <span class=bp>self</span><span class=o>.</span><span class=n>ca_certs</span> <span class=o>=</span> <span class=n>ca_certs</span> <span class=ow>and</span> <span class=n>os</span><span class=o>.</span><span class=n>path</span><span class=o>.</span><span class=n>expanduser</span><span class=p>(</span><span class=n>ca_certs</span><span class=p>)</span>
+    <span class=bp>self</span><span class=o>.</span><span class=n>ca_cert_dir</span> <span class=o>=</span> <span class=n>ca_cert_dir</span> <span class=ow>and</span> <span class=n>os</span><span class=o>.</span><span class=n>path</span><span class=o>.</span><span class=n>expanduser</span><span class=p>(</span><span class=n>ca_cert_dir</span><span class=p>)</span>
+    <span class=bp>self</span><span class=o>.</span><span class=n>ca_cert_data</span> <span class=o>=</span> <span class=n>ca_cert_data</span>
+</code></pre></div></td></tr></table></div> </details> </div> </div> </div> </div> </div> </div> </div> </div> </article> </div> <script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script> </div> </main> <footer class=md-footer> <div class="md-footer-meta md-typeset"> <div class="md-footer-meta__inner md-grid"> <div class=md-copyright> Made with <a href=https://squidfunk.github.io/mkdocs-material/ target=_blank rel=noopener> Material for MkDocs </a> </div> </div> </div> </footer> </div> <div class=md-dialog data-md-component=dialog> <div class="md-dialog__inner md-typeset"></div> </div> <script id=__config type=application/json>{"base": "../../../../..", "features": ["navigation.sections", "navigation.path", "navigation.prune"], "search": "../../../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script> <script src=../../../../../assets/javascripts/bundle.c8b220af.min.js></script> </body> </html>
