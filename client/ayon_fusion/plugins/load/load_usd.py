@@ -1,7 +1,4 @@
-from ayon_core.pipeline import (
-    load,
-    get_representation_path,
-)
+from ayon_core.pipeline import load
 from ayon_fusion.api import (
     imprint_container,
     get_current_comp,
@@ -29,7 +26,7 @@ class FusionLoadUSD(load.LoaderPlugin):
 
     @classmethod
     def apply_settings(cls, project_settings):
-        super(FusionLoadUSD, cls).apply_settings(project_settings)
+        super().apply_settings(project_settings)
         if cls.enabled:
             # Enable only in Fusion 18.5+
             fusion = get_fusion_module()
@@ -47,8 +44,7 @@ class FusionLoadUSD(load.LoaderPlugin):
         # Create the Loader with the filename path set
         comp = get_current_comp()
         with comp_lock_and_undo_chunk(comp, "Create tool"):
-
-            path = self.fname
+            path = self.filepath_from_context(context)
 
             args = (-32768, -32768)
             tool = comp.AddTool(self.tool_type, *args)
@@ -69,14 +65,13 @@ class FusionLoadUSD(load.LoaderPlugin):
         assert tool.ID == self.tool_type, f"Must be {self.tool_type}"
         comp = tool.Comp()
 
-        repre_entity = context["representation"]
-        path = get_representation_path(repre_entity)
-
+        path = self.filepath_from_context(context)
         with comp_lock_and_undo_chunk(comp, "Update tool"):
             tool["Filename"] = path
 
             # Update the imprinted representation
-            tool.SetData("avalon.representation", repre_entity["id"])
+            tool.SetData("avalon.representation",
+                         context["representation"]["id"])
 
     def remove(self, container):
         tool = container["_tool"]
