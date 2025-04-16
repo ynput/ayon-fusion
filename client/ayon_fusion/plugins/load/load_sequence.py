@@ -245,6 +245,14 @@ class FusionLoadSequence(load.LoaderPlugin):
                     ),
                 ):
                     tool["Clip"] = comp.ReverseMapPath(path)
+                    tool.SetAttrs(
+                        {
+                            "TOOLB_NameSet": True,
+                            "TOOLS_Name": repre_entity["context"]["product"][
+                                "name"
+                            ],
+                        }
+                    )
 
             # Set the global in to the start frame of the sequence
             global_in_changed = loader_shift(tool, start, relative=False)

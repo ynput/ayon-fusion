@@ -10,7 +10,7 @@ class FusionLaunchMenuHook(PreLaunchHook):
 
     def execute(self):
         # Prelaunch hook is optional
-        settings = self.data["project_settings"][self.host_name]
+        settings = self.data["project_settings"]["fusion"]
         if not settings["hooks"]["FusionLaunchMenuHook"]["enabled"]:
             return
 

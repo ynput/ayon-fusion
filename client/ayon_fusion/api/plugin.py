@@ -16,12 +16,8 @@ from ayon_core.pipeline import (
     AVALON_INSTANCE_ID,
     AYON_INSTANCE_ID,
 )
+from ayon_core.pipeline.template_data import get_template_data
 from ayon_core.pipeline.workfile import get_workdir
-from ayon_api import (
-    get_project,
-    get_folder_by_path,
-    get_task_by_name
-)
 
 
 class GenericCreateSaver(Creator):
@@ -146,30 +142,35 @@ class GenericCreateSaver(Creator):
         # get output format
         ext = data["creator_attributes"]["image_format"]
 
-        # Product change detected
+        # Product name and type
         product_type = formatting_data["productType"]
         f_product_name = formatting_data["productName"]
 
-        folder_path = formatting_data["folderPath"]
-        folder_name = folder_path.rsplit("/", 1)[-1]
+        # Get instance context entities
+        project_entity = self.create_context.get_current_project_entity()
+        folder_path: str = data["folderPath"]
+        task_name: str = data["task"]
+        folder_entity = None
+        task_entity = None
+        if folder_path:
+            folder_entity = self.create_context.get_folder_entity(folder_path)
+            if task_name:
+                task_entity = self.create_context.get_task_entity(
+                    folder_path, task_name)
 
         # If the folder path and task do not match the current context then the
         # workdir is not just the `AYON_WORKDIR`. Hence, we need to actually
         # compute the resulting workdir
         if (
-            data["folderPath"] == self.create_context.get_current_folder_path()
-            and data["task"] == self.create_context.get_current_task_name()
+            folder_path == self.create_context.get_current_folder_path()
+            and task_name == self.create_context.get_current_task_name()
         ):
             workdir = os.path.normpath(os.getenv("AYON_WORKDIR"))
         else:
-            # TODO: Optimize this logic
-            project_name = self.create_context.get_current_project_name()
-            project_entity = get_project(project_name)
-            folder_entity = get_folder_by_path(project_name,
-                                               data["folderPath"])
-            task_entity = get_task_by_name(project_name,
-                                           folder_id=folder_entity["id"],
-                                           task_name=data["task"])
+            # Note: This may error when no task is set for the instance
+            #  however default render template would include task name anyway
+            #  disallowing the instance to have no task set at an earlier stage
+            #  already.
             workdir = get_workdir(
                 project_entity=project_entity,
                 folder_entity=folder_entity,
@@ -185,25 +186,27 @@ class GenericCreateSaver(Creator):
                 "name": f_product_name,
                 "type": product_type,
             },
-            # TODO add more variants for 'folder' and 'task'
-            "folder": {
-                "name": folder_name,
-            },
-            "task": {
-                "name": data["task"],
-            },
             # Backwards compatibility
-            "asset": folder_name,
             "subset": f_product_name,
             "family": product_type,
         })
 
         # build file path to render
-        # TODO make sure the keys are available in 'formatting_data'
         temp_rendering_path_template = (
             self.temp_rendering_path_template
             .replace("{task}", "{task[name]}")
         )
+
+        extra_data = get_template_data(
+            project_entity,
+            folder_entity,
+            task_entity,
+            host_name=self.create_context.host_name,
+            settings=self.create_context.get_current_project_settings(),
+        )
+        anatomy = self.create_context.project_anatomy
+        extra_data["root"] = anatomy.roots
+        formatting_data.update(extra_data)
 
         filepath = temp_rendering_path_template.format(**formatting_data)
 
