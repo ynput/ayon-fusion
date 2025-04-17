@@ -178,6 +178,12 @@ class FusionRenderLocal(
         if instance.data.get("review", False):
             repre["tags"] = ["review"]
 
+        # thumbnail-only representation
+        if instance.data.get("need_thumbnail", False):
+            if "tags" not in repre:
+                 repre["tags"] = []
+            repre["tags"].append("need_thumbnail")
+
         # add the repre to the instance
         if "representations" not in instance.data:
             instance.data["representations"] = []

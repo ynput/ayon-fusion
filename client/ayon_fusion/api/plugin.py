@@ -271,6 +271,13 @@ class GenericCreateSaver(Creator):
             label="Review",
         )
 
+    def _get_thumbnail_only_bool(self):
+        return BoolDef(
+            "need_thumbnail",
+            default=False,
+            label="Include thumbnail only",
+        )
+
     def _get_image_format_enum(self):
         image_format_options = ["exr", "tga", "tif", "png", "jpg"]
         return EnumDef(
