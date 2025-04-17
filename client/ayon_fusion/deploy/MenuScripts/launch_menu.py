@@ -1,18 +1,6 @@
 import os
 import sys
 
-if sys.version_info < (3, 7):
-    # hack to handle discrepancy between distributed libraries and Python 3.6
-    # mostly because wrong version of urllib3
-    # TODO remove when not necessary
-    from ayon_fusion import FUSION_ADDON_ROOT
-
-    vendor_path = os.path.join(FUSION_ADDON_ROOT, "vendor")
-    if vendor_path not in sys.path:
-        sys.path.insert(0, vendor_path)
-
-    print(f"Added vendorized libraries from {vendor_path}")
-
 from ayon_core.lib import Logger
 from ayon_core.pipeline import (
     install_host,
