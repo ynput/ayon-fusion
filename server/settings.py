@@ -19,6 +19,10 @@ def _create_saver_instance_attributes_enum():
             "label": "Reviewable"
         },
         {
+            "value": "need_thumbnail",
+            "label": "Thumbnail only"
+        },
+        {
             "value": "farm_rendering",
             "label": "Farm rendering"
         }
@@ -182,6 +186,7 @@ DEFAULT_VALUES = {
             ],
             "instance_attributes": [
                 "reviewable",
+                "need_thumbnail",
                 "farm_rendering"
             ],
             "image_format": "exr",
@@ -195,6 +200,7 @@ DEFAULT_VALUES = {
             ],
             "instance_attributes": [
                 "reviewable",
+                "need_thumbnail",
                 "farm_rendering"
             ],
             "image_format": "exr",

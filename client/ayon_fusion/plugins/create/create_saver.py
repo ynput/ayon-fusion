@@ -80,7 +80,6 @@ class CreateSaver(GenericCreateSaver):
         attr_defs = [
             self._get_render_target_enum(),
             self._get_reviewable_bool(),
-            self._get_thumbnail_only_bool(),
             self._get_frame_range_enum(),
             self._get_image_format_enum(),
             *self._get_custom_frame_range_attribute_defs()
@@ -91,7 +90,6 @@ class CreateSaver(GenericCreateSaver):
         return [
             self._get_render_target_enum(),
             self._get_reviewable_bool(),
-            self._get_thumbnail_only_bool(),
             self._get_frame_range_enum(),
             self._get_image_format_enum(),
             *self._get_custom_frame_range_attribute_defs(instance)

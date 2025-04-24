@@ -26,7 +26,8 @@ class GenericCreateSaver(Creator):
     icon = "fa5.eye"
 
     instance_attributes = [
-        "reviewable"
+        "reviewable",
+        "need_thumbnail"
     ]
 
     settings_category = "fusion"
@@ -41,6 +42,9 @@ class GenericCreateSaver(Creator):
 
     def create(self, product_name, instance_data, pre_create_data):
         self.pass_pre_attributes_to_instance(instance_data, pre_create_data)
+
+        if "need_thumbnail" in self.instance_attributes:
+            instance_data["need_thumbnail"] = True
 
         instance = CreatedInstance(
             product_type=self.product_type,
@@ -269,13 +273,6 @@ class GenericCreateSaver(Creator):
             "review",
             default=("reviewable" in self.instance_attributes),
             label="Review",
-        )
-
-    def _get_thumbnail_only_bool(self):
-        return BoolDef(
-            "need_thumbnail",
-            default=False,
-            label="Include thumbnail only",
         )
 
     def _get_image_format_enum(self):
