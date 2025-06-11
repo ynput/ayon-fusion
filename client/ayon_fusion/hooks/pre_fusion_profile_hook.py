@@ -146,20 +146,30 @@ class FusionCopyPrefsPrelaunch(PreLaunchHook):
                 f"Detectable Fusion versions are: {version_names}"
             )
 
-        _, profile_version = FUSION_VERSIONS_DICT[app_version]
-        fu_profile = self.get_fusion_profile_name(profile_version)
+        if fu_profile_dir is not None:
+            _, profile_version = FUSION_VERSIONS_DICT[app_version]
+            fu_profile = self.get_fusion_profile_name(profile_version)
 
-        # do a copy of Fusion profile if copy_status toggle is enabled
-        if copy_status and fu_profile_dir is not None:
-            profile_source = self.get_profile_source(profile_version)
-            dest_folder = Path(fu_profile_dir, fu_profile)
-            self.copy_fusion_profile(profile_source, dest_folder, force_sync)
+            # Add temporary profile directory variables to customize Fusion
+            # to define where it can read custom scripts and tools from
+            fu_profile_dir_variable = f"FUSION{profile_version}_PROFILE_DIR"
+            self.log.info(
+                f"Setting {fu_profile_dir_variable}: {fu_profile_dir}"
+            )
+            self.launch_context.env[fu_profile_dir_variable] = (
+                str(fu_profile_dir)
+            )
 
-        # Add temporary profile directory variables to customize Fusion
-        # to define where it can read custom scripts and tools from
-        fu_profile_dir_variable = f"FUSION{profile_version}_PROFILE_DIR"
-        self.log.info(f"Setting {fu_profile_dir_variable}: {fu_profile_dir}")
-        self.launch_context.env[fu_profile_dir_variable] = str(fu_profile_dir)
+            # do a copy of Fusion profile if copy_status toggle is enabled
+            if copy_status:
+                profile_source = self.get_profile_source(profile_version)
+                dest_folder = Path(fu_profile_dir, fu_profile)
+                self.copy_fusion_profile(profile_source, dest_folder, force_sync)
+        else:
+            self.log.info(
+                "AYON Fusion profile directory is not set, "
+                "using default Fusion profile location."
+            )
 
         # Add custom Fusion Master Prefs and the temporary
         # profile directory variables to customize Fusion
