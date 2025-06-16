@@ -44,6 +44,26 @@ def _frame_range_options_enum():
     ]
 
 
+def _set_masterprefs_mode_enum():
+    return [
+        {"value": "set", "label": "Set AYON master prefs (override)"},
+        {
+            "value": "append",
+            "label": "Append to existing master prefs (AYON pref is strongest)",
+        },
+        {
+            "value": "prepend",
+            "label": (
+                "Prepend to existing master prefs (AYON pref is weakest)"
+            ),
+        },
+        {
+            "value": "do-not-set",
+            "label": "Do not set (unmanaged)",
+        },
+    ]
+
+
 class CreateSaverPluginModel(BaseSettingsModel):
     _isGroup = True
     temp_rendering_path_template: str = SettingsField(
@@ -72,6 +92,23 @@ class HookOptionalModel(BaseSettingsModel):
 
 
 class HooksModel(BaseSettingsModel):
+    set_fusion_master_prefs: str = SettingsField(
+        "set",
+        title="Set AYON Fusion MasterPrefs",
+        description=(
+            "A locked AYON Fusion MasterPrefs is used to set the `Config:` "
+            "Path Map pref to include `$(AYON_FUSION_ROOT)/deploy/ayon` "
+            "and force Python 3."
+            "\n"
+            "Fusion MasterPrefs can be stacked (multiple may apply) with the "
+            "latter one taking precedence when applying the same preference."
+            "\n"
+            "When AYON's MasterPrefs are _weaker_ or _not set_ then it is up "
+            "to the admin responsibility that the Config path map still "
+            "points to AYON."
+        ),
+        enum_resolver=_set_masterprefs_mode_enum
+    )
     InstallPySideToFusion: HookOptionalModel = SettingsField(
         default_factory=HookOptionalModel,
         title="Install PySide2"
@@ -166,6 +203,7 @@ DEFAULT_VALUES = {
         "force_sync": False
     },
     "hooks": {
+        "set_fusion_master_prefs": "set",
         "InstallPySideToFusion": {
             "enabled": True
         },
