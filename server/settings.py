@@ -32,6 +32,7 @@ def _image_format_enum():
         {"value": "png", "label": "png"},
         {"value": "tif", "label": "tif"},
         {"value": "jpg", "label": "jpg"},
+        {"value": "dpx", "label": "dpx"},
     ]
 
 
