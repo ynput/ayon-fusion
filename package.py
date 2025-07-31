@@ -3,6 +3,7 @@ title = "Fusion"
 version = "0.3.3+dev"
 app_host_name = "fusion"
 client_dir = "ayon_fusion"
+project_can_override_addon_version = True
 
 ayon_server_version = ">=1.1.2"
 ayon_required_addons = {
