@@ -16,6 +16,7 @@ from ayon_core.lib import (
     emit_event
 )
 from ayon_core.pipeline import (
+    registered_host,
     register_loader_plugin_path,
     register_creator_plugin_path,
     register_inventory_action_path,
@@ -73,6 +74,10 @@ class FusionLogHandler(logging.Handler):
 class FusionHost(HostBase, IWorkfileHost, ILoadHost, IPublishHost):
     name = "fusion"
 
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self._forced_current_comp = None
+
     def install(self):
         """Install fusion-specific functionality of AYON.
 
@@ -115,14 +120,14 @@ class FusionHost(HostBase, IWorkfileHost, ILoadHost, IPublishHost):
 
     # region workfile io api
     def has_unsaved_changes(self):
-        comp = get_current_comp()
+        comp = self.get_current_comp()
         return comp.GetAttrs()["COMPB_Modified"]
 
     def get_workfile_extensions(self):
         return [".comp"]
 
     def save_workfile(self, dst_path=None):
-        comp = get_current_comp()
+        comp = self.get_current_comp()
         comp.Save(dst_path)
 
     def open_workfile(self, filepath):
@@ -133,7 +138,7 @@ class FusionHost(HostBase, IWorkfileHost, ILoadHost, IPublishHost):
         return fusion.LoadComp(filepath)
 
     def get_current_workfile(self):
-        comp = get_current_comp()
+        comp = self.get_current_comp()
         current_filepath = comp.GetAttrs()["COMPS_FileName"]
         if not current_filepath:
             return None
@@ -158,12 +163,34 @@ class FusionHost(HostBase, IWorkfileHost, ILoadHost, IPublishHost):
         return ls()
 
     def update_context_data(self, data, changes):
-        comp = get_current_comp()
+        comp = self.get_current_comp()
         comp.SetData("openpype", data)
 
     def get_context_data(self):
-        comp = get_current_comp()
+        comp = self.get_current_comp()
         return comp.GetData("openpype") or {}
+
+    def get_current_comp(self):
+        if self._forced_current_comp is not None:
+            return self._forced_current_comp
+        return get_current_comp()
+
+    @contextlib.contextmanager
+    def current_comp(self, comp):
+        """Fusion context manager to temporarily enforce 'current' comp.
+
+        During this context the workfile methods like `get_current_workfile`
+        and `save_workfile` will use the specifiec `comp` instead of the actual
+        active comp tab in Fusion itself. This is useful during e.g. publishing
+        where a user may have initiated a publish from one comp and then as
+        the publishing is running they switch to another comp tab.
+        """
+        old_comp = self._forced_current_comp
+        try:
+            self._forced_current_comp = comp
+            yield
+        finally:
+            self._forced_current_comp = old_comp
 
 
 def on_new(event):
@@ -235,7 +262,8 @@ def before_workfile_save(event):
     # AVALON_WORKDIR. This way we avoid false positives of thinking it's
     # saving to another context and instead sometimes just have false negatives
     # where we fail to show the "Update on task change" prompt.
-    comp = get_current_comp()
+    host = registered_host()
+    comp = host.get_current_comp()
     filepath = comp.GetAttrs()["COMPS_FileName"]
     workdir = os.environ.get("AYON_WORKDIR")
     if Path(workdir) in Path(filepath).parents:
@@ -254,8 +282,8 @@ def ls():
         dict: container
 
     """
-
-    comp = get_current_comp()
+    host = registered_host()
+    comp = host.get_current_comp()
     tools = comp.GetToolList(False).values()
 
     for tool in tools:
