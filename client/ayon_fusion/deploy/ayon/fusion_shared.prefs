@@ -5,7 +5,6 @@ Global = {
     Map = {
       ["AYON:"] = "$(AYON_FUSION_ROOT)/deploy/ayon",
       ["Config:"] = "UserPaths:Config;AYON:Config",
-      ["Scripts:"] = "UserPaths:Scripts;Reactor:System/Scripts",
     },
   },
   Script = {
