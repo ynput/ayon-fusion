@@ -74,11 +74,12 @@ class FusionWorkfileCreator(AutoCreator):
 
         if existing_instance is None:
             product_name = self.get_product_name(
-                project_name,
-                folder_entity,
-                task_entity,
-                self.default_variant,
-                host_name,
+                project_name=project_name,
+                project_entity=project_entity,
+                folder_entity=folder_entity,
+                task_entity=task_entity,
+                variant=self.default_variant,
+                host_name=host_name,
             )
             data = {
                 "folderPath": folder_path,
@@ -106,11 +107,12 @@ class FusionWorkfileCreator(AutoCreator):
             or existing_instance["task"] != task_name
         ):
             product_name = self.get_product_name(
-                project_name,
-                folder_entity,
-                task_entity,
-                self.default_variant,
-                host_name,
+                project_name=project_name,
+                project_entity=project_entity,
+                folder_entity=folder_entity,
+                task_entity=task_entity,
+                variant=self.default_variant,
+                host_name=host_name,
             )
             existing_instance["folderPath"] = folder_path
             existing_instance["task"] = task_name
