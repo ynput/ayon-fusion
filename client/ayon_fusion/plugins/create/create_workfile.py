@@ -10,6 +10,7 @@ from ayon_core.pipeline import (
 class FusionWorkfileCreator(AutoCreator):
     identifier = "workfile"
     product_type = "workfile"
+    product_base_type = "workfile"
     label = "Workfile"
     icon = "fa5.file"
 
