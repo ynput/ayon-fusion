@@ -1,6 +1,7 @@
 import os
 import shutil
 import platform
+from typing import Optional, Literal
 from pathlib import Path
 from ayon_fusion import (
     FUSION_ADDON_ROOT,
@@ -33,11 +34,11 @@ class FusionCopyPrefsPrelaunch(PreLaunchHook):
                     # ayon_applications addon, see `ayon_applications/#2`
                     LaunchTypes.farm_publish}
 
-    def get_fusion_profile_name(self, profile_version) -> str:
+    def get_fusion_profile_name(self, profile_version: int) -> str:
         # Returns 'Default', unless FUSION16_PROFILE is set
         return os.getenv(f"FUSION{profile_version}_PROFILE", "Default")
 
-    def get_fusion_profile_dir(self, profile_version) -> Path:
+    def get_fusion_profile_dir(self, profile_version) -> Optional[Path]:
         # Get FUSION_PROFILE_DIR variable
         fusion_profile = self.get_fusion_profile_name(profile_version)
         fusion_var_prefs_dir = os.getenv(
@@ -49,8 +50,9 @@ class FusionCopyPrefsPrelaunch(PreLaunchHook):
             fu_prefs_dir = Path(fusion_var_prefs_dir, fusion_profile)
             self.log.info(f"{fusion_var_prefs_dir} is set to {fu_prefs_dir}")
             return fu_prefs_dir
+        return None
 
-    def get_profile_source(self, profile_version) -> Path:
+    def get_profile_source(self, profile_version: int) -> Path:
         """Get Fusion preferences profile location.
         See Per-User_Preferences_and_Paths on VFXpedia for reference.
         """
@@ -147,27 +149,72 @@ class FusionCopyPrefsPrelaunch(PreLaunchHook):
             )
 
         _, profile_version = FUSION_VERSIONS_DICT[app_version]
-        fu_profile = self.get_fusion_profile_name(profile_version)
+        if fu_profile_dir is not None:
+            fu_profile = self.get_fusion_profile_name(profile_version)
 
-        # do a copy of Fusion profile if copy_status toggle is enabled
-        if copy_status and fu_profile_dir is not None:
-            profile_source = self.get_profile_source(profile_version)
-            dest_folder = Path(fu_profile_dir, fu_profile)
-            self.copy_fusion_profile(profile_source, dest_folder, force_sync)
+            # Add temporary profile directory variables to customize Fusion
+            # to define where it can read custom scripts and tools from
+            fu_profile_dir_variable = f"FUSION{profile_version}_PROFILE_DIR"
+            self.log.info(
+                f"Setting {fu_profile_dir_variable}: {fu_profile_dir}"
+            )
+            self.launch_context.env[fu_profile_dir_variable] = (
+                str(fu_profile_dir)
+            )
 
-        # Add temporary profile directory variables to customize Fusion
-        # to define where it can read custom scripts and tools from
-        fu_profile_dir_variable = f"FUSION{profile_version}_PROFILE_DIR"
-        self.log.info(f"Setting {fu_profile_dir_variable}: {fu_profile_dir}")
-        self.launch_context.env[fu_profile_dir_variable] = str(fu_profile_dir)
+            # do a copy of Fusion profile if copy_status toggle is enabled
+            if copy_status:
+                profile_source = self.get_profile_source(profile_version)
+                dest_folder = Path(fu_profile_dir, fu_profile)
+                self.copy_fusion_profile(profile_source, dest_folder, force_sync)
+        else:
+            self.log.info(
+                "AYON Fusion profile directory is not set, "
+                "using default Fusion profile location."
+            )
 
-        # Add custom Fusion Master Prefs and the temporary
-        # profile directory variables to customize Fusion
-        # to define where it can read custom scripts and tools from
+        self._set_master_prefs_variable(profile_version)
+
+    def _set_master_prefs_variable(self, profile_version: int):
+        """Set the MasterPrefs variable for Fusion."""
+
+        mode: Literal["set", "append", "prepend", "do-not-set"] = (
+            self.data["project_settings"]["fusion"]["hooks"].get(
+                "set_fusion_master_prefs", "set"
+            )
+        )
         master_prefs_variable = f"FUSION{profile_version}_MasterPrefs"
+        if mode == "do-not-set":
+            # If mode is do-not-set, we do not set the variable at all
+            self.log.info(
+                f"Not setting {master_prefs_variable} variable value."
+            )
+            return
 
-        master_prefs = Path(
-            FUSION_ADDON_ROOT, "deploy", "ayon", "fusion_shared.prefs")
+        # Set AYON Fusion Master Prefs
+        master_prefs: str = os.path.join(
+            FUSION_ADDON_ROOT, "deploy", "ayon", "fusion_shared.prefs"
+        )
+        if mode in {"prepend", "append"}:
+            existing_master_prefs: str = self.launch_context.env.get(
+                master_prefs_variable, "")
+            if existing_master_prefs:
+                if mode == "append":
+                    self.log.info(
+                        f"Appending to existing {master_prefs_variable} "
+                        f"variable value: {existing_master_prefs}"
+                    )
+                    master_prefs = (
+                        f"{existing_master_prefs}{os.pathsep}{master_prefs}"
+                    )
+                elif mode == "prepend":
+                    self.log.info(
+                        f"Prepending to existing {master_prefs_variable} "
+                        f"variable value: {existing_master_prefs}"
+                    )
+                    master_prefs = (
+                        f"{master_prefs}{os.pathsep}{existing_master_prefs}"
+                    )
 
         self.log.info(f"Setting {master_prefs_variable}: {master_prefs}")
         self.launch_context.env[master_prefs_variable] = str(master_prefs)
