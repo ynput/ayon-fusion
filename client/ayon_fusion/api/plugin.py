@@ -258,7 +258,10 @@ class GenericCreateSaver(Creator):
             "frames": "Use existing frames",
         }
         if "farm_rendering" in self.instance_attributes:
-            rendering_targets["farm"] = "Farm rendering"
+            rendering_targets = {
+                **{"farm": "Farm rendering"},
+                **rendering_targets,
+            }
 
         return EnumDef(
             "render_target", items=rendering_targets, label="Render target"
