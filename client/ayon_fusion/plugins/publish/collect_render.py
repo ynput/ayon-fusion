@@ -47,7 +47,11 @@ class CollectFusionRender(
                 continue
 
             product_type = inst.data["productType"]
-            if product_type not in ["render", "image"]:
+            product_base_type = inst.data.get("productBaseType")
+            if not product_base_type:
+                product_base_type = product_type
+
+            if product_base_type not in ["render", "image"]:
                 continue
 
             # Get resolution from tool if we can
@@ -65,11 +69,18 @@ class CollectFusionRender(
 
             instance_families = inst.data.get("families", [])
             product_name = inst.data["productName"]
+            kwargs = dict(
+                productBaseType=product_base_type,
+                productType=product_type,
+            )
+            if "productBaseType" not in attr.fields_dict(FusionRenderInstance):
+                kwargs["productType"] = kwargs.pop("productBaseType")
+
             instance = FusionRenderInstance(
+                **kwargs,
                 tool=inst.data["transientData"]["tool"],
                 workfileComp=comp,
-                productType=product_type,
-                family=product_type,
+                family=product_base_type,
                 families=instance_families,
                 version=version,
                 time="",
