@@ -19,6 +19,7 @@ class CreateImageSaver(GenericCreateSaver):
     label = "Image (saver)"
     name = "image"
     product_type = "image"
+    product_base_type = "image"
     description = "Fusion Saver to generate a single image file"
 
     default_frame = 0
