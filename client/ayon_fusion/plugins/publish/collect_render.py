@@ -46,11 +46,7 @@ class CollectFusionRender(
             if not inst.data.get("active", True):
                 continue
 
-            product_type = inst.data["productType"]
-            product_base_type = inst.data.get("productBaseType")
-            if not product_base_type:
-                product_base_type = product_type
-
+            product_base_type = inst.data["productBaseType"]
             if product_base_type not in ["render", "image"]:
                 continue
 
@@ -69,15 +65,10 @@ class CollectFusionRender(
 
             instance_families = inst.data.get("families", [])
             product_name = inst.data["productName"]
-            kwargs = dict(
-                productBaseType=product_base_type,
-                productType=product_type,
-            )
-            if "productBaseType" not in attr.fields_dict(FusionRenderInstance):
-                kwargs["productType"] = kwargs.pop("productBaseType")
 
             instance = FusionRenderInstance(
-                **kwargs,
+                productBaseType=product_base_type,
+                productType=inst.data["productType"],
                 tool=inst.data["transientData"]["tool"],
                 workfileComp=comp,
                 family=product_base_type,
