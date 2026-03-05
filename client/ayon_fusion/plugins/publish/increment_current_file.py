@@ -2,8 +2,6 @@ import os
 
 import pyblish.api
 
-from ayon_core.lib import version_up
-from ayon_core.host import IWorkfileHost
 from ayon_core.host.interfaces import SaveWorkfileOptionalData
 from ayon_core.pipeline.workfile import save_next_version
 from ayon_core.pipeline import (
