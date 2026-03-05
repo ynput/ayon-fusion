@@ -45,9 +45,6 @@ class GenericCreateSaver(Creator):
         product_type = instance_data.get("productType")
         if not product_type:
             product_type = self.product_base_type
-            items = self.get_product_type_items()
-            if items:
-                product_type = items[0].product_type
 
         instance = CreatedInstance(
             product_base_type=self.product_base_type,
