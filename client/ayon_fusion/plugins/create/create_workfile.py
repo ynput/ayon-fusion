@@ -9,8 +9,8 @@ from ayon_core.pipeline import (
 
 class FusionWorkfileCreator(AutoCreator):
     identifier = "workfile"
-    product_type = "workfile"
     product_base_type = "workfile"
+    product_type = product_base_type
     label = "Workfile"
     icon = "fa5.file"
 
@@ -21,7 +21,6 @@ class FusionWorkfileCreator(AutoCreator):
     data_key = "openpype_workfile"
 
     def collect_instances(self):
-
         comp = get_current_comp()
         data = comp.GetData(self.data_key)
         if not data:
