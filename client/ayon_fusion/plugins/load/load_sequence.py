@@ -129,7 +129,7 @@ def loader_shift(loader, frame, relative=True):
 class FusionLoadSequence(load.LoaderPlugin):
     """Load image sequence into Fusion"""
 
-    product_types = {
+    product_base_types = {
         "imagesequence",
         "review",
         "render",
@@ -137,6 +137,7 @@ class FusionLoadSequence(load.LoaderPlugin):
         "image",
         "online",
     }
+    product_types = product_base_types
     representations = {"*"}
     extensions = set(
         ext.lstrip(".") for ext in IMAGE_EXTENSIONS.union(VIDEO_EXTENSIONS)
