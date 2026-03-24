@@ -42,8 +42,13 @@ class GenericCreateSaver(Creator):
     def create(self, product_name, instance_data, pre_create_data):
         self.pass_pre_attributes_to_instance(instance_data, pre_create_data)
 
+        product_type = instance_data.get("productType")
+        if not product_type:
+            product_type = self.product_base_type
+
         instance = CreatedInstance(
-            product_type=self.product_type,
+            product_base_type=self.product_base_type,
+            product_type=product_type,
             product_name=product_name,
             data=instance_data,
             creator=self,
@@ -144,6 +149,7 @@ class GenericCreateSaver(Creator):
 
         # Product name and type
         product_type = formatting_data["productType"]
+        product_base_type = formatting_data["productBaseType"]
         f_product_name = formatting_data["productName"]
 
         # Get instance context entities
@@ -185,6 +191,7 @@ class GenericCreateSaver(Creator):
             "product": {
                 "name": f_product_name,
                 "type": product_type,
+                "basetype": product_base_type,
             },
             # Backwards compatibility
             "subset": f_product_name,
