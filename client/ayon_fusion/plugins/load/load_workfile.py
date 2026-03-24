@@ -14,7 +14,8 @@ from ayon_fusion.api import (
 class FusionLoadWorkfile(load.LoaderPlugin):
     """Load the content of a workfile into Fusion"""
 
-    product_types = {"workfile"}
+    product_base_types = {"workfile"}
+    product_types = product_base_types
     representations = {"*"}
     extensions = {"comp"}
 
