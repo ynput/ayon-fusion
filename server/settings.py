@@ -73,6 +73,19 @@ def _render_target_enum():
     ]
 
 
+class ProductTypeItemModel(BaseSettingsModel):
+    _layout = "compact"
+    product_type: str = SettingsField(
+        title="Product type",
+        description="Product type name",
+    )
+    label: str = SettingsField(
+        "",
+        title="Label",
+        description="Label to display in UI for the product type",
+    )
+
+
 class CreateSaverPluginModel(BaseSettingsModel):
     _isGroup = True
     temp_rendering_path_template: str = SettingsField(
@@ -141,12 +154,26 @@ class CreateSaverModel(CreateSaverPluginModel):
         enum_resolver=_frame_range_options_enum,
         title="Default frame range source"
     )
+    product_type_items: list[ProductTypeItemModel] = SettingsField(
+        default_factory=list,
+        title="Product type items",
+        description=(
+            "Optional list of product types that this plugin can create."
+        )
+    )
 
 
 class CreateImageSaverModel(CreateSaverPluginModel):
     default_frame: int = SettingsField(
         0,
         title="Default rendered frame"
+    )
+    product_type_items: list[ProductTypeItemModel] = SettingsField(
+        default_factory=list,
+        title="Product type items",
+        description=(
+            "Optional list of product types that this plugin can create."
+        )
     )
 
 
