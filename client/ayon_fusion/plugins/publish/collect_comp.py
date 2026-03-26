@@ -6,7 +6,7 @@ from ayon_fusion.api import get_current_comp
 class CollectCurrentCompFusion(pyblish.api.ContextPlugin):
     """Collect current comp"""
 
-    order = pyblish.api.CollectorOrder - 0.4
+    order = pyblish.api.CollectorOrder - 0.5
     label = "Collect Current Comp"
     hosts = ["fusion"]
 
