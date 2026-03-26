@@ -19,4 +19,4 @@ class CollectCurrentCompFusion(pyblish.api.ContextPlugin):
 
         # Store path to current file
         filepath = current_comp.GetAttrs().get("COMPS_FileName", "")
-        context.data['currentFile'] = filepath
+        context.data["currentFile"] = filepath
