@@ -1,5 +1,6 @@
 import pyblish.api
 
+from ayon_core.pipeline import PublishError
 from ayon_fusion.api import get_current_comp
 
 
@@ -14,7 +15,9 @@ class CollectCurrentCompFusion(pyblish.api.ContextPlugin):
         """Collect all image sequence tools"""
 
         current_comp = get_current_comp()
-        assert current_comp, "Must have active Fusion composition"
+        if not current_comp:
+            raise PublishError("Must have active Fusion composition")
+
         context.data["currentComp"] = current_comp
 
         # Store path to current file
