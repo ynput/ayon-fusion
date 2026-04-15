@@ -33,6 +33,8 @@ class GenericCreateSaver(Creator):
 
     image_format = "exr"
 
+    default_render_target = "local"
+
     # TODO: This should be renamed together with Nuke so it is aligned
     temp_rendering_path_template = (
         "{workdir}/renders/fusion/{product[name]}/"
@@ -268,21 +270,24 @@ class GenericCreateSaver(Creator):
             rendering_targets["farm"] = "Farm rendering"
 
         return EnumDef(
-            "render_target", items=rendering_targets, label="Render target"
+            "render_target",
+            label="Render target",
+            items=rendering_targets,
+            default=self.default_render_target,
         )
 
     def _get_reviewable_bool(self):
         return BoolDef(
             "review",
-            default=("reviewable" in self.instance_attributes),
             label="Review",
+            default=("reviewable" in self.instance_attributes),
         )
 
     def _get_image_format_enum(self):
         image_format_options = ["exr", "tga", "tif", "png", "jpg", "dpx"]
         return EnumDef(
             "image_format",
+            label="Output Image Format",
             items=image_format_options,
             default=self.image_format,
-            label="Output Image Format",
         )
