@@ -65,6 +65,14 @@ def _set_masterprefs_mode_enum():
     ]
 
 
+def _render_target_enum():
+    return [
+        {"value": "local", "label": "Local machine rendering"},
+        {"value": "frames", "label": "Use existing frames"},
+        {"value": "farm", "label": "Farm rendering"},
+    ]
+
+
 class ProductTypeItemModel(BaseSettingsModel):
     _layout = "compact"
     product_type: str = SettingsField(
@@ -95,6 +103,11 @@ class CreateSaverPluginModel(BaseSettingsModel):
     image_format: str = SettingsField(
         enum_resolver=_image_format_enum,
         title="Output Image Format"
+    )
+    default_render_target: str = SettingsField(
+        default="local",
+        enum_resolver=_render_target_enum,
+        title="Default Render Target"
     )
 
 
@@ -251,6 +264,7 @@ DEFAULT_VALUES = {
                 "farm_rendering"
             ],
             "image_format": "exr",
+            "default_render_target": "local",
             "default_frame_range_option": "current_context"
         },
         "CreateImageSaver": {
@@ -264,6 +278,7 @@ DEFAULT_VALUES = {
                 "farm_rendering"
             ],
             "image_format": "exr",
+            "default_render_target": "local",
             "default_frame": 0
         }
     },
