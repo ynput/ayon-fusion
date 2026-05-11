@@ -1,6 +1,6 @@
 name = "fusion"
 title = "Fusion"
-version = "0.4.0+dev"
+version = "0.4.1"
 app_host_name = "fusion"
 client_dir = "ayon_fusion"
 project_can_override_addon_version = True
