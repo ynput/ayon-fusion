@@ -12,9 +12,12 @@ class PulseThread(QtCore.QThread):
 
     def run(self):
         app = getattr(sys.modules["__main__"], "app", None)
+        if app is None:
+            # No Fusion app found
+            return
 
         # Interval in milliseconds
-        interval = os.environ.get("AYON_FUSION_PULSE_INTERVAL", 1000)
+        interval = int(os.environ.get("AYON_FUSION_PULSE_INTERVAL", 1000))
 
         while True:
             if self.isInterruptionRequested():
