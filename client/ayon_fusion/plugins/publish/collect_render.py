@@ -40,6 +40,7 @@ class CollectFusionRender(
         current_file = context.data["currentFile"]
         version = context.data.get("version")
         project_entity = context.data["projectEntity"]
+        app_version = comp.GetApp().Version
 
         instances = []
         for inst in context:
@@ -99,7 +100,7 @@ class CollectFusionRender(
                 frameEndHandle=inst.data["frameEndHandle"],
                 frameStep=1,
                 fps=comp_frame_format_prefs.get("Rate"),
-                app_version=comp.GetApp().Version,
+                app_version=app_version,
                 publish_attributes=inst.data.get("publish_attributes", {}),
 
                 # The source instance this render instance replaces
