@@ -157,7 +157,8 @@ class FusionHost(HostBase, IWorkfileHost, ILoadHost, IPublishHost):
     @contextlib.contextmanager
     def maintained_selection(self):
         from .lib import maintained_selection
-        return maintained_selection()
+        with maintained_selection(comp=self.get_current_comp()):
+            yield
 
     def get_containers(self):
         return ls()
