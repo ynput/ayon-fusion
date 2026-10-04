@@ -35,14 +35,25 @@ class ValidateSaverPassthrough(pyblish.api.ContextPlugin):
                 "Invalid instances: {0}".format(invalid_instances),
                 title=self.label)
 
-    def is_invalid(self, instance):
+    @classmethod
+    def get_invalid(cls, context):
+        """Return the savers of the invalid instances for selection."""
+        instances = pyblish.api.instances_by_plugin(instances=list(context),
+                                                    plugin=cls)
+        invalid = []
+        for instance in instances:
+            invalid.extend(cls.is_invalid(instance))
+        return invalid
+
+    @classmethod
+    def is_invalid(cls, instance):
 
         saver = instance.data["tool"]
         attr = saver.GetAttrs()
         active = not attr["TOOLB_PassThrough"]
 
         if active != instance.data.get("publish", True):
-            self.log.info("Saver has different passthrough state than "
+            cls.log.info("Saver has different passthrough state than "
                           "Pyblish: {} ({})".format(instance, saver.Name))
             return [saver]
 
