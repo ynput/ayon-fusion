@@ -54,7 +54,7 @@ class ValidateSaverPassthrough(pyblish.api.ContextPlugin):
 
         if active != instance.data.get("publish", True):
             cls.log.info("Saver has different passthrough state than "
-                          "Pyblish: {} ({})".format(instance, saver.Name))
+                         "Pyblish: {} ({})".format(instance, saver.Name))
             return [saver]
 
         return []
