@@ -446,7 +446,7 @@ class FusionEventHandler(QtCore.QObject):
         self._event_thread.start()
 
     def stop(self):
-        self._event_thread.stop()
+        self._event_thread.requestInterruption()
 
     def _on_event(self, event):
         """Handle Fusion events to emit AYON events"""

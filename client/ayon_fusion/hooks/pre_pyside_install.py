@@ -127,7 +127,7 @@ class InstallPySideToFusion(PreLaunchHook):
             #   "--ignore-installed" is to force install module to fusion's
             #   site-packages and make sure it is binary compatible
             env = dict(os.environ)
-            del env['PYTHONPATH']
+            env.pop("PYTHONPATH", None)
             args = [
                 python_executable,
                 "-m",
