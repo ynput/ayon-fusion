@@ -32,23 +32,25 @@ def enabled_savers(comp, savers):
     original_states = {}
     enabled_saver_names = {saver.Name for saver in savers}
 
+    # Each query of a tool's name goes through to Fusion, so we query it only
+    # once per saver
     all_savers = comp.GetToolList(False, "Saver").values()
     savers_by_name = {saver.Name: saver for saver in all_savers}
 
     try:
-        for saver in all_savers:
+        for saver_name, saver in savers_by_name.items():
             original_state = saver.GetAttrs()[passthrough_key]
-            original_states[saver.Name] = original_state
+            original_states[saver_name] = original_state
 
             # The passthrough state we want to set (passthrough != enabled)
-            state = saver.Name not in enabled_saver_names
+            state = saver_name not in enabled_saver_names
             if state != original_state:
                 saver.SetAttrs({passthrough_key: state})
         yield
     finally:
         for saver_name, original_state in original_states.items():
             saver = savers_by_name[saver_name]
-            saver.SetAttrs({"TOOLB_PassThrough": original_state})
+            saver.SetAttrs({passthrough_key: original_state})
 
 
 class FusionRenderLocal(
