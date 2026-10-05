@@ -64,7 +64,7 @@ def preserve_trim(loader, log=None):
             trim_from_end = remainder
             if log:
                 log.warning(
-                    "Reducing trim in to %d "
+                    "Reducing trim out to %d "
                     "(because of less frames)" % trim_from_end
                 )
 
