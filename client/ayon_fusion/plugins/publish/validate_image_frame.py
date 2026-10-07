@@ -21,7 +21,7 @@ class ValidateImageFrame(pyblish.api.InstancePlugin):
             desc = ("Trying to render multiple frames. 'image' product type "
                     "is meant for single frame. Please use 'render' creator.")
             raise PublishValidationError(
-                title="Frame range outside of comp range",
+                title="Image instance has multiple frames",
                 message=desc,
                 description=desc
             )
