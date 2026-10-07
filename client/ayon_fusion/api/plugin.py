@@ -21,6 +21,7 @@ from ayon_core.pipeline.workfile import get_workdir
 
 
 class GenericCreateSaver(Creator):
+    skip_discovery = True
     default_variants = ["Main", "Mask"]
     description = "Fusion Saver to generate image sequence"
     icon = "fa5.eye"
