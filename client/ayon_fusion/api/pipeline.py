@@ -157,7 +157,8 @@ class FusionHost(HostBase, IWorkfileHost, ILoadHost, IPublishHost):
     @contextlib.contextmanager
     def maintained_selection(self):
         from .lib import maintained_selection
-        return maintained_selection()
+        with maintained_selection(comp=self.get_current_comp()):
+            yield
 
     def get_containers(self):
         return ls()
@@ -209,7 +210,6 @@ def on_save(event):
 
 def on_task_changed():
     global _about_to_save
-    print(f"Task changed: {_about_to_save}")
     # TODO: Only do this if not headless
     if _about_to_save:
         # Let's prompt the user to update the context settings or not
@@ -446,7 +446,7 @@ class FusionEventHandler(QtCore.QObject):
         self._event_thread.start()
 
     def stop(self):
-        self._event_thread.stop()
+        self._event_thread.requestInterruption()
 
     def _on_event(self, event):
         """Handle Fusion events to emit AYON events"""

@@ -9,7 +9,8 @@ class SelectInvalidAction(pyblish.api.Action):
     """Select invalid nodes in Fusion when plug-in failed.
 
     To retrieve the invalid nodes this assumes a static `get_invalid()`
-    method is available on the plugin.
+    method is available on the plugin. For an instance plug-in it is called
+    with each errored instance, for a context plug-in with the context.
 
     """
 
@@ -18,16 +19,21 @@ class SelectInvalidAction(pyblish.api.Action):
     icon = "search"  # Icon from Awesome Icon
 
     def process(self, context, plugin):
-        errored_instances = get_errored_instances_from_context(
-            context,
-            plugin=plugin,
-        )
-
         # Get the invalid nodes for the plug-ins
         self.log.info("Finding invalid nodes..")
+        if issubclass(plugin, pyblish.api.ContextPlugin):
+            # A context plug-in has no errored instances, instead it
+            # returns the invalid nodes for the context
+            sources = [context]
+        else:
+            sources = get_errored_instances_from_context(
+                context,
+                plugin=plugin,
+            )
+
         invalid = list()
-        for instance in errored_instances:
-            invalid_nodes = plugin.get_invalid(instance)
+        for source in sources:
+            invalid_nodes = plugin.get_invalid(source)
             if invalid_nodes:
                 if isinstance(invalid_nodes, (list, tuple)):
                     invalid.extend(invalid_nodes)
