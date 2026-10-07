@@ -12,7 +12,7 @@ from ayon_fusion.api.action import SelectInvalidAction
 class ValidateBackgroundDepth(
     pyblish.api.ContextPlugin, OptionalPyblishPluginMixin
 ):
-    """Validate if all Background tool are set to float32 bit
+    """Validate if all Background tools are set to float32 bit
 
     This is a context plug-in because the Background tools are validated for
     the full comp instead of per instance, so it only needs to run once.
