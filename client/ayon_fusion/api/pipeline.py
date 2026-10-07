@@ -209,7 +209,6 @@ def on_save(event):
 
 def on_task_changed():
     global _about_to_save
-    print(f"Task changed: {_about_to_save}")
     # TODO: Only do this if not headless
     if _about_to_save:
         # Let's prompt the user to update the context settings or not
