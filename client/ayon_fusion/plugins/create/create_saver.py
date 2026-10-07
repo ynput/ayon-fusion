@@ -76,6 +76,24 @@ class CreateSaver(GenericCreateSaver):
             new_attrs = self.get_attr_defs_for_instance(instance)
             instance.set_create_attr_defs(new_attrs)
 
+    def get_managed_tool_data(self, tool):
+        data = super().get_managed_tool_data(tool)
+        if not data:
+            return data
+
+        # Backwards compatibility: The 'current_context' frame range source
+        # was stored as 'current_task' before. Convert it explicitly because
+        # otherwise the unknown value would fall back to the default frame
+        # range source of the settings, which may be a different source.
+        creator_attributes = data.get("creator_attributes")
+        if (
+            isinstance(creator_attributes, dict)
+            and creator_attributes.get("frame_range_source") == "current_task"
+        ):
+            creator_attributes["frame_range_source"] = "current_context"
+
+        return data
+
     def get_pre_create_attr_defs(self):
         """Settings for create page"""
         attr_defs = [
@@ -98,7 +116,7 @@ class CreateSaver(GenericCreateSaver):
 
     def _get_frame_range_enum(self):
         frame_range_options = {
-            "current_task": "Current context",
+            "current_context": "Current context",
             "render_range": "From render in/out",
             "comp_range": "From composition timeline",
             "custom_range": "Custom frame range",

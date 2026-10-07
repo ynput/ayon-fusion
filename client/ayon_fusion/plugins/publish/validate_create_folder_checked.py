@@ -25,9 +25,11 @@ class ValidateCreateFolderChecked(pyblish.api.InstancePlugin):
         create_dir = tool.GetInput("CreateDir")
         if create_dir == 0.0:
             cls.log.error(
-                "%s has Create Folder turned off" % instance[0].Name
+                "%s has Create Folder turned off" % tool.Name
             )
             return [tool]
+
+        return []
 
     def process(self, instance):
         invalid = self.get_invalid(instance)

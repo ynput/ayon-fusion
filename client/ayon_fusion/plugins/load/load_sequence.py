@@ -8,8 +8,6 @@ from ayon_fusion.api import (
 )
 from ayon_core.lib.transcoding import IMAGE_EXTENSIONS, VIDEO_EXTENSIONS
 
-comp = get_current_comp()
-
 
 @contextlib.contextmanager
 def preserve_inputs(tool, inputs):
@@ -64,7 +62,7 @@ def preserve_trim(loader, log=None):
             trim_from_end = remainder
             if log:
                 log.warning(
-                    "Reducing trim in to %d "
+                    "Reducing trim out to %d "
                     "(because of less frames)" % trim_from_end
                 )
 

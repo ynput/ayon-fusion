@@ -51,6 +51,10 @@ class FusionPrelaunch(PreLaunchHook):
             # Allow defining multiple paths, separated by os.pathsep,
             # to allow "fallback" to other path.
             # But make to set only a single path as final variable.
+            if not path:
+                # Skip empty entries, because `os.path.normpath("")` returns
+                # the current directory "." which always exists.
+                continue
             py3_dir = os.path.normpath(path)
             if os.path.isdir(py3_dir):
                 break
