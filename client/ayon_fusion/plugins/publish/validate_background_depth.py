@@ -10,9 +10,13 @@ from ayon_fusion.api.action import SelectInvalidAction
 
 
 class ValidateBackgroundDepth(
-    pyblish.api.InstancePlugin, OptionalPyblishPluginMixin
+    pyblish.api.ContextPlugin, OptionalPyblishPluginMixin
 ):
-    """Validate if all Background tool are set to float32 bit"""
+    """Validate if all Background tools are set to float32 bit
+
+    This is a context plug-in because the Background tools are validated for
+    the full comp instead of per instance, so it only needs to run once.
+    """
 
     order = pyblish.api.ValidatorOrder
     label = "Validate Background Depth 32 bit"
@@ -20,11 +24,10 @@ class ValidateBackgroundDepth(
     families = ["render", "image"]
     optional = True
 
-    actions = [SelectInvalidAction, publish.RepairAction]
+    actions = [SelectInvalidAction, publish.RepairContextAction]
 
     @classmethod
-    def get_invalid(cls, instance):
-        context = instance.context
+    def get_invalid(cls, context):
         comp = context.data.get("currentComp")
         assert comp, "Must have Comp object"
 
@@ -34,11 +37,11 @@ class ValidateBackgroundDepth(
 
         return [i for i in backgrounds if i.GetInput("Depth") != 4.0]
 
-    def process(self, instance):
-        if not self.is_active(instance.data):
+    def process(self, context):
+        if not self.is_active(context.data):
             return
 
-        invalid = self.get_invalid(instance)
+        invalid = self.get_invalid(context)
         if invalid:
             raise PublishValidationError(
                 "Found {} Backgrounds tools which"
@@ -47,8 +50,8 @@ class ValidateBackgroundDepth(
             )
 
     @classmethod
-    def repair(cls, instance):
-        comp = instance.context.data.get("currentComp")
-        invalid = cls.get_invalid(instance)
+    def repair(cls, context):
+        comp = context.data.get("currentComp")
+        invalid = cls.get_invalid(context)
         for i in invalid:
             i.SetInput("Depth", 4.0, comp.TIME_UNDEFINED)
