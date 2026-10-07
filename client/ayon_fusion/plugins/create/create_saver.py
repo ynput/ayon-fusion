@@ -145,15 +145,26 @@ class CreateSaver(GenericCreateSaver):
         comp = get_current_comp()
         if comp is not None:
             attrs = comp.GetAttrs()
+            global_start = attrs["COMPN_GlobalStart"]
+            global_end = attrs["COMPN_GlobalEnd"]
+            render_start = attrs["COMPN_RenderStart"]
+            render_end = attrs["COMPN_RenderEnd"]
+
+            # Whenever render ranges are undefined fall back
+            # to the comp's global start and end
+            if render_start == -1000000000:
+                render_start = global_start
+            if render_end == -1000000000:
+                render_end = global_end
+
+            # The render range is the frame range and the remainder up to
+            # the global range are the handles, so that the range including
+            # handles matches the comp's global range.
             frame_defaults = {
-                "frameStart": int(attrs["COMPN_GlobalStart"]),
-                "frameEnd": int(attrs["COMPN_GlobalEnd"]),
-                "handleStart": int(
-                    attrs["COMPN_RenderStart"] - attrs["COMPN_GlobalStart"]
-                ),
-                "handleEnd": int(
-                    attrs["COMPN_GlobalEnd"] - attrs["COMPN_RenderEnd"]
-                ),
+                "frameStart": int(render_start),
+                "frameEnd": int(render_end),
+                "handleStart": int(render_start - global_start),
+                "handleEnd": int(global_end - render_end),
             }
         else:
             frame_defaults = {
