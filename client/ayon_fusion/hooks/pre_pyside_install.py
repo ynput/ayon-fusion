@@ -127,7 +127,7 @@ class InstallPySideToFusion(PreLaunchHook):
             #   "--ignore-installed" is to force install module to fusion's
             #   site-packages and make sure it is binary compatible
             env = dict(os.environ)
-            del env['PYTHONPATH']
+            env.pop("PYTHONPATH", None)
             args = [
                 python_executable,
                 "-m",
@@ -158,11 +158,10 @@ class InstallPySideToFusion(PreLaunchHook):
         process = subprocess.Popen(args,
                                    stdout=subprocess.PIPE,
                                    stderr=subprocess.PIPE)
-        _, stderr = process.communicate()
-        stderr = stderr.decode()
-        if stderr:
-            return False
-        return True
+        process.communicate()
+        # Rely on the return code, because the stderr may also contain
+        # warnings even if the import succeeded.
+        return process.returncode == 0
 
     def _windows_require_permissions(self, dirpath):
         if platform.system().lower() != "windows":

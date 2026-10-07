@@ -234,7 +234,7 @@ class FusionSettings(BaseSettingsModel):
 DEFAULT_VALUES = {
     "imageio": {
         "file_rules": {
-            "enabled": False,
+            "activate_host_rules": False,
             "rules": []
         }
     },
