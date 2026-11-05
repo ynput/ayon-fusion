@@ -144,14 +144,6 @@ class FusionHost(HostBase, IWorkfileHost, ILoadHost, IPublishHost):
             return None
 
         return current_filepath
-
-    def work_root(self, session):
-        work_dir = session["AYON_WORKDIR"]
-        scene_dir = session.get("AVALON_SCENEDIR")
-        if scene_dir:
-            return os.path.join(work_dir, scene_dir)
-        else:
-            return work_dir
     # endregion
 
     @contextlib.contextmanager
