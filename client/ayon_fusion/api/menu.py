@@ -64,7 +64,6 @@ class AYONMenu(QtWidgets.QWidget):
         load_btn = QtWidgets.QPushButton("Load...", self)
         publish_btn = QtWidgets.QPushButton("Publish...", self)
         manager_btn = QtWidgets.QPushButton("Manage...", self)
-        libload_btn = QtWidgets.QPushButton("Library...", self)
         set_framerange_btn = QtWidgets.QPushButton("Set Frame Range", self)
         set_resolution_btn = QtWidgets.QPushButton("Set Resolution", self)
         duplicate_with_inputs_btn = QtWidgets.QPushButton(
@@ -89,10 +88,6 @@ class AYONMenu(QtWidgets.QWidget):
 
         layout.addSpacing(20)
 
-        layout.addWidget(libload_btn)
-
-        layout.addSpacing(20)
-
         layout.addWidget(set_framerange_btn)
         layout.addWidget(set_resolution_btn)
 
@@ -110,7 +105,6 @@ class AYONMenu(QtWidgets.QWidget):
         publish_btn.clicked.connect(self.on_publish_clicked)
         load_btn.clicked.connect(self.on_load_clicked)
         manager_btn.clicked.connect(self.on_manager_clicked)
-        libload_btn.clicked.connect(self.on_libload_clicked)
         duplicate_with_inputs_btn.clicked.connect(
             self.on_duplicate_with_inputs_clicked
         )
@@ -160,9 +154,6 @@ class AYONMenu(QtWidgets.QWidget):
 
     def on_manager_clicked(self):
         host_tools.show_scene_inventory()
-
-    def on_libload_clicked(self):
-        host_tools.show_library_loader()
 
     def on_duplicate_with_inputs_clicked(self):
         duplicate_with_inputs.duplicate_with_input_connections()
