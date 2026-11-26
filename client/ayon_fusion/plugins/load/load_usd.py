@@ -73,6 +73,7 @@ class FusionLoadUSD(load.LoaderPlugin):
             # Update the imprinted representation
             tool.SetData("avalon.representation",
                          context["representation"]["id"])
+            tool.SetData("avalon.project_name", context["project"]["name"])
 
     def remove(self, container):
         tool = container["_tool"]
