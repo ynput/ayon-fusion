@@ -39,6 +39,8 @@ def get_tool_instance_data_key(tool) -> str:
 
 class GenericCreateSaver(Creator):
     skip_discovery = True
+    # Identifier also accepted from savers made by older addon versions
+    legacy_identifier = None
     default_variants = ["Main", "Mask"]
     description = "Fusion Saver to generate image sequence"
     icon = "fa5.eye"
@@ -254,7 +256,9 @@ class GenericCreateSaver(Creator):
             return
 
         if (
-            data.get("creator_identifier") != self.identifier
+            data.get("creator_identifier") not in {
+                self.identifier, self.legacy_identifier
+            }
             or data.get("id") not in {
                 AYON_INSTANCE_ID, AVALON_INSTANCE_ID
             }

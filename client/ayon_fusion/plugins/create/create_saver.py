@@ -16,7 +16,8 @@ class CreateSaver(GenericCreateSaver):
      Original Saver creator targeted for 'render' product type. It uses
      original not to descriptive name because of values in Settings.
     """
-    identifier = "io.openpype.creators.fusion.saver"
+    identifier = "io.ayon.creators.fusion.saver"
+    legacy_identifier = "io.openpype.creators.fusion.saver"
     label = "Render (saver)"
     name = "render"
     product_base_type = "render"

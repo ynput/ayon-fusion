@@ -15,7 +15,8 @@ class CreateImageSaver(GenericCreateSaver):
     implemented to limit creation of additional product types with similar, but
     not the same workflows.
     """
-    identifier = "io.openpype.creators.fusion.imagesaver"
+    identifier = "io.ayon.creators.fusion.imagesaver"
+    legacy_identifier = "io.openpype.creators.fusion.imagesaver"
     label = "Image (saver)"
     name = "image"
     product_base_type = "image"
