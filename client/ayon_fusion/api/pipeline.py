@@ -50,7 +50,9 @@ LOAD_PATH = os.path.join(PLUGINS_DIR, "load")
 CREATE_PATH = os.path.join(PLUGINS_DIR, "create")
 INVENTORY_PATH = os.path.join(PLUGINS_DIR, "inventory")
 
-COMP_CONTEXT_KEY = "ayon_context"
+# Comp data key of the comp's current context: project, folder and task.
+# Not to be confused with the publish context data of `get_context_data`.
+COMP_CURRENT_CONTEXT_KEY = "ayon_current_context"
 
 
 class FusionLogHandler(logging.Handler):
@@ -134,8 +136,8 @@ class FusionHost(HostBase, IWorkfileHost, ILoadHost, IPublishHost):
         comp = self.get_current_comp()
         # Save the context with the comp, also when the comp has none stored
         # yet and uses the fallback context.
-        context = self._get_comp_context(comp)
-        self._set_comp_context(
+        context = self._get_comp_current_context(comp)
+        self._set_comp_current_context(
             comp, context["folder_path"], context["task_name"]
         )
         comp.Save(dst_path)
@@ -166,10 +168,12 @@ class FusionHost(HostBase, IWorkfileHost, ILoadHost, IPublishHost):
         return ls()
 
     def update_context_data(self, data, changes):
+        """Store the publish context data in the current comp."""
         comp = self.get_current_comp()
         comp.SetData("openpype", data)
 
     def get_context_data(self):
+        """Return the publish context data of the current comp."""
         comp = self.get_current_comp()
         return comp.GetData("openpype") or {}
 
@@ -192,12 +196,12 @@ class FusionHost(HostBase, IWorkfileHost, ILoadHost, IPublishHost):
                 'folder_path' and 'task_name'.
 
         """
-        return self._get_comp_context(self.get_current_comp())
+        return self._get_comp_current_context(self.get_current_comp())
 
-    def _get_comp_context(self, comp):
+    def _get_comp_current_context(self, comp):
         project_name = self.get_current_project_name()
         if comp is not None:
-            comp_context = comp.GetData(COMP_CONTEXT_KEY)
+            comp_context = comp.GetData(COMP_CURRENT_CONTEXT_KEY)
             if (
                 comp_context
                 and comp_context.get("project_name") == project_name
@@ -214,10 +218,10 @@ class FusionHost(HostBase, IWorkfileHost, ILoadHost, IPublishHost):
             "task_name": super().get_current_task_name(),
         }
 
-    def _set_comp_context(self, comp, folder_path, task_name):
+    def _set_comp_current_context(self, comp, folder_path, task_name):
         if comp is None:
             return
-        comp.SetData(COMP_CONTEXT_KEY, {
+        comp.SetData(COMP_CURRENT_CONTEXT_KEY, {
             "project_name": self.get_current_project_name(),
             "folder_path": folder_path,
             "task_name": task_name,
@@ -230,7 +234,7 @@ class FusionHost(HostBase, IWorkfileHost, ILoadHost, IPublishHost):
         if context_change_data.reason == ContextChangeReason.workfile_open:
             return
 
-        self._set_comp_context(
+        self._set_comp_current_context(
             self.get_current_comp(),
             context_change_data.folder_entity["path"],
             context_change_data.task_entity["name"],
@@ -247,7 +251,7 @@ class FusionHost(HostBase, IWorkfileHost, ILoadHost, IPublishHost):
         filepath = comp.GetAttrs()["COMPS_FileName"]
         if Path(filepath) != Path(open_workfile_context.filepath):
             return
-        self._set_comp_context(
+        self._set_comp_current_context(
             comp,
             open_workfile_context.folder_entity["path"],
             open_workfile_context.task_entity["name"],
