@@ -5,7 +5,6 @@ import os
 import sys
 import logging
 import contextlib
-from pathlib import Path
 
 import pyblish.api
 from qtpy import QtCore
@@ -23,7 +22,14 @@ from ayon_core.pipeline import (
     AVALON_CONTAINER_ID,
 )
 from ayon_core.pipeline.load import any_outdated_containers
-from ayon_core.host import HostBase, IWorkfileHost, ILoadHost, IPublishHost
+from ayon_core.host import (
+    ContextChangeData,
+    ContextChangeReason,
+    HostBase,
+    ILoadHost,
+    IPublishHost,
+    IWorkfileHost,
+)
 from ayon_core.tools.utils import host_tools
 from ayon_fusion import FUSION_ADDON_ROOT
 
@@ -42,9 +48,6 @@ PUBLISH_PATH = os.path.join(PLUGINS_DIR, "publish")
 LOAD_PATH = os.path.join(PLUGINS_DIR, "load")
 CREATE_PATH = os.path.join(PLUGINS_DIR, "create")
 INVENTORY_PATH = os.path.join(PLUGINS_DIR, "inventory")
-
-# Track whether the workfile tool is about to save
-_about_to_save = False
 
 
 class FusionLogHandler(logging.Handler):
@@ -113,10 +116,8 @@ class FusionHost(HostBase, IWorkfileHost, ILoadHost, IPublishHost):
 
         # Register events
         register_event_callback("open", on_after_open)
-        register_event_callback("workfile.save.before", before_workfile_save)
         register_event_callback("save", on_save)
         register_event_callback("new", on_new)
-        register_event_callback("taskChanged", on_task_changed)
 
     # region workfile io api
     def has_unsaved_changes(self):
@@ -163,6 +164,17 @@ class FusionHost(HostBase, IWorkfileHost, ILoadHost, IPublishHost):
         comp = self.get_current_comp()
         return comp.GetData("openpype") or {}
 
+    def _after_context_change(self, context_change_data: ContextChangeData):
+        """Offer to match the comp to the new context when saving into it.
+
+        Args:
+            context_change_data (ContextChangeData): Object with information
+                about context change.
+        """
+        super()._after_context_change(context_change_data)
+        if context_change_data.reason == ContextChangeReason.workfile_save:
+            prompt_reset_context()
+
     def get_current_comp(self):
         if self._forced_current_comp is not None:
             return self._forced_current_comp
@@ -195,18 +207,6 @@ def on_save(event):
     comp = event["sender"]
     validate_comp_prefs(comp)
 
-    # We are now starting the actual save directly
-    global _about_to_save
-    _about_to_save = False
-
-
-def on_task_changed():
-    global _about_to_save
-    # TODO: Only do this if not headless
-    if _about_to_save:
-        # Let's prompt the user to update the context settings or not
-        prompt_reset_context()
-
 
 def on_after_open(event):
     comp = event["sender"]
@@ -238,29 +238,6 @@ def on_after_open(event):
         dialog.raise_()
         dialog.activateWindow()
         dialog.setStyleSheet(load_stylesheet())
-
-
-def before_workfile_save(event):
-    # Due to Fusion's external python process design we can't really
-    # detect whether the current Fusion environment matches the one the artists
-    # expects it to be. For example, our pipeline python process might
-    # have been shut down, and restarted - which will restart it to the
-    # environment Fusion started with; not necessarily where the artist
-    # is currently working.
-    # The `_about_to_save` var is used to detect context changes when
-    # saving into another asset. If we keep it False it will be ignored
-    # as context change. As such, before we change tasks we will only
-    # consider it the current filepath is within the currently known
-    # AVALON_WORKDIR. This way we avoid false positives of thinking it's
-    # saving to another context and instead sometimes just have false negatives
-    # where we fail to show the "Update on task change" prompt.
-    host = registered_host()
-    comp = host.get_current_comp()
-    filepath = comp.GetAttrs()["COMPS_FileName"]
-    workdir = os.environ.get("AYON_WORKDIR")
-    if Path(workdir) in Path(filepath).parents:
-        global _about_to_save
-        _about_to_save = True
 
 
 def ls():
