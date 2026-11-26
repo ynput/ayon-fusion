@@ -50,6 +50,10 @@ LOAD_PATH = os.path.join(PLUGINS_DIR, "load")
 CREATE_PATH = os.path.join(PLUGINS_DIR, "create")
 INVENTORY_PATH = os.path.join(PLUGINS_DIR, "inventory")
 
+# Comp data key for the publisher's context data
+COMP_PUBLISH_CONTEXT_KEY = "ayon_publish_context"
+LEGACY_COMP_PUBLISH_CONTEXT_KEY = "openpype"
+
 
 class FusionLogHandler(logging.Handler):
     # Keep a reference to fusion's Print function (Remote Object)
@@ -159,11 +163,16 @@ class FusionHost(HostBase, IWorkfileHost, ILoadHost, IPublishHost):
 
     def update_context_data(self, data, changes):
         comp = self.get_current_comp()
-        comp.SetData("openpype", data)
+        comp.SetData(COMP_PUBLISH_CONTEXT_KEY, data)
+        comp.SetData(LEGACY_COMP_PUBLISH_CONTEXT_KEY, None)
 
     def get_context_data(self):
         comp = self.get_current_comp()
-        return comp.GetData("openpype") or {}
+        return (
+            comp.GetData(COMP_PUBLISH_CONTEXT_KEY)
+            or comp.GetData(LEGACY_COMP_PUBLISH_CONTEXT_KEY)
+            or {}
+        )
 
     def _after_context_change(self, context_change_data: ContextChangeData):
         """Offer to match the comp to the new context when saving into it.

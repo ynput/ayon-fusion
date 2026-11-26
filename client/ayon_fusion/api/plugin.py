@@ -19,6 +19,23 @@ from ayon_core.pipeline import (
 from ayon_core.pipeline.template_data import get_template_data
 from ayon_core.pipeline.workfile import get_workdir
 
+TOOL_INSTANCE_DATA_KEY = "ayon_instance"
+LEGACY_TOOL_INSTANCE_DATA_KEY = "openpype"
+
+
+def get_tool_instance_data_key(tool) -> str:
+    """Return the data key under which the tool stores its instance data.
+
+    Tools created before the rename to `TOOL_INSTANCE_DATA_KEY` still hold
+    their data under `LEGACY_TOOL_INSTANCE_DATA_KEY` until they are updated.
+    """
+    if (
+        not tool.GetData(TOOL_INSTANCE_DATA_KEY)
+        and tool.GetData(LEGACY_TOOL_INSTANCE_DATA_KEY)
+    ):
+        return LEGACY_TOOL_INSTANCE_DATA_KEY
+    return TOOL_INSTANCE_DATA_KEY
+
 
 class GenericCreateSaver(Creator):
     skip_discovery = True
@@ -109,7 +126,7 @@ class GenericCreateSaver(Creator):
             self._remove_instance_from_context(instance)
 
     def _imprint(self, tool, data):
-        # Save all data in a "openpype.{key}" = value data
+        # Save all data as "ayon_instance.{key}" = value data
 
         # Instance id is the tool's name so we don't need to imprint as data
         data.pop("instance_id", None)
@@ -120,23 +137,25 @@ class GenericCreateSaver(Creator):
             tool.SetAttrs({"TOOLB_PassThrough": not active})
 
         for key, value in data.items():
-            tool.SetData(f"openpype.{key}", value)
+            tool.SetData(f"{TOOL_INSTANCE_DATA_KEY}.{key}", value)
+        tool.SetData(LEGACY_TOOL_INSTANCE_DATA_KEY, None)
 
     def _update_tool_with_data(self, tool, data):
         """Update tool node name and output path based on product data"""
         if "productName" not in data:
             return
 
-        original_product_name = tool.GetData("openpype.productName")
+        key = get_tool_instance_data_key(tool)
+        original_product_name = tool.GetData(f"{key}.productName")
         original_format = tool.GetData(
-            "openpype.creator_attributes.image_format"
+            f"{key}.creator_attributes.image_format"
         )
 
         product_name = data["productName"]
         if (
             original_product_name != product_name
-            or tool.GetData("openpype.task") != data["task"]
-            or tool.GetData("openpype.folderPath") != data["folderPath"]
+            or tool.GetData(f"{key}.task") != data["task"]
+            or tool.GetData(f"{key}.folderPath") != data["folderPath"]
             or original_format != data["creator_attributes"]["image_format"]
         ):
             self._configure_saver_tool(data, tool, product_name)
@@ -230,7 +249,7 @@ class GenericCreateSaver(Creator):
 
     def get_managed_tool_data(self, tool):
         """Return data of the tool if it matches creator identifier"""
-        data = tool.GetData("openpype")
+        data = tool.GetData(get_tool_instance_data_key(tool))
         if not isinstance(data, dict):
             return
 
