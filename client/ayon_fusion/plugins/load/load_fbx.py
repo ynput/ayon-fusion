@@ -78,6 +78,7 @@ class FusionLoadFBXMesh(load.LoaderPlugin):
 
             # Update the imprinted representation
             tool.SetData("avalon.representation", repre_entity["id"])
+            tool.SetData("avalon.project_name", context["project"]["name"])
 
     def remove(self, container):
         tool = container["_tool"]
