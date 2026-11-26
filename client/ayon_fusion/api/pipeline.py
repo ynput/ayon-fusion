@@ -256,32 +256,16 @@ class FusionHost(HostBase, IWorkfileHost, ILoadHost, IPublishHost):
     def _after_context_change(self, context_change_data: ContextChangeData):
         """Offer to match the comp to the new context when saving into it.
 
+        The current context is read from the comp, so on save this is only
+        called when the comp is saved into another context than its own.
+
         Args:
             context_change_data (ContextChangeData): Object with information
                 about context change.
         """
         super()._after_context_change(context_change_data)
-        if context_change_data.reason != ContextChangeReason.workfile_save:
-            return
-
-        # Fusion can have multiple comps open while AYON tracks a single
-        # context. Also, due to Fusion's external python process design our
-        # pipeline python process might have been shut down and restarted,
-        # which restarts it to the environment Fusion started with; not
-        # necessarily where the artist is currently working.
-        # As such, AYON changing context does not mean the comp being saved
-        # changes context, e.g. when saving the comp of another task that is
-        # open in another tab back into its own task. So we only prompt when
-        # the comp is not already saved inside the target work directory,
-        # which `save_workfile_with_context` sets as `AYON_WORKDIR` before
-        # the context change. The comp is not saved yet at this point.
-        comp = self.get_current_comp()
-        filepath = comp.GetAttrs()["COMPS_FileName"]
-        workdir = os.environ["AYON_WORKDIR"]
-        if Path(workdir) in Path(filepath).parents:
-            return
-
-        prompt_reset_context()
+        if context_change_data.reason == ContextChangeReason.workfile_save:
+            prompt_reset_context()
     # endregion
 
     def get_current_comp(self):
