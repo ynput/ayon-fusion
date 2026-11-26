@@ -1,5 +1,5 @@
 """
-Basic avalon integration
+Basic AYON integration
 """
 import os
 import sys
@@ -93,8 +93,7 @@ class FusionHost(HostBase, IWorkfileHost, ILoadHost, IPublishHost):
     def install(self):
         """Install fusion-specific functionality of AYON.
 
-        This is where you install menus and register families, data
-        and loaders into fusion.
+        This is where you install menus and register the AYON plugins.
 
         It is called automatically when installing via
         `ayon_core.pipeline.install_host(ayon_fusion.api)`
@@ -277,7 +276,7 @@ def ls():
     """List containers from active Fusion scene
 
     This is the host-equivalent of api.ls(), but instead of listing
-    assets on disk, it lists assets already loaded in Fusion; once loaded
+    products on disk, it lists products already loaded in Fusion; once loaded
     they are called 'containers'
 
     Yields:
@@ -302,14 +301,14 @@ def imprint_container(tool,
     """Imprint a Loader with metadata
 
     Containerisation enables a tracking of version, author and origin
-    for loaded assets.
+    for loaded products.
 
     Arguments:
         tool (object): The node in Fusion to imprint as container, usually a
             Loader.
         name (str): Name of resulting assembly
         namespace (str): Namespace under which to host container
-        context (dict): Asset information
+        context (dict): Representation context
         loader (str, optional): Name of loader used to produce this container.
 
     Returns:

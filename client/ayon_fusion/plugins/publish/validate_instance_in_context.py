@@ -16,7 +16,7 @@ class ValidateInstanceInContextFusion(pyblish.api.InstancePlugin,
     """Validator to check if instance context matches context of publish.
 
     When working in per-shot style you always publish data in context of
-    current asset (shot). This validator checks if this is so. It is optional
+    current folder (shot). This validator checks if this is so. It is optional
     so it can be disabled when needed.
     """
     # Similar to maya and houdini-equivalent `ValidateInstanceInContext`
@@ -39,17 +39,17 @@ class ValidateInstanceInContextFusion(pyblish.api.InstancePlugin,
 
             raise PublishValidationError(
                 message=(
-                    "Instance '{}' publishes to different asset than current "
+                    "Instance '{}' publishes to different folder than current "
                     "context: {}. Current context: {}".format(
                         instance.name, instance_label, context_label
                     )
                 ),
                 description=(
-                    "## Publishing to a different asset\n"
+                    "## Publishing to a different folder\n"
                     "There are publish instances present which are publishing "
-                    "into a different asset than your current context.\n\n"
+                    "into a different folder than your current context.\n\n"
                     "Usually this is not what you want but there can be cases "
-                    "where you might want to publish into another asset or "
+                    "where you might want to publish into another folder or "
                     "shot. If that's the case you can disable the validation "
                     "on the instance to ignore it."
                 )
@@ -69,12 +69,14 @@ class ValidateInstanceInContextFusion(pyblish.api.InstancePlugin,
                 f"in {create_context.instances_by_id}"
             )
 
-        context_asset, context_task = cls.get_context(instance.context.data)
-        created_instance["folderPath"] = context_asset
+        context_folder_path, context_task = cls.get_context(
+            instance.context.data
+        )
+        created_instance["folderPath"] = context_folder_path
         created_instance["task"] = context_task
         create_context.save_changes()
 
     @staticmethod
     def get_context(data):
-        """Return asset, task from publishing context data"""
+        """Return folder path, task from publishing context data"""
         return data["folderPath"], data["task"]

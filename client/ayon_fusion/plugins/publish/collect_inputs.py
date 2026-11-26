@@ -6,12 +6,12 @@ from ayon_core.pipeline import registered_host
 def collect_input_containers(tools):
     """Collect containers that contain any of the node in `nodes`.
 
-    This will return any loaded Avalon container that contains at least one of
-    the nodes. As such, the Avalon container is an input for it. Or in short,
+    This will return any loaded container that contains at least one of
+    the nodes. As such, the container is an input for it. Or in short,
     there are member nodes of that container.
 
     Returns:
-        list: Input avalon containers
+        list: Input containers
 
     """
 

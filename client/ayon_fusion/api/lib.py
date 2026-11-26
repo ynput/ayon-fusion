@@ -315,7 +315,7 @@ def comp_lock_and_undo_chunk(
 
 
 def update_content_on_context_change():
-    """Update all Creator instances to current asset"""
+    """Update all Creator instances to current folder and task"""
     host = registered_host()
     context = host.get_current_context()
 

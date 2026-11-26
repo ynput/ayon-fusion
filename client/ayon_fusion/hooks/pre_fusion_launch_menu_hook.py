@@ -18,7 +18,7 @@ class FusionLaunchMenuHook(PreLaunchHook):
         if variant.isnumeric():
             version = int(variant)
             if version < 18:
-                print("Skipping launch of OpenPype menu on Fusion start "
+                print("Skipping launch of AYON menu on Fusion start "
                       "because Fusion version below 18.0 does not support "
                       "/execute argument on launch. "
                       f"Version detected: {version}")
