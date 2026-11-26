@@ -261,8 +261,13 @@ class FusionLoadSequence(load.LoaderPlugin):
                     "Changed '%s' global in: %d" % (tool.Name, start)
                 )
 
-            # Update the imprinted representation
-            tool.SetData("avalon.representation", repre_entity["id"])
+            imprint_container(
+                tool,
+                name=container["name"],
+                namespace=container["namespace"],
+                context=context,
+                loader=self.__class__.__name__,
+            )
 
     def remove(self, container):
         tool = container["_tool"]

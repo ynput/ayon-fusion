@@ -76,8 +76,13 @@ class FusionLoadFBXMesh(load.LoaderPlugin):
         with comp_lock_and_undo_chunk(comp, "Update tool"):
             tool["ImportFile"] = path
 
-            # Update the imprinted representation
-            tool.SetData("avalon.representation", repre_entity["id"])
+            imprint_container(
+                tool,
+                name=container["name"],
+                namespace=container["namespace"],
+                context=context,
+                loader=self.__class__.__name__,
+            )
 
     def remove(self, container):
         tool = container["_tool"]

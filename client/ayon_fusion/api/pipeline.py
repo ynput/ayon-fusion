@@ -20,7 +20,7 @@ from ayon_core.pipeline import (
     register_loader_plugin_path,
     register_creator_plugin_path,
     register_inventory_action_path,
-    AVALON_CONTAINER_ID,
+    AYON_CONTAINER_ID,
 )
 from ayon_core.pipeline.load import any_outdated_containers
 from ayon_core.host import (
@@ -53,6 +53,10 @@ INVENTORY_PATH = os.path.join(PLUGINS_DIR, "inventory")
 # Comp data key for the publisher's context data
 COMP_PUBLISH_CONTEXT_KEY = "ayon_publish_context"
 LEGACY_COMP_PUBLISH_CONTEXT_KEY = "openpype"
+
+# Tool data key for loaded containers
+CONTAINER_DATA_KEY = "ayon_container"
+LEGACY_CONTAINER_DATA_KEY = "avalon"
 
 
 class FusionLogHandler(logging.Handler):
@@ -314,8 +318,8 @@ def imprint_container(tool,
     """
 
     data = [
-        ("schema", "openpype:container-2.0"),
-        ("id", AVALON_CONTAINER_ID),
+        ("schema", "ayon:container-3.0"),
+        ("id", AYON_CONTAINER_ID),
         ("name", str(name)),
         ("namespace", str(namespace)),
         ("loader", str(loader)),
@@ -324,7 +328,8 @@ def imprint_container(tool,
     ]
 
     for key, value in data:
-        tool.SetData("avalon.{}".format(key), value)
+        tool.SetData(f"{CONTAINER_DATA_KEY}.{key}", value)
+    tool.SetData(LEGACY_CONTAINER_DATA_KEY, None)
 
 
 def parse_container(tool):
@@ -334,7 +339,10 @@ def parse_container(tool):
 
     """
 
-    data = tool.GetData('avalon')
+    data = (
+        tool.GetData(CONTAINER_DATA_KEY)
+        or tool.GetData(LEGACY_CONTAINER_DATA_KEY)
+    )
     if not isinstance(data, dict):
         return
 
