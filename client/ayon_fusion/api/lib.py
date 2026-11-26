@@ -127,8 +127,9 @@ def validate_comp_prefs(comp=None, force_repair=False):
         "attrib.resolutionHeight",
         "attrib.pixelAspect",
     }
-    task_entity = get_current_task_entity(fields=fields)
-    folder_path = get_current_folder_path()
+    with registered_host().current_comp(comp):
+        task_entity = get_current_task_entity(fields=fields)
+        folder_path = get_current_folder_path()
     context_path = "{} > {}".format(folder_path, task_entity["name"])
 
     task_attributes = task_entity["attrib"]
