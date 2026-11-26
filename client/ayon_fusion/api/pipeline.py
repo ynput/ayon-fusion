@@ -50,6 +50,8 @@ LOAD_PATH = os.path.join(PLUGINS_DIR, "load")
 CREATE_PATH = os.path.join(PLUGINS_DIR, "create")
 INVENTORY_PATH = os.path.join(PLUGINS_DIR, "inventory")
 
+COMP_CONTEXT_KEY = "ayon_context"
+
 
 class FusionLogHandler(logging.Handler):
     # Keep a reference to fusion's Print function (Remote Object)
@@ -130,6 +132,12 @@ class FusionHost(HostBase, IWorkfileHost, ILoadHost, IPublishHost):
 
     def save_workfile(self, dst_path=None):
         comp = self.get_current_comp()
+        # Save the context with the comp, also when the comp has none stored
+        # yet and uses the fallback context.
+        context = self._get_comp_context(comp)
+        self._set_comp_context(
+            comp, context["folder_path"], context["task_name"]
+        )
         comp.Save(dst_path)
 
     def open_workfile(self, filepath):
@@ -165,6 +173,86 @@ class FusionHost(HostBase, IWorkfileHost, ILoadHost, IPublishHost):
         comp = self.get_current_comp()
         return comp.GetData("openpype") or {}
 
+    # region context
+    def get_current_folder_path(self):
+        return self.get_current_context()["folder_path"]
+
+    def get_current_task_name(self):
+        return self.get_current_context()["task_name"]
+
+    def get_current_context(self):
+        """Return the context stored in the current comp.
+
+        Fusion can have multiple comps open, each of a different context.
+        Without a comp, or when the comp has no context of the current project
+        stored, this falls back to the last context set in AYON.
+
+        Returns:
+            HostContextData: Current context with 'project_name',
+                'folder_path' and 'task_name'.
+
+        """
+        return self._get_comp_context(self.get_current_comp())
+
+    def _get_comp_context(self, comp):
+        project_name = self.get_current_project_name()
+        if comp is not None:
+            comp_context = comp.GetData(COMP_CONTEXT_KEY)
+            if (
+                comp_context
+                and comp_context.get("project_name") == project_name
+            ):
+                return {
+                    "project_name": project_name,
+                    "folder_path": comp_context.get("folder_path"),
+                    "task_name": comp_context.get("task_name"),
+                }
+
+        return {
+            "project_name": project_name,
+            "folder_path": super().get_current_folder_path(),
+            "task_name": super().get_current_task_name(),
+        }
+
+    def _set_comp_context(self, comp, folder_path, task_name):
+        if comp is None:
+            return
+        comp.SetData(COMP_CONTEXT_KEY, {
+            "project_name": self.get_current_project_name(),
+            "folder_path": folder_path,
+            "task_name": task_name,
+        })
+
+    def _set_current_context(self, context_change_data: ContextChangeData):
+        super()._set_current_context(context_change_data)
+        # On workfile open the context changes before the workfile is opened,
+        # so the current comp is not the comp of the new context yet.
+        if context_change_data.reason == ContextChangeReason.workfile_open:
+            return
+
+        self._set_comp_context(
+            self.get_current_comp(),
+            context_change_data.folder_entity["path"],
+            context_change_data.task_entity["name"],
+        )
+
+    def _after_workfile_open(self, open_workfile_context):
+        super()._after_workfile_open(open_workfile_context)
+        # Fusion's `LoadComp` may return an already loaded comp without
+        # making it the current comp, so only store the context when the
+        # current comp is the opened workfile.
+        comp = self.get_current_comp()
+        if comp is None:
+            return
+        filepath = comp.GetAttrs()["COMPS_FileName"]
+        if Path(filepath) != Path(open_workfile_context.filepath):
+            return
+        self._set_comp_context(
+            comp,
+            open_workfile_context.folder_entity["path"],
+            open_workfile_context.task_entity["name"],
+        )
+
     def _after_context_change(self, context_change_data: ContextChangeData):
         """Offer to match the comp to the new context when saving into it.
 
@@ -194,6 +282,7 @@ class FusionHost(HostBase, IWorkfileHost, ILoadHost, IPublishHost):
             return
 
         prompt_reset_context()
+    # endregion
 
     def get_current_comp(self):
         if self._forced_current_comp is not None:
@@ -205,10 +294,11 @@ class FusionHost(HostBase, IWorkfileHost, ILoadHost, IPublishHost):
         """Fusion context manager to temporarily enforce 'current' comp.
 
         During this context the workfile methods like `get_current_workfile`
-        and `save_workfile` will use the specifiec `comp` instead of the actual
-        active comp tab in Fusion itself. This is useful during e.g. publishing
-        where a user may have initiated a publish from one comp and then as
-        the publishing is running they switch to another comp tab.
+        and `save_workfile`, and `get_current_context` will use the specifiec
+        `comp` instead of the actual active comp tab in Fusion itself. This is
+        useful during e.g. publishing where a user may have initiated a publish
+        from one comp and then as the publishing is running they switch to
+        another comp tab.
         """
         old_comp = self._forced_current_comp
         try:
