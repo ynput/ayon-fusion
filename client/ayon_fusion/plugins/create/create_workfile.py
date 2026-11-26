@@ -18,11 +18,15 @@ class FusionWorkfileCreator(AutoCreator):
 
     create_allow_context_change = False
 
-    data_key = "openpype_workfile"
+    data_key = "ayon_workfile"
+    legacy_data_key = "openpype_workfile"
 
     def collect_instances(self):
         comp = get_current_comp()
-        data = comp.GetData(self.data_key)
+        data = (
+            comp.GetData(self.data_key)
+            or comp.GetData(self.legacy_data_key)
+        )
         if not data:
             return
 
@@ -52,6 +56,7 @@ class FusionWorkfileCreator(AutoCreator):
             # Imprint data into the comp
             data = created_inst.data_to_store()
             comp.SetData(self.data_key, data)
+            comp.SetData(self.legacy_data_key, None)
 
     def create(self, options=None):
         comp = get_current_comp()

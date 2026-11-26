@@ -23,7 +23,7 @@ class FusionCopyPrefsPrelaunch(PreLaunchHook):
         - enable the AYON menu
         - force Python 3 over Python 2
         - force English interface
-    Master.prefs is defined in openpype/hosts/fusion/deploy/fusion_shared.prefs
+    Master.prefs is defined in ayon_fusion/deploy/ayon/fusion_shared.prefs
     """
 
     app_groups = {"fusion"}
@@ -94,7 +94,7 @@ class FusionCopyPrefsPrelaunch(PreLaunchHook):
         self, copy_from: Path, copy_to: Path, force_sync: bool
     ) -> None:
         """On the first Fusion launch copy the contents of Fusion profile
-        directory to the working predefined location. If the Openpype profile
+        directory to the working predefined location. If the AYON profile
         folder exists, skip copying, unless re-sync is checked.
         If the prefs were not copied on the first launch,
         clean Fusion profile will be created in fu_profile_dir.

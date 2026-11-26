@@ -70,10 +70,13 @@ class FusionLoadUSD(load.LoaderPlugin):
         with comp_lock_and_undo_chunk(comp, "Update tool"):
             tool["Filename"] = path
 
-            # Update the imprinted representation
-            tool.SetData("avalon.representation",
-                         context["representation"]["id"])
-            tool.SetData("avalon.project_name", context["project"]["name"])
+            imprint_container(
+                tool,
+                name=container["name"],
+                namespace=container["namespace"],
+                context=context,
+                loader=self.__class__.__name__,
+            )
 
     def remove(self, container):
         tool = container["_tool"]

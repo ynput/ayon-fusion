@@ -5,6 +5,7 @@ from ayon_core.pipeline.publish import RepairAction
 from ayon_core.pipeline import PublishValidationError
 
 from ayon_fusion.api.action import SelectInvalidAction
+from ayon_fusion.api.plugin import get_tool_instance_data_key
 
 
 class ValidateLocalFramesExistence(pyblish.api.InstancePlugin):
@@ -58,7 +59,8 @@ class ValidateLocalFramesExistence(pyblish.api.InstancePlugin):
         if invalid:
             tool = instance.data["tool"]
             # Change render target to local to render locally
-            tool.SetData("openpype.creator_attributes.render_target", "local")
+            key = get_tool_instance_data_key(tool)
+            tool.SetData(f"{key}.creator_attributes.render_target", "local")
 
             cls.log.info(
                 f"Reload the publisher and {tool.Name} "

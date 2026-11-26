@@ -1,5 +1,5 @@
 """
-Basic avalon integration
+Basic AYON integration
 """
 import os
 import sys
@@ -20,7 +20,7 @@ from ayon_core.pipeline import (
     register_loader_plugin_path,
     register_creator_plugin_path,
     register_inventory_action_path,
-    AVALON_CONTAINER_ID,
+    AYON_CONTAINER_ID,
 )
 from ayon_core.pipeline.load import any_outdated_containers
 from ayon_core.host import (
@@ -49,6 +49,14 @@ PUBLISH_PATH = os.path.join(PLUGINS_DIR, "publish")
 LOAD_PATH = os.path.join(PLUGINS_DIR, "load")
 CREATE_PATH = os.path.join(PLUGINS_DIR, "create")
 INVENTORY_PATH = os.path.join(PLUGINS_DIR, "inventory")
+
+# Comp data key for the publisher's context data
+COMP_PUBLISH_CONTEXT_KEY = "ayon_publish_context"
+LEGACY_COMP_PUBLISH_CONTEXT_KEY = "openpype"
+
+# Tool data key for loaded containers
+CONTAINER_DATA_KEY = "ayon_container"
+LEGACY_CONTAINER_DATA_KEY = "avalon"
 
 
 class FusionLogHandler(logging.Handler):
@@ -85,8 +93,7 @@ class FusionHost(HostBase, IWorkfileHost, ILoadHost, IPublishHost):
     def install(self):
         """Install fusion-specific functionality of AYON.
 
-        This is where you install menus and register families, data
-        and loaders into fusion.
+        This is where you install menus and register the AYON plugins.
 
         It is called automatically when installing via
         `ayon_core.pipeline.install_host(ayon_fusion.api)`
@@ -159,11 +166,16 @@ class FusionHost(HostBase, IWorkfileHost, ILoadHost, IPublishHost):
 
     def update_context_data(self, data, changes):
         comp = self.get_current_comp()
-        comp.SetData("openpype", data)
+        comp.SetData(COMP_PUBLISH_CONTEXT_KEY, data)
+        comp.SetData(LEGACY_COMP_PUBLISH_CONTEXT_KEY, None)
 
     def get_context_data(self):
         comp = self.get_current_comp()
-        return comp.GetData("openpype") or {}
+        return (
+            comp.GetData(COMP_PUBLISH_CONTEXT_KEY)
+            or comp.GetData(LEGACY_COMP_PUBLISH_CONTEXT_KEY)
+            or {}
+        )
 
     def _after_context_change(self, context_change_data: ContextChangeData):
         """Offer to match the comp to the new context when saving into it.
@@ -264,7 +276,7 @@ def ls():
     """List containers from active Fusion scene
 
     This is the host-equivalent of api.ls(), but instead of listing
-    assets on disk, it lists assets already loaded in Fusion; once loaded
+    products on disk, it lists products already loaded in Fusion; once loaded
     they are called 'containers'
 
     Yields:
@@ -289,14 +301,14 @@ def imprint_container(tool,
     """Imprint a Loader with metadata
 
     Containerisation enables a tracking of version, author and origin
-    for loaded assets.
+    for loaded products.
 
     Arguments:
         tool (object): The node in Fusion to imprint as container, usually a
             Loader.
         name (str): Name of resulting assembly
         namespace (str): Namespace under which to host container
-        context (dict): Asset information
+        context (dict): Representation context
         loader (str, optional): Name of loader used to produce this container.
 
     Returns:
@@ -305,8 +317,8 @@ def imprint_container(tool,
     """
 
     data = [
-        ("schema", "openpype:container-2.0"),
-        ("id", AVALON_CONTAINER_ID),
+        ("schema", "ayon:container-3.0"),
+        ("id", AYON_CONTAINER_ID),
         ("name", str(name)),
         ("namespace", str(namespace)),
         ("loader", str(loader)),
@@ -315,7 +327,8 @@ def imprint_container(tool,
     ]
 
     for key, value in data:
-        tool.SetData("avalon.{}".format(key), value)
+        tool.SetData(f"{CONTAINER_DATA_KEY}.{key}", value)
+    tool.SetData(LEGACY_CONTAINER_DATA_KEY, None)
 
 
 def parse_container(tool):
@@ -325,7 +338,10 @@ def parse_container(tool):
 
     """
 
-    data = tool.GetData('avalon')
+    data = (
+        tool.GetData(CONTAINER_DATA_KEY)
+        or tool.GetData(LEGACY_CONTAINER_DATA_KEY)
+    )
     if not isinstance(data, dict):
         return
 

@@ -16,7 +16,6 @@ def main(env):
     from ayon_fusion.api import FusionHost
     from ayon_fusion.api import menu
 
-    # activate resolve from pype
     install_host(FusionHost())
 
     log = Logger.get_logger(__name__)
