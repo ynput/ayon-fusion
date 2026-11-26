@@ -132,6 +132,7 @@ class GenericCreateSaver(Creator):
 
         # Instance id is the tool's name so we don't need to imprint as data
         data.pop("instance_id", None)
+        data["id"] = AYON_INSTANCE_ID
 
         active = data.pop("active", None)
         if active is not None:
