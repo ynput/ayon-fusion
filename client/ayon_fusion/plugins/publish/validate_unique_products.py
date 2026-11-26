@@ -6,7 +6,7 @@ from ayon_core.pipeline import PublishValidationError
 from ayon_fusion.api.action import SelectInvalidAction
 
 
-class ValidateUniqueSubsets(pyblish.api.ContextPlugin):
+class ValidateUniqueProducts(pyblish.api.ContextPlugin):
     """Ensure all instances have a unique product name"""
 
     order = pyblish.api.ValidatorOrder
@@ -27,7 +27,7 @@ class ValidateUniqueSubsets(pyblish.api.ContextPlugin):
                 instance
             )
 
-        # Find which folder + subset combination has more than one instance
+        # Find which folder + product combination has more than one instance
         # Those are considered invalid because they'd integrate to the same
         # destination.
         invalid = []
