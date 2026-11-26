@@ -113,6 +113,8 @@ class AYONMenu(QtWidgets.QWidget):
 
         self._callbacks = []
         self.register_callback("taskChanged", self.on_task_changed)
+        self.register_callback("workfile.opened", self.on_task_changed)
+        self.register_callback("workfile.saved", self.on_task_changed)
         self.on_task_changed()
 
         # Force close current process if Fusion is closed
