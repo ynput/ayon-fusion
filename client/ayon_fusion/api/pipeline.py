@@ -242,12 +242,13 @@ class FusionHost(HostBase, IWorkfileHost, ILoadHost, IPublishHost):
 
     def _after_workfile_open(self, open_workfile_context):
         super()._after_workfile_open(open_workfile_context)
-        # Fusion's `LoadComp` may return an already loaded comp without
-        # making it the current comp, so only store the context when the
-        # current comp is the opened workfile.
         comp = self.get_current_comp()
         if comp is None:
             return
+        # Fusion's `LoadComp` can return an already loaded comp without
+        # making it the current comp, e.g. right after Fusion started or for
+        # a closed comp Fusion still keeps loaded. The current comp is then
+        # another comp, which must not get the opened workfile's context.
         filepath = comp.GetAttrs()["COMPS_FileName"]
         if Path(filepath) != Path(open_workfile_context.filepath):
             return
