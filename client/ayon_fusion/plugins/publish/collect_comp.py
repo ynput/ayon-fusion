@@ -29,5 +29,20 @@ class CollectCurrentCompFusion(pyblish.api.ContextPlugin):
         host = registered_host()
         with host.current_comp(current_comp):
             current_context = host.get_current_context()
-        context.data["folderPath"] = current_context["folder_path"]
-        context.data["task"] = current_context["task_name"]
+        folder_path = current_context["folder_path"]
+        task_name = current_context["task_name"]
+
+        collected_folder_path = context.data.get("folderPath", folder_path)
+        collected_task_name = context.data.get("task", task_name)
+        if (
+            collected_folder_path != folder_path
+            or collected_task_name != task_name
+        ):
+            self.log.warning(
+                f"Collected context '{collected_folder_path}' >"
+                f" '{collected_task_name}' does not match the context"
+                f" '{folder_path}' > '{task_name}' of the published comp."
+                " Using the context of the published comp."
+            )
+        context.data["folderPath"] = folder_path
+        context.data["task"] = task_name
