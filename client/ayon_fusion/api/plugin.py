@@ -167,25 +167,18 @@ class GenericCreateSaver(Creator):
                 task_entity = self.create_context.get_task_entity(
                     folder_path, task_name)
 
-        # If the folder path and task do not match the current context then the
-        # workdir is not just the `AYON_WORKDIR`. Hence, we need to actually
-        # compute the resulting workdir
-        if (
-            folder_path == self.create_context.get_current_folder_path()
-            and task_name == self.create_context.get_current_task_name()
-        ):
-            workdir = os.path.normpath(os.getenv("AYON_WORKDIR"))
-        else:
-            # Note: This may error when no task is set for the instance
-            #  however default render template would include task name anyway
-            #  disallowing the instance to have no task set at an earlier stage
-            #  already.
-            workdir = get_workdir(
-                project_entity=project_entity,
-                folder_entity=folder_entity,
-                task_entity=task_entity,
-                host_name=self.create_context.host_name,
-            )
+        # Note: This may error when no task is set for the instance
+        #  however default render template would include task name anyway
+        #  disallowing the instance to have no task set at an earlier stage
+        #  already.
+        workdir = get_workdir(
+            project_entity=project_entity,
+            folder_entity=folder_entity,
+            task_entity=task_entity,
+            host_name=self.create_context.host_name,
+            anatomy=self.project_anatomy,
+            project_settings=self.create_context.get_current_project_settings(),
+        )
 
         formatting_data.update({
             "workdir": workdir,
