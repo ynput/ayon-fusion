@@ -38,7 +38,9 @@ class CollectCurrentCompFusion(pyblish.api.ContextPlugin):
 
     @staticmethod
     def get_create_context_comp(context):
-        # The workfile instance stores the comp it was collected from.
+        # The workfile instance stores the comp it was collected from. Read
+        # it from the create context, because pyblish instances only exist
+        # for active instances and the workfile instance may be disabled.
         # Without a create context, e.g. when publishing headless, core
         # creates one from the active comp.
         create_context = context.data.get("create_context")
